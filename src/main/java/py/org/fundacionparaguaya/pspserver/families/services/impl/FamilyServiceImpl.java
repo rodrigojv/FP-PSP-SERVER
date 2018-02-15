@@ -220,7 +220,8 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public FamilyEntity getOrCreateFamilyFromSnapshot(UserDetailsDTO details, NewSnapshot snapshot, PersonEntity personEntity) {
+    public FamilyEntity getOrCreateFamilyFromSnapshot(UserDetailsDTO details, NewSnapshot snapshot,
+                                                      PersonEntity personEntity) {
         String code = this.generateFamilyCode(personEntity);
 
         return familyRepository.findByCode(code)
