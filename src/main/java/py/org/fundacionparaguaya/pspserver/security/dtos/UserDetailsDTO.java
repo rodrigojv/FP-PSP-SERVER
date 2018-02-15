@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
+import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 
 import java.util.Collection;
 import java.util.List;
@@ -79,5 +80,12 @@ public class UserDetailsDTO implements UserDetails {
 
     public ApplicationDTO getApplication() {
         return application;
+    }
+
+    public boolean hasRole(Role role) {
+        return this.getAuthorities()
+                .stream()
+                .filter(auth -> Role.valueOf(auth.getAuthority()) == role)
+                .count() > 0;
     }
 }

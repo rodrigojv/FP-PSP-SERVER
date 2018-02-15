@@ -1,56 +1,41 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byApplication;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.createdAtLess2Months;
-
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.PersonMapper;
-import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
+import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotTaken;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorPriorityEntity;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveyEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.enums.SurveyStoplightEnum;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotEconomicMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
-import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorPriorityRepository;
-import py.org.fundacionparaguaya.pspserver.surveys.repositories.SurveyRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotIndicatorPriorityService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
 import py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
+
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byApplication;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.createdAtLess2Months;
 
 /**
  * Created by rodrigovillalba on 9/14/17.
@@ -63,8 +48,6 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     private final SnapshotIndicatorPriorityService priorityService;
 
-    private final SurveyRepository surveyRepository;
-
     private final SnapshotEconomicRepository economicRepository;
 
     private final SnapshotEconomicMapper economicMapper;
@@ -75,11 +58,6 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     private final PersonMapper personMapper;
 
-    private final FamilyRepository familyRepository;
-
-    private final SnapshotIndicatorPriorityRepository
-    snapshotIndicatorPriorityRepository;
-
     private final FamilyService familyService;
 
     private static final String INDICATOR_NAME = "name";
@@ -88,31 +66,25 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     // CHECKSTYLE:OFF
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository,
-            SnapshotEconomicMapper economicMapper, SurveyService surveyService,
-            SurveyRepository surveyRepository,
-            SnapshotIndicatorMapper indicatorMapper,
-            SnapshotIndicatorPriorityService priorityService,
-            PersonMapper personMapper, FamilyRepository familyRepository,
-            FamilyService familyService,
-            SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository) {
+                               SnapshotEconomicMapper economicMapper, SurveyService surveyService,
+                               SnapshotIndicatorMapper indicatorMapper,
+                               SnapshotIndicatorPriorityService priorityService,
+                               PersonMapper personMapper,
+                               FamilyService familyService) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
-        this.surveyRepository = surveyRepository;
         this.indicatorMapper = indicatorMapper;
         this.priorityService = priorityService;
         this.personMapper = personMapper;
-        this.familyRepository = familyRepository;
         this.familyService = familyService;
-        this.snapshotIndicatorPriorityRepository = snapshotIndicatorPriorityRepository;
     }
     // CHECKSTYLE:ON
 
     @Override
     @Transactional
-
     public Snapshot addSurveySnapshot(UserDetailsDTO details,
-            NewSnapshot snapshot) {
+                                      NewSnapshot snapshot) {
 
         checkNotNull(snapshot);
 
@@ -126,30 +98,21 @@ public class SnapshotServiceImpl implements SnapshotService {
         SnapshotIndicatorEntity indicatorEntity = economicMapper
                 .newSnapshotToIndicatorEntity(snapshot);
 
-        SnapshotEconomicEntity snapshotEconomicEntity = null;
-
         PersonEntity personEntity = personMapper
                 .snapshotPersonalToEntity(snapshot);
 
-        String code = familyService.generateFamilyCode(personEntity);
+        FamilyEntity family = familyService.getOrCreateFamilyFromSnapshot(details, snapshot, personEntity);
 
-        Optional<FamilyEntity> family = familyRepository.findByCode(code);
 
-        if (family.isPresent()) {
-            snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity,
-                    family.get());
-        } else {
-            FamilyEntity newFamily = familyService.createFamilyFromSnapshot(
-                    details, snapshot, code, personEntity);
-            snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity,
-                    newFamily);
-        }
+        SnapshotEconomicEntity snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity,
+                family);
 
         return economicMapper.entityToDto(snapshotEconomicEntity);
     }
 
+
     private SnapshotEconomicEntity saveEconomic(NewSnapshot snapshot,
-            SnapshotIndicatorEntity indicator, FamilyEntity family) {
+                                                SnapshotIndicatorEntity indicator, FamilyEntity family) {
 
         SnapshotEconomicEntity entity = economicMapper
                 .newSnapshotToEconomicEntity(snapshot, indicator);
@@ -209,12 +172,13 @@ public class SnapshotServiceImpl implements SnapshotService {
     private List<SurveyData> getIndicatorsValue(
             SnapshotEconomicEntity snapshotEconomic, SnapshotIndicators toRet) {
 
-        SurveyEntity survey = surveyRepository
-                .getOne(snapshotEconomic.getSurveyDefinition().getId());
-        List<String> indicatorGroup = survey.getSurveyDefinition()
+        SurveyDefinition survey =
+                surveyService.getSurveyDefinition(snapshotEconomic.getSurveyDefinition().getId());
+
+        List<String> indicatorGroup = survey
                 .getSurveyUISchema().getGroupIndicators();
 
-        List<String> order = survey.getSurveyDefinition().getSurveyUISchema()
+        List<String> order = survey.getSurveyUISchema()
                 .getUiOrder().stream()
                 .filter(field -> indicatorGroup.contains(field))
                 .collect(Collectors.toList());
@@ -299,20 +263,20 @@ public class SnapshotServiceImpl implements SnapshotService {
         Optional.ofNullable(SurveyStoplightEnum.fromValue(String.valueOf(v)))
                 .ifPresent(light -> {
                     switch (light) {
-                    case RED:
-                        indicators.setCountRedIndicators(
-                                indicators.getCountRedIndicators() + 1);
-                        break;
-                    case YELLOW:
-                        indicators.setCountYellowIndicators(
-                                indicators.getCountYellowIndicators() + 1);
-                        break;
-                    case GREEN:
-                        indicators.setCountGreenIndicators(
-                                indicators.getCountGreenIndicators() + 1);
-                        break;
-                    default:
-                        break;
+                        case RED:
+                            indicators.setCountRedIndicators(
+                                    indicators.getCountRedIndicators() + 1);
+                            break;
+                        case YELLOW:
+                            indicators.setCountYellowIndicators(
+                                    indicators.getCountYellowIndicators() + 1);
+                            break;
+                        case GREEN:
+                            indicators.setCountGreenIndicators(
+                                    indicators.getCountGreenIndicators() + 1);
+                            break;
+                        default:
+                            break;
                     }
                 });
     }
@@ -326,19 +290,12 @@ public class SnapshotServiceImpl implements SnapshotService {
 
             Long familyId = snapshotEconomicEntity.getFamily().getFamilyId();
 
-            List<SnapshotIndicatorPriorityEntity> priorities =
-                    snapshotIndicatorPriorityRepository
-                    .findBySnapshotIndicatorId(snapshotEconomicEntity
-                            .getSnapshotIndicator().getId());
-
-            if (priorities != null && !priorities.isEmpty()) {
-                snapshotIndicatorPriorityRepository.delete(priorities);
-            }
+            priorityService.deletePrioritiesByIndicator(snapshotEconomicEntity.getSnapshotIndicator().getId());
 
             economicRepository.delete(snapshotEconomicEntity);
 
             if (economicRepository.findByFamilyFamilyId(familyId).size() == 0) {
-                familyRepository.delete(familyId);
+                familyService.deleteFamily(familyId);
             }
         }
     }
@@ -347,7 +304,7 @@ public class SnapshotServiceImpl implements SnapshotService {
     public SnapshotTaken countSnapshotTaken(FamilyFilterDTO filter) {
         List<SnapshotEconomicEntity> snapshots =
                 getSnapshotsLess2MonthsByFamilies(
-                filter);
+                        filter);
 
         Map<String, Long> result = snapshots.stream().collect(
 
@@ -369,7 +326,7 @@ public class SnapshotServiceImpl implements SnapshotService {
             FamilyFilterDTO filter) {
         return economicRepository.findAll(where(
                 byApplication(filter.getApplicationId()))
-                        .and(createdAtLess2Months()));
+                .and(createdAtLess2Months()));
     }
 
     @Override
@@ -398,6 +355,20 @@ public class SnapshotServiceImpl implements SnapshotService {
         return list;
     }
 
+    @Override
+    public void deleteSnapshotsBySurvey(UserDetailsDTO user, Long surveyId) {
+        if (!user.hasRole(Role.ROLE_ROOT)) {
+            LOG.warn("[OPERATION_NOT_ALLOWED] Only {} can remove snapshots", Role.ROLE_ROOT);
+            return;
+        }
+        economicRepository.findBySurveyDefinitionId(surveyId)
+                .stream()
+                .forEach(economicEntity -> {
+                    LOG.debug("Going to delete snapshot economic with id: {}", economicEntity.getId());
+                    this.deleteSnapshotById(economicEntity.getId());
+                });
+    }
+
     private void countTopIndicators(
             Map<String, TopOfIndicators> topOfIndicatorMap, String key,
             Object value) {
@@ -407,23 +378,23 @@ public class SnapshotServiceImpl implements SnapshotService {
         if (topOfIndicators == null) {
             topOfIndicators = new TopOfIndicators();
             topOfIndicators
-                    .setIndicatorName(getNameFromCamelCase((String) key));
+                    .setIndicatorName(getNameFromCamelCase(key));
             topOfIndicatorMap.put(key, topOfIndicators);
         }
 
         if (light != null) {
             switch (light) {
-            case "RED":
-                topOfIndicators.incrementRed();
-                break;
-            case "YELLOW":
-                topOfIndicators.incrementYellow();
-                break;
-            case "GREEN":
-                topOfIndicators.incrementGreen();
-                break;
-            default:
-                break;
+                case "RED":
+                    topOfIndicators.incrementRed();
+                    break;
+                case "YELLOW":
+                    topOfIndicators.incrementYellow();
+                    break;
+                case "GREEN":
+                    topOfIndicators.incrementGreen();
+                    break;
+                default:
+                    break;
             }
         }
     }

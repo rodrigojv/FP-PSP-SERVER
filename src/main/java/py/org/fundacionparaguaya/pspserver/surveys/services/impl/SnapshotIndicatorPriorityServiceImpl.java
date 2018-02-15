@@ -1,15 +1,8 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.IndicatorsPriority;
@@ -20,6 +13,12 @@ import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorPrior
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorPriorityRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotIndicatorPriorityService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * 
@@ -153,6 +152,18 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
 
         SnapshotIndicatorPriorityEntity newSnapshotIndicatorPriority = snapshotPriorityRepository.save(entity);
         return snapshotPriorityMapper.entityToDto(newSnapshotIndicatorPriority);
+    }
+
+    @Override
+    public void deletePrioritiesByIndicator(Long snapshotIndicatorId) {
+            List<SnapshotIndicatorPriorityEntity> priorities =
+                    snapshotPriorityRepository
+                            .findBySnapshotIndicatorId(snapshotIndicatorId);
+
+            if (priorities != null && !priorities.isEmpty()) {
+                snapshotPriorityRepository.delete(priorities);
+            }
+
     }
 
     @Override

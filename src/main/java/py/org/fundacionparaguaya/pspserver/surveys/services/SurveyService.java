@@ -1,7 +1,9 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services;
 
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSurveyDefinition;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
 
 import java.util.List;
 

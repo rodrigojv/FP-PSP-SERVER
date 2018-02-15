@@ -1,9 +1,9 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services;
 
-import java.util.List;
-
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.IndicatorsPriority;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
+
+import java.util.List;
 
 /**
  * 
@@ -22,5 +22,7 @@ public interface SnapshotIndicatorPriorityService {
     
     SnapshotIndicatorPriority updateSnapshotIndicatorPriority(SnapshotIndicatorPriority priority);  
     
-    SnapshotIndicatorPriority addSnapshotIndicatorPriority(SnapshotIndicatorPriority priority);  
+    SnapshotIndicatorPriority addSnapshotIndicatorPriority(SnapshotIndicatorPriority priority);
+
+    void deletePrioritiesByIndicator(Long snapshotIndicatorId);
 }

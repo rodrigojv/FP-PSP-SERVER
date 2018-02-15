@@ -14,9 +14,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveySchema;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyUISchema;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
+import py.org.fundacionparaguaya.pspserver.surveys.services.SurveySnapshotsManager;
 import py.org.fundacionparaguaya.pspserver.util.TestHelper;
 
 import java.util.Arrays;
@@ -26,8 +25,12 @@ import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -52,6 +55,9 @@ public class SurveyControllerTest {
 
     @MockBean
     private SurveyService surveyService;
+
+    @MockBean
+    private SurveySnapshotsManager surveySnapshotsManager;
 
     @Autowired
     private SurveyController controller;
