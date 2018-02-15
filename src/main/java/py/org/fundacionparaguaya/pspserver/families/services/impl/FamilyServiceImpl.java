@@ -55,10 +55,10 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Autowired
     public FamilyServiceImpl(FamilyRepository familyRepository,
-            FamilyMapper familyMapper, CountryRepository countryRepository,
-            CityRepository cityRepository,
-            OrganizationRepository organizationRepository,
-            ApplicationMapper applicationMapper) {
+                             FamilyMapper familyMapper, CountryRepository countryRepository,
+                             CityRepository cityRepository,
+                             OrganizationRepository organizationRepository,
+                             ApplicationMapper applicationMapper) {
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
         this.countryRepository = countryRepository;
@@ -137,7 +137,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public List<FamilyDTO> listFamilies(FamilyFilterDTO filter,
-            UserDetailsDTO userDetails) {
+                                        UserDetailsDTO userDetails) {
         loadFilterByDetails(filter, userDetails);
 
         List<FamilyEntity> entityList = familyRepository
@@ -148,7 +148,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public FamilyEntity createFamilyFromSnapshot(UserDetailsDTO details,
-            NewSnapshot snapshot, String code, PersonEntity person) {
+                                                 NewSnapshot snapshot, String code, PersonEntity person) {
 
         FamilyEntity newFamily = new FamilyEntity();
         newFamily.setPerson(person);
@@ -201,7 +201,7 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     private void loadFilterByDetails(FamilyFilterDTO target,
-            UserDetailsDTO userDetails) {
+                                     UserDetailsDTO userDetails) {
         Long applicationId = Optional.ofNullable(userDetails.getApplication())
                 .orElse(new ApplicationDTO()).getId();
 
@@ -221,11 +221,11 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public FamilyEntity getOrCreateFamilyFromSnapshot(UserDetailsDTO details, NewSnapshot snapshot, PersonEntity personEntity) {
-            String code = this.generateFamilyCode(personEntity);
+        String code = this.generateFamilyCode(personEntity);
 
-            return familyRepository.findByCode(code)
-                    .orElse(this.createFamilyFromSnapshot(
-                            details, snapshot, code, personEntity));
+        return familyRepository.findByCode(code)
+                .orElse(this.createFamilyFromSnapshot(
+                        details, snapshot, code, personEntity));
 
     }
 }

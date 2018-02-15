@@ -82,7 +82,6 @@ public class SurveyController {
             @PathVariable("survey_id") Long surveyId,
             @AuthenticationPrincipal UserDetailsDTO user)
             throws NotFoundException {
-
         surveySnapshotsManager.deleteSurvey(surveyId, user);
         return ResponseEntity.noContent().build();
     }
