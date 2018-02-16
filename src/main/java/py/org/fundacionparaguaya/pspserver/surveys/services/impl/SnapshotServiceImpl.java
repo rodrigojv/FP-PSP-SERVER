@@ -286,18 +286,23 @@ public class SnapshotServiceImpl implements SnapshotService {
         SnapshotEconomicEntity snapshotEconomicEntity = economicRepository
                 .findOne(snapshotEconomicId);
 
-        if (snapshotEconomicEntity != null) {
-
-            Long familyId = snapshotEconomicEntity.getFamily().getFamilyId();
-
-            priorityService.deletePrioritiesByIndicator(snapshotEconomicEntity.getSnapshotIndicator().getId());
-
-            economicRepository.delete(snapshotEconomicEntity);
-
-            if (economicRepository.findByFamilyFamilyId(familyId).size() == 0) {
-                familyService.deleteFamily(familyId);
-            }
+        if (snapshotEconomicEntity == null) {
+            return;
         }
+
+        Long familyId = null;
+        if (snapshotEconomicEntity.getFamily() != null) {
+            familyId = snapshotEconomicEntity.getFamily().getFamilyId();
+        }
+
+        priorityService.deletePrioritiesByIndicator(snapshotEconomicEntity.getSnapshotIndicator().getId());
+
+        economicRepository.delete(snapshotEconomicEntity);
+
+        if (familyId != null && economicRepository.findByFamilyFamilyId(familyId).size() == 0) {
+            familyService.deleteFamily(familyId);
+        }
+
     }
 
     @Override
