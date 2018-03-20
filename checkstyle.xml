@@ -104,16 +104,20 @@
 
         <!-- Checks for imports                              -->
         <!-- See http://checkstyle.sf.net/config_import.html -->
-        <module name="AvoidStarImport"/>
         <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
         <module name="UnusedImports"/>
 
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <module name="LineLength"/>
+        <module name="LineLength">
+            <property name="max" value="120"/>
+        </module>
         <module name="MethodLength"/>
-        <module name="ParameterNumber"/>
+        <module name="ParameterNumber">
+	    <property name="max" value="15"/>
+	    <property name="ignoreOverriddenMethods" value="true"/>
+	</module>
 
 
         <!-- Checks for whitespace                               -->
@@ -164,6 +168,9 @@
         <module name="ArrayTypeStyle"/>
         <module name="TodoComment"/>
         <module name="UpperEll"/>
+        <!-- Added module to enable block warning suppressions -->
+	<!-- See https://stackoverflow.com/questions/4023185/how-to-disable-a-particular-checkstyle-rule-for-a-particular-line-of-code -->
+        <module name="SuppressionCommentFilter"/>
 
     </module>
 

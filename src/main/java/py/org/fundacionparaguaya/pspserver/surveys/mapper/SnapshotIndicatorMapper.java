@@ -1,7 +1,9 @@
 package py.org.fundacionparaguaya.pspserver.surveys.mapper;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -27,8 +29,10 @@ public class SnapshotIndicatorMapper implements BaseMapper<SnapshotIndicatorEnti
 
     @Override
     public List<SurveyData> entityListToDtoList(List<SnapshotIndicatorEntity> entityList) {
-        // TODO Auto-generated method stub  
-        return null;
+        return entityList.stream()
+                        .filter(Objects::nonNull)
+                        .map(this::entityToDto)
+                        .collect(Collectors.toList());
     }
 
     @Override

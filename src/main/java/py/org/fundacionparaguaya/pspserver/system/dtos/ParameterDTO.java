@@ -4,49 +4,46 @@ import java.io.Serializable;
 
 public class ParameterDTO implements Serializable {
 
-	private static final long serialVersionUID = -6936322519050449857L;
+    private static final long serialVersionUID = 1L;
 
-	private Long parameterId;
-	
-	private String keyParameter;
-	
-	private String description;
-	
-	private String typeParameter;
+    private Long parameterId;
 
-	public Long getParameterId() {
-		return parameterId;
-	}
+    private String keyParameter;
 
-	public void setParameterId(Long parameterId) {
-		this.parameterId = parameterId;
-	}
+    private String description;
 
-	public String getKeyParameter() {
-		return keyParameter;
-	}
+    private String typeParameter;
 
-	public void setKeyParameter(String keyParameter) {
-		this.keyParameter = keyParameter;
-	}
+    public Long getParameterId() {
+        return parameterId;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setParameterId(Long parameterId) {
+        this.parameterId = parameterId;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getKeyParameter() {
+        return keyParameter;
+    }
 
-	public String getTypeParameter() {
-		return typeParameter;
-	}
+    public void setKeyParameter(String keyParameter) {
+        this.keyParameter = keyParameter;
+    }
 
-	public void setTypeParameter(String typeParameter) {
-		this.typeParameter = typeParameter;
-	}
-	
-	
-	
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTypeParameter() {
+        return typeParameter;
+    }
+
+    public void setTypeParameter(String typeParameter) {
+        this.typeParameter = typeParameter;
+    }
+
 }
-

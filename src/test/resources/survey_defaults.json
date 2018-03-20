@@ -1,6 +1,6 @@
 {
   "title": "survey with defaults",
-  "description": "A simple stoplight survey example with default values.",
+  "description": "A simple stoplight survey example with default values.",  
   "survey_schema": {
     "title": "Stoplight survey example with defaults",
     "description": "A simple stoplight survey example with default values.",
@@ -401,5 +401,7 @@
       "autonomyDecisions",
       "terereConsumption"
     ]
-  }
+  },
+  "organizations": [],
+  "applications": []
 }

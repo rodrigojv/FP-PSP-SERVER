@@ -33,33 +33,10 @@ public class SnapshotIndicatorPriorityController {
             @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys", response = IndicatorsPriority.class, responseContainer = "List") })
     public ResponseEntity getSnapshotIndicatorPriorityList( @RequestParam("snapshotIndicatorId")
             Long snapshotIndicatorId) {
+
         List<SnapshotIndicatorPriority> snapshotsPriority = snapshotPriorityService
                 .getSnapshotIndicatorPriorityList(snapshotIndicatorId);
         return ResponseEntity.ok(snapshotsPriority);
-    }
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, path = "/list")
-    @io.swagger.annotations.ApiOperation(value = "Create Snapshot Indicator Priorities", notes = "A `POST` request will create new priorities for a particular snapshot indicators.", response = SnapshotIndicatorPriority.class, tags = {})
-    @io.swagger.annotations.ApiResponses(value = {
-            @io.swagger.annotations.ApiResponse(code = 201, message = "The created snapshot indicator priorities", response = IndicatorsPriority.class) })
-    public ResponseEntity addSnapshotIndicatorPriorityList(
-            @ApiParam(value = "The list of snapshot indicators priorities", required = true) @RequestBody IndicatorsPriority priorities)
-            throws NotFoundException, URISyntaxException {
-        IndicatorsPriority data = snapshotPriorityService.addSnapshotIndicadorPriorityList(priorities);
-        URI surveyLocation = new URI("/snapshots/priority/list/" + data.getSnapshotIndicatorId());
-        return ResponseEntity.created(surveyLocation).body(data);
-    }
-
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, path = "/list")
-    @io.swagger.annotations.ApiOperation(value = "Update Snapshot Indicator Priorities", notes = "A `PUT` request will update priorities for a particular snapshot indicator.", response = SnapshotIndicatorPriority.class, tags = {})
-    @io.swagger.annotations.ApiResponses(value = {
-            @io.swagger.annotations.ApiResponse(code = 201, message = "The updated snapshot indicator priorities", response = IndicatorsPriority.class) })
-    public ResponseEntity updateSnapshotIndicatorPriorityList(
-            @ApiParam(value = "The list of snapshot indicators priorities", required = true) @RequestBody IndicatorsPriority priorities)
-            throws NotFoundException, URISyntaxException {
-        IndicatorsPriority data = snapshotPriorityService.updateSnapshotIndicatorPriorityList(priorities);
-        URI surveyLocation = new URI("/snapshots/priority/list/" + data.getSnapshotIndicatorId());
-        return ResponseEntity.created(surveyLocation).body(data);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

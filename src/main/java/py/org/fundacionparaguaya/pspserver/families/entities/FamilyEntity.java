@@ -1,11 +1,5 @@
 package py.org.fundacionparaguaya.pspserver.families.entities;
 
-import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
-import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
-import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
-import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
-import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,173 +15,185 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 import com.google.common.base.MoreObjects;
 
+import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
+
 @Entity
 @Table(name = "family", schema = "ps_families")
 public class FamilyEntity extends BaseEntity {
-    
+
     @Id
-    @GenericGenerator(
-            name = ""
-                    + "familySequenceGenerator",
+    @GenericGenerator(name = "familySequenceGenerator",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "ps_families"),
-                    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "family_family_id_seq"),
-                    @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
-                    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1")
-            }
-    )
+                    @Parameter(name = SequenceStyleGenerator.SCHEMA,
+                            value = "ps_families"),
+                    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM,
+                    value = "family_family_id_seq"),
+                    @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM,
+                    value = "1"),
+                    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM,
+                    value = "1") })
     @GeneratedValue(generator = "familySequenceGenerator")
     @Column(name = "family_id")
-	private Long familyId;
+    private Long familyId;
 
-	private String name;
-	
-	private String code;
+    private String name;
 
-	@ManyToOne(targetEntity = CountryEntity.class)
-	@JoinColumn(name = "country")
-	private CountryEntity country;
+    private String code;
 
-	@ManyToOne(targetEntity = CityEntity.class)
-	@JoinColumn(name = "city")
-	private CityEntity city;
+    @ManyToOne(targetEntity = CountryEntity.class)
+    @JoinColumn(name = "country")
+    private CountryEntity country;
 
-	private String locationType;
+    @ManyToOne(targetEntity = CityEntity.class)
+    @JoinColumn(name = "city")
+    private CityEntity city;
 
-	private String locationPositionGps;
+    private String locationType;
 
-	@ManyToOne(targetEntity = PersonEntity.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "person_reference_id")
-	private PersonEntity person;
+    private String locationPositionGps;
 
-	@ManyToOne(targetEntity = ApplicationEntity.class)
-	@JoinColumn(name = "application_id")
-	private ApplicationEntity application;
+    @ManyToOne(targetEntity = PersonEntity.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "person_reference_id")
+    private PersonEntity person;
 
-	@ManyToOne(targetEntity = OrganizationEntity.class)
-	@JoinColumn(name = "organization_id")
-	private OrganizationEntity organization;
-	
-	private boolean isActive;
+    @ManyToOne(targetEntity = ApplicationEntity.class)
+    @JoinColumn(name = "application_id")
+    private ApplicationEntity application;
 
-	public Long getFamilyId() {
-		return familyId;
-	}
+    @ManyToOne(targetEntity = OrganizationEntity.class)
+    @JoinColumn(name = "organization_id")
+    private OrganizationEntity organization;
 
-	public void setFamilyId(Long familyId) {
-		this.familyId = familyId;
-	}
+    private boolean isActive;
 
-	public String getName() {
-		return name;
-	}
+    public FamilyEntity() {
+    };
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public FamilyEntity(FamilyEntity family) {
+        this.familyId = family.getFamilyId();
+        this.person = family.getPerson();
+        this.code = family.getCode();
+        this.name = family.getName();
+    }
 
-	public String getCode() {
+    public Long getFamilyId() {
+        return familyId;
+    }
+
+    public void setFamilyId(Long familyId) {
+        this.familyId = familyId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
         return code;
     }
 
     public void setCode(String code) {
         this.code = code;
     }
-    
-	public CountryEntity getCountry() {
-		return country;
-	}
 
-	public void setCountry(CountryEntity country) {
-		this.country= country;
-	}
+    public CountryEntity getCountry() {
+        return country;
+    }
 
-	public CityEntity getCity() {
-		return city;
-	}
+    public void setCountry(CountryEntity country) {
+        this.country = country;
+    }
 
-	public void setCity(CityEntity city) {
-		this.city= city;
-	}
+    public CityEntity getCity() {
+        return city;
+    }
 
-	public String getLocationType() {
-		return locationType;
-	}
+    public void setCity(CityEntity city) {
+        this.city = city;
+    }
 
-	public void setLocationType(String locationType) {
-		this.locationType = locationType;
-	}
+    public String getLocationType() {
+        return locationType;
+    }
 
-	public String getLocationPositionGps() {
-		return locationPositionGps;
-	}
+    public void setLocationType(String locationType) {
+        this.locationType = locationType;
+    }
 
-	public void setLocationPositionGps(String locationPositionGps) {
-		this.locationPositionGps = locationPositionGps;
-	}
+    public String getLocationPositionGps() {
+        return locationPositionGps;
+    }
 
-	public PersonEntity getPerson() {
-		return person;
-	}
+    public void setLocationPositionGps(String locationPositionGps) {
+        this.locationPositionGps = locationPositionGps;
+    }
 
-	public void setPerson(PersonEntity person) {
-		this.person = person;
-	}
+    public PersonEntity getPerson() {
+        return person;
+    }
 
-	public ApplicationEntity getApplication() {
-		return application;
-	}
+    public void setPerson(PersonEntity person) {
+        this.person = person;
+    }
 
-	public void setApplication(ApplicationEntity application) {
-		this.application = application;
-	}
+    public ApplicationEntity getApplication() {
+        return application;
+    }
 
-	public OrganizationEntity getOrganization() {
-		return organization;
-	}
+    public void setApplication(ApplicationEntity application) {
+        this.application = application;
+    }
 
-	public void setOrganization(OrganizationEntity organization) {
-		this.organization = organization;
-	}
-	
-	public boolean isActive() {
-		return isActive;
-	}
+    public OrganizationEntity getOrganization() {
+        return organization;
+    }
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
+    public void setOrganization(OrganizationEntity organization) {
+        this.organization = organization;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (familyId == null || obj == null || getClass() != obj.getClass())
-			return false;
-		FamilyEntity toCompare = (FamilyEntity) obj;
-		return familyId.equals(toCompare.familyId);
-	}
-	
-	@Override
-	public int hashCode() {
-		return familyId == null ? 0 : familyId.hashCode();
-	}
+    public boolean isActive() {
+        return isActive;
+    }
 
-	@Override
-	public String toString() {
-		return MoreObjects.toStringHelper(this)
-				.add("familyId", familyId)
-				.add("name", name)
-				.add("code", code)
-				.add("country", country.toString())
-				.add("city", city.toString())
-				.add("locationType", locationType)
-				.add("locationPositionGps", locationPositionGps)
-				.add("person", person.toString())
-				.add("application", application.toString())
-				.add("organization", organization.toString())
-				.add("isActive", isActive)
-				.toString();
-	}
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (familyId == null || obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        FamilyEntity toCompare = (FamilyEntity) obj;
+        return familyId.equals(toCompare.familyId);
+    }
+
+    @Override
+    public int hashCode() {
+        return familyId == null ? 0 : familyId.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this).add("familyId", familyId)
+                .add("name", name).add("code", code).add("country", country)
+                .add("city", city).add("locationType", locationType)
+                .add("locationPositionGps", locationPositionGps)
+                .add("person", person).add("application", application)
+                .add("organization", organization).add("isActive", isActive)
+                .toString();
+    }
 }

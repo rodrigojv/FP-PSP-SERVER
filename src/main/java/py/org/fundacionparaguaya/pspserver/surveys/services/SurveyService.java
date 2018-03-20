@@ -1,7 +1,10 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services;
 
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSurveyDefinition;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
 
 import java.util.List;
 
@@ -19,4 +22,9 @@ public interface SurveyService {
     List<SurveyDefinition> getAll();
 
     void deleteSurvey(Long surveyId);
+
+    SurveyDefinition updateSurvey(Long surveyId,
+            SurveyDefinition surveyDefinition);
+
+    List<SurveyDefinition> listSurveys(UserDetailsDTO details);
 }

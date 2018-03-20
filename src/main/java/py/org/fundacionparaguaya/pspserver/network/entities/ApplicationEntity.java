@@ -50,6 +50,8 @@ public class ApplicationEntity {
 
 	private boolean isPartner;
 
+	private String logoUrl;
+
 	public Long getId() {
 		return id;
 	}
@@ -130,6 +132,14 @@ public class ApplicationEntity {
 		this.isPartner = isOrganization;
 	}
 
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -157,6 +167,8 @@ public class ApplicationEntity {
 				.add("city", city.toString())
 				.add("information", information)
 				.add("isHub", isHub)
-				.add("isPartner", isPartner).toString();
+				.add("isPartner", isPartner)
+				.add("logoUrl", logoUrl)
+				.toString();
 	}
 }

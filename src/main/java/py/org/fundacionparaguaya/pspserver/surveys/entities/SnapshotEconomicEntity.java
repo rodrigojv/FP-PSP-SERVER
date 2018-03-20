@@ -11,8 +11,8 @@ import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
 
-
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 import javax.persistence.CascadeType;
@@ -37,20 +37,16 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     @Id
     @GenericGenerator(name = "snapshotsEconomicsSequenceGenerator",
-        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-        parameters = {
-            @org.hibernate.annotations.Parameter(
-                    name = SequenceStyleGenerator.SCHEMA,
-                    value = "data_collect"),
-            @org.hibernate.annotations.Parameter(
-                    name = SequenceStyleGenerator.SEQUENCE_PARAM,
-                    value = "snapshots_economics_id_seq"),
-            @org.hibernate.annotations.Parameter(
-                    name = SequenceStyleGenerator.INITIAL_PARAM,
-                    value = "1"),
-            @org.hibernate.annotations.Parameter(
-                    name = SequenceStyleGenerator.INCREMENT_PARAM,
-                    value = "1") })
+    strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+    parameters = {@org.hibernate.annotations.Parameter
+            (name = SequenceStyleGenerator.SCHEMA, value = "data_collect"),
+            @org.hibernate.annotations.Parameter
+            (name = SequenceStyleGenerator.SEQUENCE_PARAM,
+                value = "snapshots_economics_id_seq"),
+            @org.hibernate.annotations.Parameter
+            (name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+            @org.hibernate.annotations.Parameter
+            (name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(generator = "snapshotsEconomicsSequenceGenerator")
     @Column(name = "id")
     private Long id;
@@ -90,7 +86,7 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
     private Double salaryIncome;
 
     @Column(name = "benefit_income")
-    private Double  benefitIncome;
+    private Double benefitIncome;
 
     @Column(name = "pension_income")
     private Double pensionIncome;
@@ -121,13 +117,11 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     @Column(name = "additional_properties")
     @Type(type = "py.org.fundacionparaguaya.pspserver."
-            + "surveys.entities.types.SecondJSONBUserType",
-    parameters = {
-            @org.hibernate.annotations.Parameter(
-                    name = SecondJSONBUserType.CLASS,
+            + "surveys.entities.types.SecondJSONBUserType", parameters = {
+                    @org.hibernate.annotations.Parameter
+                    (name = SecondJSONBUserType.CLASS,
                     value = "py.org.fundacionparaguaya."
-            + "pspserver.surveys.dtos.SurveyData")
-            })
+                            + "pspserver.surveys.dtos.SurveyData") })
     private SurveyData additionalProperties;
 
     @Column(name = "created_at")
@@ -154,16 +148,14 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
     @ManyToOne(targetEntity = TermCondPolEntity.class)
     @JoinColumn(name = "priv_pol_id")
     private TermCondPolEntity privPol;
-    
+
     @Column(name = "personal_information")
     @Type(type = "py.org.fundacionparaguaya.pspserver."
-            + "surveys.entities.types.SecondJSONBUserType",
-    parameters = {
-            @org.hibernate.annotations.Parameter(
-                    name = SecondJSONBUserType.CLASS,
+            + "surveys.entities.types.SecondJSONBUserType", parameters = {
+                    @org.hibernate.annotations.Parameter
+                    (name = SecondJSONBUserType.CLASS,
                     value = "py.org.fundacionparaguaya."
-            + "pspserver.surveys.dtos.SurveyData")
-            })
+                            + "pspserver.surveys.dtos.SurveyData") })
     private SurveyData personalInformation;
 
     public Long getId() {
@@ -194,8 +186,8 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
         return snapshotIndicator;
     }
 
-    public void setSnapshotIndicator(SnapshotIndicatorEntity
-            snapshotIndicator) {
+    public void setSnapshotIndicator(
+            SnapshotIndicatorEntity snapshotIndicator) {
         this.snapshotIndicator = snapshotIndicator;
     }
 
@@ -323,8 +315,8 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
         return educationPersonMostStudied;
     }
 
-    public void setEducationPersonMostStudied(String
-            educationPersonMostStudied) {
+    public void setEducationPersonMostStudied(
+            String educationPersonMostStudied) {
         this.educationPersonMostStudied = educationPersonMostStudied;
     }
 
@@ -435,17 +427,17 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
         this.additionalProperties = additionalProperties;
         return this;
     }
-    
+
     public SnapshotEconomicEntity user(UserEntity user) {
         this.user = user;
         return this;
     }
-    
+
     public SnapshotEconomicEntity termCond(TermCondPolEntity termCond) {
         this.termCond = termCond;
         return this;
     }
-    
+
     public SnapshotEconomicEntity privPol(TermCondPolEntity privPol) {
         this.privPol = privPol;
         return this;
@@ -454,14 +446,12 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
     public SnapshotEconomicEntity staticProperties(
             SurveyData economicSurveyData) {
 
-        economicSurveyData.entrySet()
-        .stream()
-        .forEach((entry) -> {
+        economicSurveyData.entrySet().stream().forEach((entry) -> {
             try {
 
-        		Object value = null;
-                if (Double.class.equals(PropertyUtils.
-                	getPropertyType(this, entry.getKey()))){
+                Object value = null;
+                if (Double.class.equals(
+                        PropertyUtils.getPropertyType(this, entry.getKey()))) {
                     value = Double.valueOf(entry.getValue().toString());
                 } else {
                     value = entry.getValue();
@@ -470,7 +460,8 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
             } catch (Exception e) {
                 throw new RuntimeException(
                         "Could not set property '" + entry.getKey()
-                        + "' to value '" + entry.getValue() + "'", e);
+                                + "' to value '" + entry.getValue() + "'",
+                        e);
             }
         });
         return this;
@@ -478,7 +469,7 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     @PrePersist
     public void preSave() {
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now(ZoneId.of("GMT+00:00"));
     }
 
     @Transient

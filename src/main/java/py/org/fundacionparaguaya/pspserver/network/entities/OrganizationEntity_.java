@@ -5,11 +5,27 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 /**
  * @author bsandoval
- *
  */
 @StaticMetamodel(OrganizationEntity.class)
 public class OrganizationEntity_ {
-    public static volatile SingularAttribute<OrganizationEntity, ApplicationEntity> application;
-    public static volatile SingularAttribute<OrganizationEntity, Long> id;
-    public static volatile SingularAttribute<OrganizationEntity, Boolean> isActive;
+
+    private static volatile SingularAttribute<OrganizationEntity, ApplicationEntity> application;
+
+    private static volatile SingularAttribute<OrganizationEntity, Long> id;
+
+    private static volatile SingularAttribute<OrganizationEntity, Boolean> isActive;
+
+    private OrganizationEntity_() {}
+
+    public static SingularAttribute<OrganizationEntity, ApplicationEntity> getApplication() {
+        return application;
+    }
+
+    public static SingularAttribute<OrganizationEntity, Long> getId() {
+        return id;
+    }
+
+    public static SingularAttribute<OrganizationEntity, Boolean> getIsActive() {
+        return isActive;
+    }
 }

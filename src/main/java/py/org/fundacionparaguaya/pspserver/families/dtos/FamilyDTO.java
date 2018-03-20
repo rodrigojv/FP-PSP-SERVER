@@ -1,8 +1,11 @@
 package py.org.fundacionparaguaya.pspserver.families.dtos;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+//import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
 
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
@@ -11,222 +14,233 @@ import py.org.fundacionparaguaya.pspserver.system.dtos.CityDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CountryDTO;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FamilyDTO {
+public class FamilyDTO implements Serializable {
 
-	private Long familyId;
+    private static final long serialVersionUID = 1L;
 
-	@NotNull
-	private String name;
-	
-	@NotNull
+    private Long familyId;
+
+    @NotNull(message="{familyDTO.name.notNull}")
+    private String name;
+
+    @NotNull(message="{familyDTO.code.notNull}")
     private String code;
 
-	private CountryDTO country;
+    private CountryDTO country;
 
-	private CityDTO city;
+    private CityDTO city;
 
-	private String locationType;
+    private String locationType;
 
-	private String locationPositionGps;
+    private String locationPositionGps;
 
-	private PersonDTO person;
+    private PersonDTO person;
 
-	private ApplicationDTO application;
+    private ApplicationDTO application;
 
-	private OrganizationDTO organization;
-	
-	private boolean isActive;
-	
-	public FamilyDTO(){}
+    private OrganizationDTO organization;
 
-	private FamilyDTO(Long familyId, String name, String code, 
-			CountryDTO country, CityDTO city, String locationType,
-			String locationPositionGps, PersonDTO person, 
-			ApplicationDTO application, OrganizationDTO organization, 
-			boolean isActive) {
-		this.familyId = familyId;
-		this.name = name;
-		this.code = code;
-		this.country = country;
-		this.city = city;
-		this.locationType = locationType;
-		this.locationPositionGps = locationPositionGps;
-		this.person = person;
-		this.application = application;
-		this.organization = organization;
-		this.isActive = isActive;
-	}
+    private boolean isActive;
 
-	public static class Builder {
-		private Long familyId;
-		private String name;
-		private String code;
-		private CountryDTO country;
-		private CityDTO city;
-		private String locationType;
-		private String locationPositionGps;
-		private PersonDTO person;
-		private ApplicationDTO application;
-		private OrganizationDTO organization;
-		private boolean isActive;
-		
-		public Builder familyId(Long familyId){
-			this.familyId = familyId;
-			return this;
-		}
-		public Builder name(String name){
-			this.name = name;
-			return this;
-		}
-		public Builder code(String code){
+    public FamilyDTO() {
+    }
+
+  //CHECKSTYLE:OFF
+    private FamilyDTO(Long familyId, String name, String code,
+            CountryDTO country, CityDTO city, String locationType,
+            String locationPositionGps, PersonDTO person,
+            ApplicationDTO application, OrganizationDTO organization,
+            boolean isActive) {
+        this.familyId = familyId;
+        this.name = name;
+        this.code = code;
+        this.country = country;
+        this.city = city;
+        this.locationType = locationType;
+        this.locationPositionGps = locationPositionGps;
+        this.person = person;
+        this.application = application;
+        this.organization = organization;
+        this.isActive = isActive;
+    }
+  //CHECKSTYLE:ON
+
+    public static class Builder {
+        private Long familyId;
+        private String name;
+        private String code;
+        private CountryDTO country;
+        private CityDTO city;
+        private String locationType;
+        private String locationPositionGps;
+        private PersonDTO person;
+        private ApplicationDTO application;
+        private OrganizationDTO organization;
+        private boolean isActive;
+
+        public Builder familyId(Long familyId) {
+            this.familyId = familyId;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder code(String code) {
             this.code = code;
             return this;
         }
-		public Builder country(CountryDTO country){
-			this.country = country;
-			return this;
-		}
-		public Builder city(CityDTO city){
-			this.city = city;
-			return this;
-		}
-		public Builder locationType(String locationType){
-			this.locationType = locationType;
-			return this;
-		}
-		public Builder locationPositionGps(String locationPositionGps){
-			this.locationPositionGps = locationPositionGps;
-			return this;
-		}
-		public Builder person(PersonDTO person){
-			this.person = person;
-			return this;
-		}
-		public Builder application(ApplicationDTO application){
-			this.application = application;
-			return this;
-		}
-		public Builder organization(OrganizationDTO organization){
-			this.organization = organization;
-			return this;
-		}
-		public Builder isActive(boolean isActive){
-			this.isActive = isActive;
-			return this;
-		}
-		public FamilyDTO build(){
-			return new FamilyDTO(
-				familyId, name, code, country, 
-				city, locationType, locationPositionGps, 
-				person, application, organization, isActive);
-		}
-	}
-	
-	public static Builder builder(){
-		return new Builder();
-	}
 
-	public Long getFamilyId() {
-		return familyId;
-	}
+        public Builder country(CountryDTO country) {
+            this.country = country;
+            return this;
+        }
 
-	public void setFamilyId(Long familyId) {
-		this.familyId = familyId;
-	}
+        public Builder city(CityDTO city) {
+            this.city = city;
+            return this;
+        }
 
-	public String getName() {
-		return name;
-	}
+        public Builder locationType(String locationType) {
+            this.locationType = locationType;
+            return this;
+        }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+        public Builder locationPositionGps(String locationPositionGps) {
+            this.locationPositionGps = locationPositionGps;
+            return this;
+        }
 
-	public String getCode() {
+        public Builder person(PersonDTO person) {
+            this.person = person;
+            return this;
+        }
+
+        public Builder application(ApplicationDTO application) {
+            this.application = application;
+            return this;
+        }
+
+        public Builder organization(OrganizationDTO organization) {
+            this.organization = organization;
+            return this;
+        }
+
+        public Builder isActive(boolean isActive) {
+            this.isActive = isActive;
+            return this;
+        }
+
+        public FamilyDTO build() {
+            return new FamilyDTO(familyId, name, code, country, city,
+                    locationType, locationPositionGps, person, application,
+                    organization, isActive);
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public Long getFamilyId() {
+        return familyId;
+    }
+
+    public void setFamilyId(Long familyId) {
+        this.familyId = familyId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
         return code;
     }
 
     public void setCode(String code) {
         this.code = code;
     }
-	public CountryDTO getCountry() {
-		return country;
-	}
 
-	public void setCountry(CountryDTO country) {
-		this.country = country;
-	}
+    public CountryDTO getCountry() {
+        return country;
+    }
 
-	public CityDTO getCity() {
-		return city;
-	}
+    public void setCountry(CountryDTO country) {
+        this.country = country;
+    }
 
-	public void setCity(CityDTO city) {
-		this.city = city;
-	}
+    public CityDTO getCity() {
+        return city;
+    }
 
-	public String getLocationType() {
-		return locationType;
-	}
+    public void setCity(CityDTO city) {
+        this.city = city;
+    }
 
-	public void setLocationType(String locationType) {
-		this.locationType = locationType;
-	}
+    public String getLocationType() {
+        return locationType;
+    }
 
-	public String getLocationPositionGps() {
-		return locationPositionGps;
-	}
+    public void setLocationType(String locationType) {
+        this.locationType = locationType;
+    }
 
-	public void setLocationPositionGps(String locationPositionGps) {
-		this.locationPositionGps = locationPositionGps;
-	}
+    public String getLocationPositionGps() {
+        return locationPositionGps;
+    }
 
-	public PersonDTO getPerson() {
-		return person;
-	}
+    public void setLocationPositionGps(String locationPositionGps) {
+        this.locationPositionGps = locationPositionGps;
+    }
 
-	public void setPerson(PersonDTO person) {
-		this.person = person;
-	}
+    public PersonDTO getPerson() {
+        return person;
+    }
 
-	public ApplicationDTO getApplication() {
-		return application;
-	}
+    public void setPerson(PersonDTO person) {
+        this.person = person;
+    }
 
-	public void setApplicationId(ApplicationDTO application) {
-		this.application = application;
-	}
+    public ApplicationDTO getApplication() {
+        return application;
+    }
 
-	public OrganizationDTO getOrganization() {
-		return organization;
-	}
+    public void setApplicationId(ApplicationDTO application) {
+        this.application = application;
+    }
 
-	public void setOrganizationId(OrganizationDTO organization) {
-		this.organization = organization;
-	}
-	
-	public boolean isActive() {
-		return isActive;
-	}
+    public OrganizationDTO getOrganization() {
+        return organization;
+    }
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
+    public void setOrganizationId(OrganizationDTO organization) {
+        this.organization = organization;
+    }
 
-	@Override
-	public String toString() {
-		return MoreObjects.toStringHelper(this)
-				.add("familyId", familyId)
-				.add("name", name)
-				.add("code", code)
-				.add("country", country)
-				.add("city", city.toString())
-				.add("locationType", locationType)
-				.add("locationPositionGps", locationPositionGps)
-				.add("person", person.toString())
-				.add("application", application.toString())
-				.add("organization", organization.toString())
-				.add("isActive", isActive)
-				.toString();
-	}
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this).add("familyId", familyId)
+                .add("name", name).add("code", code).add("country", country)
+                .add("city", city.toString()).add("locationType", locationType)
+                .add("locationPositionGps", locationPositionGps)
+                .add("person", person.toString())
+                .add("application", application.toString())
+                .add("organization", organization.toString())
+                .add("isActive", isActive).toString();
+    }
 }

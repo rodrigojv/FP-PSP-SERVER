@@ -34,6 +34,7 @@ public class UserMapper implements BaseMapper<UserEntity, UserDTO> {
     @Override
     public UserDTO entityToDto(UserEntity entity) {
         UserDTO dto = modelMapper.map(entity, UserDTO.class);
+        dto.setPass(null);
         return dto;
     }
 

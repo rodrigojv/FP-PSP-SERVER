@@ -14,11 +14,14 @@ package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -48,6 +51,11 @@ public class SurveyDefinition implements StoreableDefinition, Serializable {
     @JsonProperty("user_created")
     private Integer userCreated = null;
 
+    @JsonProperty("organizations")
+    private List<OrganizationDTO> organizations;
+
+    @JsonProperty("applications")
+    private List<ApplicationDTO> applications;
 
     public SurveyDefinition surveySchema(SurveySchema surveySchema) {
         this.surveySchema = surveySchema;
@@ -59,7 +67,8 @@ public class SurveyDefinition implements StoreableDefinition, Serializable {
      * @return surveySchema
      **/
     @JsonProperty("survey_schema")
-    @ApiModelProperty(required = true, value = "The schema of this survey. For each key/value pair, defines the type and other attributes")
+    @ApiModelProperty(required = true, value = "The schema of this survey."
+            + "For each key/value pair, defines the type and other attributes")
     @NotNull
     public SurveySchema getSurveySchema() {
         return surveySchema;
@@ -79,7 +88,9 @@ public class SurveyDefinition implements StoreableDefinition, Serializable {
      * @return surveyUISchema
      **/
     @JsonProperty("survey_ui_schema")
-    @ApiModelProperty(required = true, value = "The UI schema of this survey. Similar to survey_schema, this property describes the attributes of this survey that should be taken into consideration when rendering this survey.")
+    @ApiModelProperty(required = true, value = "The UI schema of this survey. Similar"
+            + "to survey_schema, this property describes the attributes of this survey"
+            + "that should be taken into consideration when rendering this survey.")
     @NotNull
     public SurveyUISchema getSurveyUISchema() {
         return surveyUISchema;
@@ -162,11 +173,13 @@ public class SurveyDefinition implements StoreableDefinition, Serializable {
             return false;
         }
         SurveyDefinition surveyDefinition = (SurveyDefinition) o;
-        return Objects.equals(this.surveySchema, surveyDefinition.surveySchema) &&
-                Objects.equals(this.surveyUISchema, surveyDefinition.surveyUISchema) &&
-                Objects.equals(this.createdAt, surveyDefinition.createdAt) &&
-                Objects.equals(this.lastModifiedAt, surveyDefinition.lastModifiedAt) &&
-                Objects.equals(this.userCreated, surveyDefinition.userCreated);
+        return Objects.equals(this.surveySchema, surveyDefinition.surveySchema)
+                && Objects.equals(this.surveyUISchema, surveyDefinition.surveyUISchema)
+                && Objects.equals(this.createdAt, surveyDefinition.createdAt)
+                && Objects.equals(this.lastModifiedAt, surveyDefinition.lastModifiedAt)
+                && Objects.equals(this.userCreated, surveyDefinition.userCreated)
+                && Objects.equals(this.organizations, surveyDefinition.organizations)
+                && Objects.equals(this.applications, surveyDefinition.applications);
     }
 
     @Override
@@ -238,6 +251,33 @@ public class SurveyDefinition implements StoreableDefinition, Serializable {
         this.description = description;
         return this;
     }
+
+    public SurveyDefinition organizations(List<OrganizationDTO> organizations){
+        this.organizations = organizations;
+        return this;
+    }
+
+    public SurveyDefinition applications(List<ApplicationDTO> applications){
+        this.applications = applications;
+        return this;
+    }
+
+    public List<OrganizationDTO> getOrganizations() {
+        return organizations;
+    }
+
+    public void setOrganizations(List<OrganizationDTO> organizations) {
+        this.organizations = organizations;
+    }
+
+    public List<ApplicationDTO> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(List<ApplicationDTO> applications) {
+        this.applications = applications;
+    }
+
 }
 
 

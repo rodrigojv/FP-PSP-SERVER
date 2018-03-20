@@ -15,8 +15,12 @@ package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 
 import javax.validation.constraints.NotNull;
+
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -35,6 +39,9 @@ public class NewSurveyDefinition  implements StoreableDefinition {
     @JsonProperty("survey_ui_schema")
     private SurveyUISchema surveyUISchema = new SurveyUISchema();
 
+    private List<OrganizationDTO> organizations;
+    private List<ApplicationDTO> applications;
+
     public NewSurveyDefinition() {
     }
 
@@ -48,7 +55,8 @@ public class NewSurveyDefinition  implements StoreableDefinition {
      * @return surveySchema
      **/
     @JsonProperty("survey_schema")
-    @ApiModelProperty(required = true, value = "The schema of this survey. For each key/value pair, defines the type and other attributes")
+    @ApiModelProperty(required = true, value = "The schema of this survey."
+            + "For each key/value pair, defines the type and other attributes")
     @NotNull
     public SurveySchema getSurveySchema() {
         return surveySchema;
@@ -68,7 +76,9 @@ public class NewSurveyDefinition  implements StoreableDefinition {
      * @return surveyUiSchema
      **/
     @JsonProperty("survey_ui_schema")
-    @ApiModelProperty(required = true, value = "The UI schema of this survey. Similar to survey_schema, this property describes the attributes of this survey that should be taken into consideration when rendering this survey.")
+    @ApiModelProperty(required = true, value = "The UI schema of this survey."
+            + "Similar to survey_schema, this property describes the attributes of"
+            + "this survey that should be taken into consideration when rendering this survey.")
     @NotNull
     @Override
     public SurveyUISchema getSurveyUISchema() {
@@ -89,8 +99,10 @@ public class NewSurveyDefinition  implements StoreableDefinition {
             return false;
         }
         NewSurveyDefinition newSurveyDefinition = (NewSurveyDefinition) o;
-        return Objects.equals(this.surveySchema, newSurveyDefinition.surveySchema) &&
-                Objects.equals(this.surveyUISchema, newSurveyDefinition.surveyUISchema);
+        return Objects.equals(this.surveySchema, newSurveyDefinition.surveySchema)
+                && Objects.equals(this.surveyUISchema, newSurveyDefinition.surveyUISchema)
+                && Objects.equals(this.organizations, newSurveyDefinition.organizations)
+                && Objects.equals(this.applications, newSurveyDefinition.applications);
     }
 
     @Override
@@ -103,7 +115,6 @@ public class NewSurveyDefinition  implements StoreableDefinition {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class NewSurveyDefinition {\n");
-
         sb.append("    surveySchema: ").append(toIndentedString(surveySchema)).append("\n");
         sb.append("    surveyUiSchema: ").append(toIndentedString(surveyUISchema)).append("\n");
         sb.append("}");
@@ -136,5 +147,22 @@ public class NewSurveyDefinition  implements StoreableDefinition {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public List<OrganizationDTO> getOrganizations() {
+        return organizations;
+    }
+
+    public void setOrganizations(List<OrganizationDTO> organizations) {
+        this.organizations = organizations;
+    }
+
+    public List<ApplicationDTO> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(List<ApplicationDTO> applications) {
+        this.applications = applications;
+    }
+
 }
 

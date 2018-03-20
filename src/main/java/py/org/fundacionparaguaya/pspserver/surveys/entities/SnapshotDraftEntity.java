@@ -59,39 +59,6 @@ public class SnapshotDraftEntity extends BaseEntity {
     @Column(name="person_last_name")
     private String personLastName;
 
-    @Column(name = "economic_response")
-    @Type(type = "py.org.fundacionparaguaya.pspserver."
-            + "surveys.entities.types.SecondJSONBUserType",
-    parameters = {
-            @org.hibernate.annotations.Parameter(
-                    name = SecondJSONBUserType.CLASS,
-                    value = "py.org.fundacionparaguaya."
-            + "pspserver.surveys.dtos.SurveyData")
-            })
-    private SurveyData economicResponse;
-
-    @Column(name = "indicator_response")
-    @Type(type = "py.org.fundacionparaguaya.pspserver."
-            + "surveys.entities.types.SecondJSONBUserType",
-    parameters = {
-            @org.hibernate.annotations.Parameter(
-                    name = SecondJSONBUserType.CLASS,
-                    value = "py.org.fundacionparaguaya."
-            + "pspserver.surveys.dtos.SurveyData")
-            })
-    private SurveyData indicatorResponse;
-
-    @Column(name = "personal_response")
-    @Type(type = "py.org.fundacionparaguaya.pspserver."
-            + "surveys.entities.types.SecondJSONBUserType",
-    parameters = {
-            @org.hibernate.annotations.Parameter(
-                    name = SecondJSONBUserType.CLASS,
-                    value = "py.org.fundacionparaguaya."
-            + "pspserver.surveys.dtos.SurveyData")
-            })
-    private SurveyData personalResponse;
-
     @Column(name = "state_draft")
     @Type(type = "py.org.fundacionparaguaya.pspserver."
             + "surveys.entities.types.SecondJSONBUserType",
@@ -147,35 +114,11 @@ public class SnapshotDraftEntity extends BaseEntity {
         this.personLastName = personLastName;
     }
 
-    public SurveyData getEconomicResponse() {
-        return economicResponse;
-    }
-
-    public void setEconomicResponse(SurveyData economicResponse) {
-        this.economicResponse = economicResponse;
-    }
-
-    public SurveyData getIndicatorResponse() {
-        return indicatorResponse;
-    }
-
-    public void setIndicatorResponse(SurveyData indicatorResponse) {
-        this.indicatorResponse = indicatorResponse;
-    }
-
-    public SurveyData getPersonalResponse() {
-        return personalResponse;
-    }
-
-    public void setPersonalResponse(SurveyData personalResponse) {
-        this.personalResponse = personalResponse;
-    }
-
     public SurveyData getStateDraft() {
         return stateDraft;
     }
 
-    public void setDraft(SurveyData stateDraft) {
+    public void setStateDraft(SurveyData stateDraft) {
         this.stateDraft = stateDraft;
     }
 

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorPriorityEntity;
 
 /**
- * 
+ *
  * @author mgonzalez
  *
  */
@@ -17,7 +17,7 @@ public interface SnapshotIndicatorPriorityRepository extends JpaRepository<Snaps
 
     Optional<SnapshotIndicatorPriorityEntity> findBySnapshotIndicatorIdAndId(Long snapshotIndicatorId,
             Long snapshotIndicatorPriorityId);
-    
-    Long countAllBySnapshotIndicatorId(Long snapshotIndicatorId);
+
+    Long countAllBySnapshotIndicatorIdAndIsAttainmentFalse(Long snapshotIndicatorId);
 
 }

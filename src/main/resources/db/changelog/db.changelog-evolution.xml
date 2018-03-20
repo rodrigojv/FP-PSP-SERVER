@@ -21,7 +21,7 @@
      Deletes "task_tracking_ancestor" column from table survey.task_tracking and adds "created_date" in the same table
     -->
     <changeSet id="2017-08-31T10:00" author="nvaldez">
-	<sqlFile path="sql/2017-08-31T10:00.sql" relativeToChangelogFile="true"/>
+       <sqlFile path="sql/2017-08-31T10:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
     <!--
@@ -41,8 +41,8 @@
     <!--
     It changes the name of the 'is_direct' table from the schema 'ps_network' to 'is_organization'
     -->
-    <changeSet id="2017-09-22T12:00" author="nvaldez"> 
-	    <sqlFile path="sql/2017-09-22T12:00.sql" relativeToChangelogFile="true"/>
+    <changeSet id="2017-09-22T12:00" author="nvaldez">
+        <sqlFile path="sql/2017-09-22T12:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
     <!--
@@ -58,15 +58,15 @@
     <changeSet id="2017-09-26T12:00" author="nvaldez">
         <sqlFile path="sql/2017-09-26T12:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
-    <!-- 
+
+    <!--
     Creates the OAuth tables
      -->
      <changeSet id="2017-10-05T11:49" author="mcespedes">
         <sqlFile path="sql/2017-10-05T11:49.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
-     <!-- 
+
+    <!--
      Insert user and client credentials for oauth2 authentication
      -->
      <changeSet id="2017-10-26T22:00" author="mcespedes">
@@ -93,14 +93,13 @@
     <changeSet id="2017-10-26T11:15" author="rvillalba">
         <sqlFile path="sql/2017-10-26T11:15.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
-    <!--  
+
+     <!--
      Creates columns in snapshots_economics for store family ubication
     -->
     <changeSet id="2017-11-23T10:20" author="mgonzalez">
         <sqlFile path="sql/2017-11-23T10:20.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
 
     <!--
      Renames organizations table
@@ -138,39 +137,39 @@
     <changeSet id="2017-11-27T15:00" author="rvillalba">
         <sqlFile path="sql/2017-11-27T15:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
-     <!--  
+
+    <!--
      Creates snapshot_indicator_priority datatable
     -->
     <changeSet id="2017-12-01T11:20" author="mgonzalez">
         <sqlFile path="sql/2017-12-01T11:20.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
+
     <!-- Add code columns in a family table -->
     <changeSet id="2017-12-13T15:30" author="mgonzalez">
         <sqlFile path="sql/2017-12-13T15:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
+
     <!-- Add relationship to family table -->
     <changeSet id="2017-12-14T10:30" author="mgonzalez">
         <sqlFile path="sql/2017-12-14T10:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
+
     <!-- Add code columns to countries table -->
     <changeSet id="2017-12-14T15:30" author="mgonzalez">
         <sqlFile path="sql/2017-12-14T15:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
+
      <!-- Add and rename columns of person table -->
     <changeSet id="2017-12-14T16:00" author="mgonzalez">
         <sqlFile path="sql/2017-12-14T16:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
+
     <!-- Insert countries in the countries table -->
     <changeSet id="2017-12-17T19:00" author="mgonzalez">
         <sqlFile path="sql/2017-12-17T19:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
-  
+
     <!-- Insert applications and organizations for testing -->
     <changeSet id="2017-12-19T10:00" author="nvaldez">
         <sqlFile path="sql/2017-12-19T10:00.sql" relativeToChangelogFile="true"/>
@@ -188,7 +187,7 @@
         <sqlFile path="sql/2017-12-19T10:10.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
-	  <!-- Insert cities in the cities table -->
+    <!-- Insert cities in the cities table -->
     <changeSet id="2017-12-27T16:50" author="mgonzalez">
         <sqlFile path="sql/2017-12-27T16:50.sql" relativeToChangelogFile="true"/>
     </changeSet>
@@ -197,7 +196,12 @@
     <changeSet id="2017-12-28T16:00" author="rvillalba">
         <sqlFile path="sql/2017-12-28T16:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
+
+    <!-- Add column logo_url into organizations table-->
+    <changeSet id="2017-12-29T16:30" author="cbenitez">
+        <sqlFile path="sql/2017-12-29T16:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
     <!-- Change data type for income columns-->
     <changeSet id="2018-01-03T15:30" author="mgonzalez">
         <sqlFile path="sql/2018-01-03T15:30.sql" relativeToChangelogFile="true"/>
@@ -206,26 +210,83 @@
     <!-- Add enabled column in family table -->
     <changeSet id="2018-01-06T09:13" author="mcespedes">
         <sqlFile path="sql/2018-01-06T09:13.sql" relativeToChangelogFile="true"/>
-	</changeSet>
-	
+    </changeSet>
+
     <!-- Create termcondpol table and add relationships into snapshots_economic table -->
     <changeSet id="2018-01-08T09:00" author="mgonzalez">
         <sqlFile path="sql/2018-01-08T09:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
+
     <!-- Insert example for "Terms and Conditions" and "Privacy Policies" -->
     <changeSet id="2018-01-09T23:00" author="mgonzalez">
         <sqlFile path="sql/2018-01-09T23:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
+
     <!-- Add personal_information column into snapshots_economics table" -->
     <changeSet id="2018-01-11T14:00" author="mgonzalez">
         <sqlFile path="sql/2018-01-11T14:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
+
     <!-- Create snapshot draft table" -->
     <changeSet id="2018-01-18T11:30" author="mgonzalez">
         <sqlFile path="sql/2018-01-18T11:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!-- Add email column into security.user table and create security.password_reset_token table " -->
+    <changeSet id="2018-01-22T11:31" author="mcespedes">
+        <sqlFile path="sql/2018-01-22T11:31.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Delete innecesaries columns in "snapshot_draft" table -->
+    <changeSet id="2018-01-29T17:00" author="mgonzalez">
+        <sqlFile path="sql/2018-01-29T17:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Change columns to NOT NULL in organizations table-->
+    <changeSet id="2018-01-30T11:20" author="cbenitez">
+        <sqlFile path="sql/2018-01-30T11:20.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Insert default email to default users -->
+    <changeSet id="2018-01-30T15:30" author="cbenitez">
+        <sqlFile path="sql/2018-01-30T15:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Change columns to NOT NULL in users table -->
+    <changeSet id="2018-01-30T15:40" author="cbenitez">
+        <sqlFile path="sql/2018-01-30T15:40.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Add column logo_url into application table-->
+    <changeSet id="2018-02-02T11:30" author="cbenitez">
+        <sqlFile path="sql/2018-02-02T11:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Add created_at column in survey table-->
+    <changeSet id="2018-02-14T13:00" author="mcespedes">
+        <sqlFile path="sql/2018-02-14T13:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="2018-02-27T16:17" author="mgonzalez">
+        <sqlFile path="sql/2018-02-27T16:17.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+
+    <!-- Add is_success column in indicator snapshot_indicator_priorities table-->
+    <changeSet id="2018-02-20T11:30" author="jferreira">
+        <sqlFile path="sql/2018-02-20T11:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+
+     <!-- Create survey organization table-->
+    <changeSet id="2018-02-20T09:15" author="mcespedes">
+        <sqlFile path="sql/2018-02-20T09:15.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Add unique constraint in snapshot_indicator_priorities table-->
+    <changeSet id="2018-03-06T09:10" author="jferreira">
+        <sqlFile path="sql/2018-03-06T09:10.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
+

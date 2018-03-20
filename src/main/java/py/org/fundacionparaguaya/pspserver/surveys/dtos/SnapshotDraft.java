@@ -17,15 +17,6 @@ public class SnapshotDraft {
     @JsonProperty("last_name")
     private String personLastName;
 
-    @JsonProperty("economic_response")
-    private SurveyData economicResponse;
-
-    @JsonProperty("indicator_response")
-    private SurveyData indicatorResponse;
-
-    @JsonProperty("personal_response")
-    private SurveyData personalResponse;
-
     @JsonProperty("state_draft")
     private SurveyData stateDraft;
 
@@ -66,30 +57,6 @@ public class SnapshotDraft {
 
     public void setPersonLastName(String personLastName) {
         this.personLastName = personLastName;
-    }
-
-    public SurveyData getEconomicResponse() {
-        return economicResponse;
-    }
-
-    public void setEconomicResponse(SurveyData economicResponse) {
-        this.economicResponse = economicResponse;
-    }
-
-    public SurveyData getIndicatorResponse() {
-        return indicatorResponse;
-    }
-
-    public void setIndicatorResponse(SurveyData indicatorResponse) {
-        this.indicatorResponse = indicatorResponse;
-    }
-
-    public SurveyData getPersonalResponse() {
-        return personalResponse;
-    }
-
-    public void setPersonalResponse(SurveyData personalResponse) {
-        this.personalResponse = personalResponse;
     }
 
     public SurveyData getStateDraft() {
@@ -163,15 +130,6 @@ public class SnapshotDraft {
         sb.append("    person lastname: ")
         .append(toIndentedString(personLastName))
         .append("\n");
-        sb.append("    economicResponse: ")
-        .append(toIndentedString(economicResponse))
-        .append("\n");
-        sb.append("    indicatorResponse: ")
-        .append(toIndentedString(indicatorResponse))
-        .append("\n");
-        sb.append("    personalResponse: ")
-        .append(toIndentedString(personalResponse))
-        .append("\n");
         sb.append("    surveyId: ")
         .append(toIndentedString(surveyId))
         .append("\n");
@@ -215,12 +173,6 @@ public class SnapshotDraft {
                 that.id)
                 && com.google.common.base.Objects.equal(this.surveyId,
                         that.surveyId)
-                && com.google.common.base.Objects.equal(this.personalResponse,
-                        that.personalResponse)
-                && com.google.common.base.Objects.equal(this.economicResponse,
-                        that.economicResponse)
-                && com.google.common.base.Objects.equal(
-                        this.indicatorResponse, that.indicatorResponse)
                 && com.google.common.base.Objects.equal(this.userName,
                         that.userName)
                 && com.google.common.base.Objects.equal(this.termCondId,
@@ -238,7 +190,6 @@ public class SnapshotDraft {
     @Override
     public int hashCode() {
         return com.google.common.base.Objects.hashCode(id, surveyId,
-                personalResponse, economicResponse, indicatorResponse,
                 userName, termCondId, privPolId, personFirstName,
                 personLastName, stateDraft);
     }
