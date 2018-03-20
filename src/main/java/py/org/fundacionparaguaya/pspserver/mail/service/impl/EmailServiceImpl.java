@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
+import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.mail.service.EmailService;
 
 @Service
@@ -27,10 +28,14 @@ public class EmailServiceImpl implements EmailService {
 
     private ApplicationProperties appProperties;
 
+    private final I18n i18n;
+
     public EmailServiceImpl(JavaMailSenderImpl mailSender,
-            ApplicationProperties appProperties) {
+            ApplicationProperties appProperties,
+            I18n i18n) {
         this.mailSender = mailSender;
         this.appProperties = appProperties;
+        this.i18n = i18n;
     }
 
     @Override
@@ -47,7 +52,7 @@ public class EmailServiceImpl implements EmailService {
         } catch (Exception e) {
             LOG.error("Mail server connection failed ", e);
             throw new CustomParameterizedException(
-                    "Mail server connection failed");
+                    i18n.translate("email.serverError"));
         }
     }
 
@@ -78,7 +83,7 @@ public class EmailServiceImpl implements EmailService {
             mailSender.send(message);
         } catch (MessagingException e) {
             LOG.error("Error sending mail ", e);
-            throw new CustomParameterizedException("Error sending email");
+            throw new CustomParameterizedException(i18n.translate("email.errorSendingMail"));
         }
 
     }

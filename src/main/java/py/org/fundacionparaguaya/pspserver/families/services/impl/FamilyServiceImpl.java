@@ -1,22 +1,13 @@
 package py.org.fundacionparaguaya.pspserver.families.services.impl;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.families.specifications.FamilySpecification.byFilter;
-
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.apache.commons.lang3.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
@@ -40,6 +31,16 @@ import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CityRepository;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static py.org.fundacionparaguaya.pspserver.families.specifications.FamilySpecification.byFilter;
 
 @Service
 public class FamilyServiceImpl implements FamilyService {
@@ -97,11 +98,38 @@ public class FamilyServiceImpl implements FamilyService {
         return Optional.ofNullable(familyRepository.findOne(familyId))
                 .map(family -> {
                     BeanUtils.copyProperties(familyDTO, family);
+                    family.setLastModifiedAt(LocalDateTime.now());
                     LOG.debug("Changed Information for Family: {}", family);
                     return family;
-                }).map(familyMapper::entityToDto)
+                })
+                .map(familyMapper::entityToDto)
                 .orElseThrow(() -> new UnknownResourceException(i18n
                         .translate("family.notExist")));
+    }
+
+    @Override
+    public FamilyDTO updateFamily(Long familyId) {
+
+        checkArgument(familyId > 0,
+                i18n.translate("argument.nonNegative", familyId)
+        );
+
+        LOG.debug("Updating family with id: {}", familyId);
+
+        return Optional.ofNullable(familyRepository.findOne(familyId))
+                .map(family -> {
+                    family.setLastModifiedAt(LocalDateTime.now());
+                    return familyRepository.save(family);
+                })
+                .map(familyMapper::entityToDto)
+                .orElseThrow(() ->
+                        new UnknownResourceException(i18n.translate("family.notExist")));
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public FamilyDTO updateFamilyAsync(Long familyId) {
+        return this.updateFamily(familyId);
     }
 
     @Override
@@ -163,10 +191,10 @@ public class FamilyServiceImpl implements FamilyService {
     @Override
     public List<FamilyDTO> listFamilies(FamilyFilterDTO filter,
             UserDetailsDTO userDetails) {
-        loadFilterByDetails(filter, userDetails);
+        FamilyFilterDTO newFilter = buildFilterFromFilterAndUser(filter, userDetails);
 
         List<FamilyEntity> entityList = familyRepository
-                .findAll(where(byFilter(filter)));
+                .findAll(where(byFilter(newFilter)));
 
         return familyMapper.entityListToDtoList(entityList);
     }
@@ -174,7 +202,7 @@ public class FamilyServiceImpl implements FamilyService {
     @Override
     public Long countFamiliesByDetails(UserDetailsDTO userDetails) {
         return familyRepository
-                .count(byFilter(buildFilterByDetails(userDetails)));
+                .count(byFilter(buildFilterFromUser(userDetails)));
     }
 
     @Override
@@ -182,25 +210,32 @@ public class FamilyServiceImpl implements FamilyService {
         return familyRepository.count(byFilter(filter));
     }
 
-    private FamilyFilterDTO buildFilterByDetails(UserDetailsDTO userDetails) {
-        FamilyFilterDTO filter = new FamilyFilterDTO();
-        loadFilterByDetails(filter, userDetails);
-        return filter;
+    private FamilyFilterDTO buildFilterFromUser(UserDetailsDTO userDetails) {
+        return buildFilterFromFilterAndUser(FamilyFilterDTO.builder().build(), userDetails);
     }
 
-    private void loadFilterByDetails(FamilyFilterDTO target,
-            UserDetailsDTO userDetails) {
-        Long applicationId = Optional.ofNullable(userDetails.getApplication())
-                .orElse(new ApplicationDTO()).getId();
+    private FamilyFilterDTO buildFilterFromFilterAndUser(FamilyFilterDTO fromFilter,
+                                     UserDetailsDTO userDetails) {
+        Long userAppId = Optional.ofNullable(userDetails.getApplication())
+                                .map(ApplicationDTO::getId)
+                                .orElse(null);
 
-        Long organizationId = Optional
-                .ofNullable(Optional.ofNullable(userDetails.getOrganization())
-                        .orElse(new OrganizationDTO()).getId())
-                .orElse(target.getOrganizationId());
+        Long userOrgId = Optional.ofNullable(userDetails.getOrganization())
+                .map(OrganizationDTO::getId)
+                .orElse(fromFilter.getOrganizationId());
 
-        target.setApplicationId(applicationId);
-        target.setOrganizationId(organizationId);
+        return FamilyFilterDTO.builder()
+                .cityId(fromFilter.getCityId())
+                .lastModifiedGt(fromFilter.getLastModifiedGt())
+                .isActive(fromFilter.getIsActive())
+                .name(fromFilter.getName())
+                .countryId(fromFilter.getCountryId())
+                .applicationId(userAppId)
+                .organizationId(userOrgId)
+                .build();
+
     }
+
 
     @Override
     public List<FamilyEntity> findByOrganizationId(Long organizationId) {

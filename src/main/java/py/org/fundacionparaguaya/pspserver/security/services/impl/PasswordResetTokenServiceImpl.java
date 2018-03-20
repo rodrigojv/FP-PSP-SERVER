@@ -22,6 +22,7 @@ import com.google.common.io.Resources;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
+import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.mail.service.EmailService;
 import py.org.fundacionparaguaya.pspserver.security.entities.PasswordResetTokenEntity;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
@@ -45,13 +46,17 @@ public class PasswordResetTokenServiceImpl
 
   private static final String MAIL_PARAM_ID = "id";
 
+  private final I18n i18n;
+
   public PasswordResetTokenServiceImpl(UserRepository userRepository,
       PasswordTokenRepository passwordTokenRepository,
-      EmailService emailService, ApplicationProperties applicationProps) {
+      EmailService emailService, ApplicationProperties applicationProps,
+      I18n i18n) {
     this.userRepository = userRepository;
     this.passwordTokenRepository = passwordTokenRepository;
     this.emailService = emailService;
     this.applicationProps = applicationProps;
+    this.i18n = i18n;
   }
 
   @Override
@@ -60,13 +65,15 @@ public class PasswordResetTokenServiceImpl
     UserEntity user = null;
 
     try {
-      user = userRepository.findUserByEmail(userEmail).get();
+        user = userRepository.findUserByEmail(userEmail).get();
     } catch (NoSuchElementException e) {
-      throw new CustomParameterizedException("Email or User not found");
+        throw new CustomParameterizedException(i18n.translate("email.emailUserNotFound"));
+    } catch (Exception ex){
+        throw new CustomParameterizedException(i18n.translate("email.errorResetMail"));
     }
 
     if (user == null) {
-      throw new CustomParameterizedException("Email or User not found");
+      throw new CustomParameterizedException(i18n.translate("email.emailUserNotFound"));
     }
 
     String token = UUID.randomUUID().toString();
@@ -78,13 +85,19 @@ public class PasswordResetTokenServiceImpl
         .setText(loadTemplate(applicationProps.getTemplates().getResetMail()));
 
     String[] args = {
-        applicationProps.getClient().getLoginUrl() + "?" + MAIL_PARAM_TOKEN
-            + "=" + token + "&" + MAIL_PARAM_ID + "=" + user.getId(),
-        user.getEmail() };
+        i18n.translate("email.bodyTitle"),
+        i18n.translate("email.bodyGreeting"),
+        applicationProps.getClient().getLoginUrl()
+            + "?" + MAIL_PARAM_TOKEN
+            + "=" + token
+            + "&" + MAIL_PARAM_ID
+            + "="
+            + user.getId(),
+         i18n.translate("email.bodyReset", user.getEmail()),
+         i18n.translate("email.bodySign")};
 
     emailService.sendSimpleMessageUsingTemplate(user.getEmail(),
-        "Reset your password for Poverty Stoplight Platform", template, args);
-
+            i18n.translate("email.resetPassword"), template, args);
   }
 
   private String loadTemplate(String template) {
@@ -94,7 +107,7 @@ public class PasswordResetTokenServiceImpl
       content = Resources.toString(url, Charsets.UTF_8);
     } catch (IOException e) {
       throw new CustomParameterizedException(
-          "Could not read email template with ID = ", template);
+              i18n.translate("email.readById", template));
     }
     return content;
   }
@@ -115,13 +128,13 @@ public class PasswordResetTokenServiceImpl
   public void validatePasswordResetToken(String token, Long userId,
       String password, String repeatPassword) {
 
-    checkArgument(userId > 0, "Argument was %s but expected nonnegative",
-        userId);
+    checkArgument(userId > 0,  i18n.translate("argument.nonNegative", userId));
 
     UserEntity userEntity = userRepository.findOne(userId);
 
     if (userEntity == null) {
-      throw new UnknownResourceException("User does not exist");
+      throw new UnknownResourceException(i18n.translate("user.notExist",
+              userId));
     }
 
     PasswordResetTokenEntity passwordResetTokenEntity = passwordTokenRepository
@@ -129,13 +142,13 @@ public class PasswordResetTokenServiceImpl
 
     if (passwordResetTokenEntity == null || passwordResetTokenEntity.getUser()
         .getId().longValue() != userId.longValue()) {
-      throw new CustomParameterizedException("Invalid token", token);
+      throw new CustomParameterizedException(i18n.translate("email.invalidToken", token));
     }
 
     Calendar cal = Calendar.getInstance();
     if ((passwordResetTokenEntity.getExpiryDate().getTime()
         - cal.getTime().getTime()) <= 0) {
-      throw new CustomParameterizedException("Token expired", token);
+      throw new CustomParameterizedException(i18n.translate("email.expiredToken", token));
     }
 
     if (!password.equals(repeatPassword)) {

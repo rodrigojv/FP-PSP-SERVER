@@ -1,11 +1,5 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +13,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyMapDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilySnapshotsManager;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
+
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/families")
@@ -89,10 +87,18 @@ public class FamilyController {
                                      String name,
             @RequestParam(value = "application_id", required = false)
                                      Long applicationId,
-            @AuthenticationPrincipal UserDetailsDTO details) {
-        FamilyFilterDTO filter = new FamilyFilterDTO(applicationId,
-                organizationId, countryId, cityId, name, true);
-        List<FamilyDTO> families = familyService.listFamilies(filter, details);
+            @RequestParam(value = "last_modified_gt", required = false) String lastModifiedGt,
+            @AuthenticationPrincipal UserDetailsDTO user) {
+        FamilyFilterDTO filter = FamilyFilterDTO.builder()
+                .applicationId(applicationId)
+                .organizationId(organizationId)
+                .countryId(countryId)
+                .cityId(cityId)
+                .name(name)
+                .isActive(true)
+                .lastModifiedGt(lastModifiedGt)
+                .build();
+        List<FamilyDTO> families = familyService.listFamilies(filter, user);
         return ResponseEntity.ok(families);
     }
 

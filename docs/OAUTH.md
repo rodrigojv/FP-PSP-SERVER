@@ -76,3 +76,34 @@ These are default users with their roles provided by the application.
 | app_admin | ROLE_APP_ADMIN | Can manage everything related to an organization or partner |
 | user | ROLE_USER | Can see information about his/her organization: famliies, indicators |
 | survey_user | ROLE_SURVEY_USER | Can fill surveys and visualize its state |
+
+
+# Adding a new OAuth client
+
+If you want to add a new OAuth client that for example gets a `access_token` with longer or shorter expiration, you can at runtime execute a DML like follows:
+
+```sql
+INSERT INTO oauth_client_details
+	(client_id, 
+	client_secret, 
+	scope, 
+	authorized_grant_types,
+	web_server_redirect_uri, 
+	authorities, 
+	access_token_validity,
+	refresh_token_validity, 
+	additional_information, 
+	autoapprove)
+VALUES
+	('mobileClientId', 
+	 'mobileClientSecret', 
+	 'read',
+	'password,refresh_token', 
+	null, 
+	null, 
+	36000, 
+	36000, 
+	null, 
+	true);
+```
+In the above example we create another client that will be able to receive tokens to access the REST API. Those tokens will have a valid period of 36000 seconds (10 hours). You can set `access_token_validity` equals to `0`, to indicate an unlimited duration.

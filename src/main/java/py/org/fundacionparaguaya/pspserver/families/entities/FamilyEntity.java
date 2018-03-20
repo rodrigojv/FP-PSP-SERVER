@@ -1,25 +1,29 @@
 package py.org.fundacionparaguaya.pspserver.families.entities;
 
+import com.google.common.base.MoreObjects;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
+import py.org.fundacionparaguaya.pspserver.common.entities.LocalDateTimeConverter;
+import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import com.google.common.base.MoreObjects;
-
-import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
-import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
-import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
-import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
-import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
+import javax.persistence.Transient;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "family", schema = "ps_families")
@@ -70,6 +74,11 @@ public class FamilyEntity extends BaseEntity {
     private OrganizationEntity organization;
 
     private boolean isActive;
+
+    @Column(name = "last_modified_at")
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime lastModifiedAt;
+
 
     public FamilyEntity() {
     };
@@ -169,6 +178,28 @@ public class FamilyEntity extends BaseEntity {
         this.isActive = isActive;
     }
 
+    public LocalDateTime getLastModifiedAt() {
+        return this.lastModifiedAt;
+    }
+
+    public void setLastModifiedAt(LocalDateTime lastModifiedAt) {
+        this.lastModifiedAt = lastModifiedAt;
+    }
+
+    @PrePersist
+    public void preSave() {
+        this.lastModifiedAt = LocalDateTime.now();
+    }
+
+
+    @Transient
+    public String getLastModifiedAtAsISOString() {
+        if (this.lastModifiedAt != null) {
+            return lastModifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        }
+        return null;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -188,12 +219,20 @@ public class FamilyEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("familyId", familyId)
-                .add("name", name).add("code", code).add("country", country)
-                .add("city", city).add("locationType", locationType)
+        return MoreObjects.toStringHelper(this)
+                .add("familyId", familyId)
+                .add("name", name)
+                .add("code", code)
+                .add("country", country)
+                .add("city", city)
+                .add("locationType", locationType)
                 .add("locationPositionGps", locationPositionGps)
-                .add("person", person).add("application", application)
-                .add("organization", organization).add("isActive", isActive)
+                .add("person", person)
+                .add("application", application)
+                .add("organization", organization)
+                .add("isActive", isActive)
+                .add("lastModifiedAt", lastModifiedAt)
                 .toString();
     }
+
 }

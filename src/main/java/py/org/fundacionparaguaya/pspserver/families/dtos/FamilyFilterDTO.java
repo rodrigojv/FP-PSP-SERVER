@@ -3,7 +3,7 @@
  */
 package py.org.fundacionparaguaya.pspserver.families.dtos;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import com.google.common.base.MoreObjects;
 
 /**
  * @author bsandoval
@@ -11,25 +11,16 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class FamilyFilterDTO {
 
-	private Long applicationId;
-	private Long organizationId;
-	private Long countryId;
-	private Long cityId;
-	private String name;
-	private boolean isActive;
-	
-	public FamilyFilterDTO() {
-	    super();
-	}
-	
-	public FamilyFilterDTO(Long applicationId, Long organizationId) {
-        super();
-        this.applicationId = applicationId;
-        this.organizationId = organizationId;
-    }
-	
-	public FamilyFilterDTO(Long applicationId, Long organizationId, Long countryId, 
-			Long cityId, String name, boolean isActive) {
+    private final String lastModifiedGt;
+    private final Long applicationId;
+    private final Long organizationId;
+    private final Long countryId;
+    private final Long cityId;
+    private final String name;
+    private final boolean isActive;
+
+    FamilyFilterDTO(Long applicationId, Long organizationId, Long countryId,
+                           Long cityId, String name, boolean isActive, String lastModifiedGt) {
         super();
         this.applicationId = applicationId;
         this.organizationId = organizationId;
@@ -37,65 +28,51 @@ public class FamilyFilterDTO {
         this.cityId = cityId;
         this.name = name;
         this.isActive = isActive;
+        this.lastModifiedGt = lastModifiedGt;
     }
 
     public Long getApplicationId() {
         return applicationId;
     }
 
-    public void setApplicationId(Long applicationId) {
-        this.applicationId = applicationId;
-    }
-
     public Long getOrganizationId() {
         return organizationId;
-    }
-
-    public void setOrganizationId(Long organizationId) {
-        this.organizationId = organizationId;
     }
 
     public Long getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(Long countryId) {
-        this.countryId = countryId;
-    }
-
     public Long getCityId() {
         return cityId;
-    }
-
-    public void setCityId(Long cityId) {
-        this.cityId = cityId;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    
     public Boolean getIsActive() {
 		return isActive;
 	}
 
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
+    public String getLastModifiedGt() {
+        return lastModifiedGt;
+    }
 
-	@Override
+	public static FamilyFilterDTOBuilder builder() {
+	    return new FamilyFilterDTOBuilder();
+    }
+
+    @Override
     public String toString() {
-        ToStringBuilder builder = new ToStringBuilder(this);
-        builder.append("applicationId", applicationId);
-        builder.append("organizationId", organizationId);
-        builder.append("countryId", countryId);
-        builder.append("cityId", cityId);
-        builder.append("name", name);
-        builder.append("isActive", isActive);
-        return builder.build();
+        return MoreObjects.toStringHelper(this)
+                .add("lastModifiedGt", lastModifiedGt)
+                .add("applicationId", applicationId)
+                .add("organizationId", organizationId)
+                .add("countryId", countryId)
+                .add("cityId", cityId)
+                .add("name", name)
+                .add("isActive", isActive)
+                .toString();
     }
 }

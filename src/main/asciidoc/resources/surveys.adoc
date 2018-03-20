@@ -41,6 +41,23 @@ include::{snippets}/surveys-by-id/http-response.adoc[]
 
 include::{snippets}/surveys-by-id/response-fields.adoc[]
 
+[[surveys-by-last_modified_gt]]
+=== Get by last_modified greater than
+
+A `GET` request with a request parameter with the last modified date and time as ISO string (UTC timezone).
+
+==== Example request
+
+include::{snippets}/surveys-by-last_modified_gt/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/surveys-by-id/http-response.adoc[]
+
+==== Response structure
+
+include::{snippets}/surveys-by-id/response-fields.adoc[]
+
 [[surveys-post]]
 === Create a Survey Definition
 

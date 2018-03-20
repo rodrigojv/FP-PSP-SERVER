@@ -1,24 +1,26 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.config.I18n;
+import py.org.fundacionparaguaya.pspserver.families.events.PriorityCreatedEvent;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorPriorityEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorPriorityMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorPriorityRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotIndicatorPriorityService;
+
+import java.util.List;
+import java.util.Optional;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * @author mgonzalez
@@ -39,16 +41,18 @@ public class SnapshotIndicatorPriorityServiceImpl
 
     private final I18n i18n;
 
+    private final ApplicationEventPublisher publisher;
 
     public SnapshotIndicatorPriorityServiceImpl(
             SnapshotIndicatorPriorityRepository snapshotPriorityRepository,
             SnapshotIndicatorRepository snapshotIndicatorRepository,
-            SnapshotIndicatorPriorityMapper snapshotPriorityMapper, I18n i18n) {
+            SnapshotIndicatorPriorityMapper snapshotPriorityMapper, I18n i18n, ApplicationEventPublisher publisher) {
 
         this.snapshotPriorityRepository = snapshotPriorityRepository;
         this.snapshotIndicatorRepository = snapshotIndicatorRepository;
         this.snapshotPriorityMapper = snapshotPriorityMapper;
         this.i18n = i18n;
+        this.publisher = publisher;
     }
 
     @Override
@@ -62,10 +66,7 @@ public class SnapshotIndicatorPriorityServiceImpl
                 snapshotPriorityRepository
                    .findBySnapshotIndicatorId(snapshotIndicatorId);
 
-        List<SnapshotIndicatorPriority> toRet = new ArrayList<>();
-        toRet = snapshotPriorityMapper.entityListToDtoList(priorities);
-
-        return toRet;
+        return snapshotPriorityMapper.entityListToDtoList(priorities);
     }
 
     @Override
@@ -92,6 +93,7 @@ public class SnapshotIndicatorPriorityServiceImpl
     }
 
     @Override
+    @Transactional
     public SnapshotIndicatorPriority addSnapshotIndicatorPriority(
             SnapshotIndicatorPriority priority) {
 
@@ -116,11 +118,20 @@ public class SnapshotIndicatorPriorityServiceImpl
         entity.setIsAttainment(priority.getIsAttainment());
         entity.setEstimatedDateAsISOString(priority.getEstimatedDate());
 
-        entity.setSnapshotIndicator(snapshotIndicatorRepository
-                .getOne(priority.getSnapshotIndicatorId()));
+        SnapshotIndicatorEntity indicator = snapshotIndicatorRepository
+                .getOne(priority.getSnapshotIndicatorId());
+        entity.setSnapshotIndicator(indicator);
 
-        SnapshotIndicatorPriorityEntity newSnapshotIndicatorPriority =
-                snapshotPriorityRepository.save(entity);
+
+        SnapshotIndicatorPriorityEntity newSnapshotIndicatorPriority = snapshotPriorityRepository.save(entity);
+
+        // We publish this event so that other components can
+        // execute some operations on other entities, like an update
+        // on the familiy#lastmModifiedAt property:
+        // https://github.com/FundacionParaguaya/FP-PSP-SERVER/issues/134
+        // In this way we only need one extra dependency in this service.
+        publisher.publishEvent(PriorityCreatedEvent.of(indicator));
+
         return snapshotPriorityMapper.entityToDto(newSnapshotIndicatorPriority);
 
     }

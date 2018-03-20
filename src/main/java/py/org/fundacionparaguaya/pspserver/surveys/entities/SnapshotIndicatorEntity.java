@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.surveys.entities;
 
+import com.google.common.base.MoreObjects;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -7,7 +8,13 @@ import org.hibernate.annotations.Type;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
@@ -336,4 +343,36 @@ public class SnapshotIndicatorEntity implements StoreableSnapshot, Serializable 
     }
 
 
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("serialVersionUID", serialVersionUID)
+                .add("id", id)
+                .add("income", income)
+                .add("documentation", documentation)
+                .add("drinkingWaterAccess", drinkingWaterAccess)
+                .add("nearbyHealthPost", nearbyHealthPost)
+                .add("alimentation", alimentation)
+                .add("garbageDisposal", garbageDisposal)
+                .add("safeHouse", safeHouse)
+                .add("safeBathroom", safeBathroom)
+                .add("electricityAccess", electricityAccess)
+                .add("refrigerator", refrigerator)
+                .add("separateBed", separateBed)
+                .add("separateBedrooms", separateBedrooms)
+                .add("properKitchen", properKitchen)
+                .add("phone", phone)
+                .add("security", security)
+                .add("readAndWrite", readAndWrite)
+                .add("middleEducation", middleEducation)
+                .add("socialCapital", socialCapital)
+                .add("informationAccess", informationAccess)
+                .add("influenceInPublicSector", influenceInPublicSector)
+                .add("awarenessOfNeeds", awarenessOfNeeds)
+                .add("selfEsteem", selfEsteem)
+                .add("autonomyDecisions", autonomyDecisions)
+                .add("additionalProperties", additionalProperties)
+                .add("priorities", priorities)
+                .toString();
+    }
 }

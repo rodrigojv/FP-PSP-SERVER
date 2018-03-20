@@ -1,23 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.network.specifications.SurveyOrganizationSpecification.byApplication;
-import static py.org.fundacionparaguaya.pspserver.network.specifications.SurveyOrganizationSpecification.byOrganization;
-import static py.org.fundacionparaguaya.pspserver.surveys.validation.MultipleSchemaValidator.all;
-import static py.org.fundacionparaguaya.pspserver.surveys.validation.PropertyValidator.validType;
-import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.markedAsRequired;
-import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.presentInSchema;
-import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.requiredValue;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Service;
-
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
@@ -45,6 +28,24 @@ import py.org.fundacionparaguaya.pspserver.surveys.validation.MultipleSchemaVali
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResult;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationSupport;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.SurveyOrganizationSpecification.byApplication;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.SurveyOrganizationSpecification.byOrganization;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.SurveyOrganizationSpecification.lastModifiedGt;
+import static py.org.fundacionparaguaya.pspserver.surveys.validation.MultipleSchemaValidator.all;
+import static py.org.fundacionparaguaya.pspserver.surveys.validation.PropertyValidator.validType;
+import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.markedAsRequired;
+import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.presentInSchema;
+import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.requiredValue;
 
 /**
  * Created by rodrigovillalba on 9/14/17.
@@ -227,6 +228,7 @@ public class SurveyServiceImpl implements SurveyService {
         try {
 
             Optional.ofNullable(repo.findOne(surveyId)).ifPresent(survey -> {
+                surveyOrganizationRepo.deleteBySurveyId(survey.getId());
                 repo.delete(survey);
             });
 
@@ -280,6 +282,7 @@ public class SurveyServiceImpl implements SurveyService {
                 }
             }
 
+            survey.setLastModifiedAt(LocalDateTime.now());
             return repo.save(survey);
         }).map(mapper::entityToDto).orElseThrow(
                 () -> new UnknownResourceException("Survey does not exist"));
@@ -287,7 +290,7 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public List<SurveyDefinition> listSurveys(UserDetailsDTO userDetails) {
+    public List<SurveyDefinition> listSurveys(UserDetailsDTO userDetails, String lastModifiedGt) {
 
         Long organizationId = Optional.ofNullable(userDetails.getOrganization())
                 .orElse(new OrganizationDTO()).getId();
@@ -302,7 +305,9 @@ public class SurveyServiceImpl implements SurveyService {
         List<SurveyDefinition> lista = mapper
                 .entityListToDtoList(surveyOrganizationRepo
                         .findAll(where(byApplication(applicationId))
-                                .and(byOrganization(organizationId)))
+                                .and(byOrganization(organizationId))
+                                .and(lastModifiedGt(lastModifiedGt))
+                        )
                         .stream().map(e -> e.getSurvey())
                         .collect(Collectors.toList()));
 

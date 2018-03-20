@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.surveys.entities;
+package py.org.fundacionparaguaya.pspserver.common.entities;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

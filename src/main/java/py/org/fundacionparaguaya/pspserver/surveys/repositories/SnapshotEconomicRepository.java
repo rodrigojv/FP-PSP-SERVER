@@ -1,14 +1,14 @@
 package py.org.fundacionparaguaya.pspserver.surveys.repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-
-import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 
 /**
  * Created by rodrigovillalba on 10/19/17.
@@ -29,4 +29,5 @@ public interface SnapshotEconomicRepository
 
     List<SnapshotEconomicEntity> findDistinctFamilyByUserId(Long userId);
 
+    SnapshotEconomicEntity findBySnapshotIndicator(SnapshotIndicatorEntity indicator);
 }

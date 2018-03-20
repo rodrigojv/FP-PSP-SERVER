@@ -19,4 +19,6 @@ public interface SurveyOrganizationRepository
     List<SurveyOrganizationEntity> findBySurveyIdAndApplicationIdAndOrganizationId(
             Long surveyId, Long applicationId, Long organizationId);
 
+    void deleteBySurveyId(Long surveyId);
+
 }

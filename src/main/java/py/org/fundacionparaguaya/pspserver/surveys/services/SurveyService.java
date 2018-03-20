@@ -26,5 +26,5 @@ public interface SurveyService {
     SurveyDefinition updateSurvey(Long surveyId,
             SurveyDefinition surveyDefinition);
 
-    List<SurveyDefinition> listSurveys(UserDetailsDTO details);
+    List<SurveyDefinition> listSurveys(UserDetailsDTO details, String lastModifiedGt);
 }

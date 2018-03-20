@@ -1,6 +1,28 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
+import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
+import py.org.fundacionparaguaya.pspserver.surveys.services.SurveySnapshotsManager;
+import py.org.fundacionparaguaya.pspserver.util.TestHelper;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -17,28 +39,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import org.springframework.restdocs.payload.FieldDescriptor;
-import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
-import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
-import py.org.fundacionparaguaya.pspserver.surveys.services.SurveySnapshotsManager;
-import py.org.fundacionparaguaya.pspserver.util.TestHelper;
-
 /**
  * Created by rodrigovillalba on 11/3/17.
  */
@@ -50,6 +50,7 @@ public class SurveyControllerTest {
 
     private static final Long SURVEY_ID = 1L;
     private static final String SURVEY_DEFAULTS = "/survey_defaults.json";
+    public static final String LAST_MODIFIED = "2018-03-16T15:30";
 
     @Autowired
     private MockMvc mockMvc;
@@ -66,12 +67,26 @@ public class SurveyControllerTest {
     @Test
     public void shouldGetAllSurveys() throws Exception {
         List<SurveyDefinition> surveyDefinitions = surveyList();
-        when(surveyService.listSurveys(anyObject()))
+        when(surveyService.listSurveys(anyObject(), anyString()))
                 .thenReturn(surveyDefinitions);
 
         this.mockMvc.perform(get("/api/v1/surveys")).andDo(print())
                 .andExpect(status().isOk())
                 .andDo(document("surveys-list",
+                        preprocessResponse(prettyPrint()),
+                        responseFields(surveys)));
+    }
+
+    @Test
+    public void shouldGetSurveysByLastModfiedGtThan() throws Exception {
+        List<SurveyDefinition> surveyDefinitions = surveyList();
+        when(surveyService.listSurveys(anyObject(), eq(LAST_MODIFIED)))
+                .thenReturn(surveyDefinitions);
+
+        this.mockMvc.perform(get("/api/v1/surveys").param("last_modified_gt", LAST_MODIFIED)).andDo(print())
+                .andExpect(status().isOk())
+                .andDo(document("surveys-by-last_modified_gt",
+                        preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         responseFields(surveys)));
     }
@@ -179,5 +194,7 @@ public class SurveyControllerTest {
             fieldWithPath("[].organizations").type(JsonFieldType.ARRAY)
                     .description("The list of organizations"),
             fieldWithPath("[].applications").type(JsonFieldType.ARRAY)
-                    .description("The list of applications"), };
+                    .description("The list of applications"),
+            fieldWithPath("[].applications").type(JsonFieldType.ARRAY)
+                    .description("The list of applications")};
 }

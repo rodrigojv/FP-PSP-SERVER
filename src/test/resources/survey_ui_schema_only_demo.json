@@ -11,12 +11,6 @@
       "drinkingWaterAccess" : {
         "ui:field": "gallery"
       },
-      "nearbyHealthPost" : {
-        "ui:field": "gallery"
-      },
-      "alimentation" : {
-        "ui:field": "gallery"
-      },
       "garbageDisposal" : {
         "ui:field": "gallery"
       },
@@ -26,19 +20,7 @@
       "safeBathroom" : {
         "ui:field": "gallery"
       },
-      "electricityAccess" : {
-        "ui:field": "gallery"
-      },
-      "refrigerator" : {
-        "ui:field": "gallery"
-      },
       "separateBed" : {
-        "ui:field": "gallery"
-      },
-      "separateBedrooms" : {
-        "ui:field": "gallery"
-      },
-      "properKitchen" : {
         "ui:field": "gallery"
       },
       "phone" : {
@@ -48,27 +30,6 @@
         "ui:field": "gallery"
       },
       "readAndWrite" : {
-        "ui:field": "gallery"
-      },
-      "middleEducation" : {
-        "ui:field": "gallery"
-      },
-      "socialCapital" : {
-        "ui:field": "gallery"
-      },
-      "informationAccess" : {
-        "ui:field": "gallery"
-      },
-      "influenceInPublicSector" : {
-        "ui:field": "gallery"
-      },
-      "awarenessOfNeeds" : {
-        "ui:field": "gallery"
-      },
-      "selfEsteem" : {
-        "ui:field": "gallery"
-      },
-      "autonomyDecisions" : {
         "ui:field": "gallery"
       },
       "terereConsumption" : {
@@ -115,51 +76,18 @@
   	"countryOfBirth",
   	"gender",
   	"phoneNumber",
-    "currency",
-    "areaOfResidence",
-    "employmentStatusPrimary",
-    "activityMain",
-    "employmentStatusSecondary",
-    "activitySecondary",
-    "householdMonthlyIncome",
-    "salaryIncome",
-    "benefitIncome",
-    "pensionIncome",
-    "savingsIncome",
-    "otherIncome",
-    "householdMonthlyOutgoing",
-    "netSuplus",
-    "educationClientLevel",
-    "educationPersonMostStudied",
-    "educationLevelAttained",
-    "housingSituation",
-    "otherUsefulInfo",
-    "familyCountry",
-    "familyCity",
-    "familyUbication",
+
+
     "income",
     "documentation",
     "drinkingWaterAccess",
-    "nearbyHealthPost",
-    "alimentation",
     "garbageDisposal",
     "safeHouse",
     "safeBathroom",
-    "electricityAccess",
-    "refrigerator",
     "separateBed",
-    "separateBedrooms",
-    "properKitchen",
     "phone",
     "security",
-    "readAndWrite",
-    "middleEducation",
-    "socialCapital",
-    "informationAccess",
-    "influenceInPublicSector",
-    "awarenessOfNeeds",
-    "selfEsteem",
-    "autonomyDecisions"
+    "readAndWrite"
   ],
 
   "ui:group:personal": [
@@ -202,25 +130,12 @@
     "income",
     "documentation",
     "drinkingWaterAccess",
-    "nearbyHealthPost",
-    "alimentation",
     "garbageDisposal",
     "safeHouse",
     "safeBathroom",
-    "electricityAccess",
-    "refrigerator",
     "separateBed",
-    "separateBedrooms",
-    "properKitchen",
     "phone",
     "security",
-    "readAndWrite",
-    "middleEducation",
-    "socialCapital",
-    "informationAccess",
-    "influenceInPublicSector",
-    "awarenessOfNeeds",
-    "selfEsteem",
-    "autonomyDecisions"
+    "readAndWrite"
   ]
 }

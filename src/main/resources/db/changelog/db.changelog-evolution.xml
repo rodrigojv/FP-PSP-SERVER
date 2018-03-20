@@ -288,5 +288,10 @@
         <sqlFile path="sql/2018-03-06T09:10.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!--Add last_modified_at column to surveys and families table-->
+    <changeSet id="2018-03-13T15:00" author="rvillalba">
+        <sqlFile path="sql/2018-03-13T15:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
 

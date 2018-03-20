@@ -1,5 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.families.services;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
@@ -12,6 +14,9 @@ import java.util.List;
 public interface FamilyService {
 
     FamilyDTO updateFamily(Long familyId, FamilyDTO familyDTO);
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    FamilyDTO updateFamilyAsync(Long familyId);
 
     FamilyDTO addFamily(FamilyDTO familyDTO);
 
@@ -41,4 +46,5 @@ public interface FamilyService {
     List<FamilyDTO> listDistinctFamiliesSnapshotByUser(UserDetailsDTO details,
             String name);
 
+    FamilyDTO updateFamily(Long familyId);
 }

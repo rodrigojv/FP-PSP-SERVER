@@ -8,7 +8,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
@@ -139,7 +138,10 @@ public class OrganizationServiceImpl implements OrganizationService {
                 .orElse(new ApplicationDTO())
                 .getId();
 
-        FamilyFilterDTO filter = new FamilyFilterDTO(applicationId, dto.getId());
+        FamilyFilterDTO filter = FamilyFilterDTO.builder()
+                .applicationId(applicationId)
+                .organizationId(dto.getId())
+                .build();
 
         DashboardDTO dashboard = DashboardDTO.of(
                 familyService.countFamiliesByFilter(filter), null,

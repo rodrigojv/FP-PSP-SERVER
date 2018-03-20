@@ -1,7 +1,10 @@
 package py.org.fundacionparaguaya.pspserver.network.specifications;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.data.jpa.domain.Specification;
+import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.SurveyOrganizationEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.SurveyOrganizationEntity_;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -9,13 +12,10 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.springframework.data.jpa.domain.Specification;
-
-import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
-import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
-import py.org.fundacionparaguaya.pspserver.network.entities.SurveyOrganizationEntity;
-import py.org.fundacionparaguaya.pspserver.network.entities.SurveyOrganizationEntity_;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -48,6 +48,7 @@ public class SurveyOrganizationSpecification {
         };
     }
 
+
     public static Specification<SurveyOrganizationEntity> byOrganization(
             Long organizationId) {
         return new Specification<SurveyOrganizationEntity>() {
@@ -66,6 +67,22 @@ public class SurveyOrganizationSpecification {
                 return cb.and(
                         predicates.toArray(new Predicate[predicates.size()]));
             }
+        };
+    }
+
+    public static Specification<SurveyOrganizationEntity> lastModifiedGt(String lastModifiedGt) {
+        return Optional.ofNullable(lastModifiedGt)
+                .map(notNullDate -> buildLastModifiedGt(notNullDate))
+                .orElse(null);
+    }
+
+    private static Specification<SurveyOrganizationEntity> buildLastModifiedGt(String lastModifiedGt) {
+        return (Root<SurveyOrganizationEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
+            LocalDateTime dateTimeParam = LocalDateTime.parse(lastModifiedGt);
+            Expression<LocalDateTime> lastModifiedAtJoinExp = root
+                    .join(SurveyOrganizationEntity_.getSurvey())
+                    .get("lastModifiedAt");
+            return cb.greaterThan(lastModifiedAtJoinExp, dateTimeParam);
         };
     }
 

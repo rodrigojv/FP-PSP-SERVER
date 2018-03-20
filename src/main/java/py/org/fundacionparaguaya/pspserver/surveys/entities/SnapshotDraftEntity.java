@@ -19,6 +19,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
+import py.org.fundacionparaguaya.pspserver.common.entities.LocalDateTimeConverter;
 import py.org.fundacionparaguaya.pspserver.security.entities.TermCondPolEntity;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;

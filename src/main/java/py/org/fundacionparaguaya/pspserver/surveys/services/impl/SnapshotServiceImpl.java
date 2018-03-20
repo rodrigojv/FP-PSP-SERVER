@@ -111,6 +111,9 @@ public class SnapshotServiceImpl implements SnapshotService {
         SnapshotEconomicEntity snapshotEconomicEntity = saveEconomic(snapshot,
                 indicatorEntity, family);
 
+
+        familyService.updateFamily(family.getFamilyId());
+
         return economicMapper.entityToDto(snapshotEconomicEntity);
     }
 
@@ -130,7 +133,8 @@ public class SnapshotServiceImpl implements SnapshotService {
         return economicRepository.findAll(
                 where(SnapshotEconomicSpecification.forSurvey(surveyId))
                         .and(SnapshotEconomicSpecification.forFamily(familyId)))
-                .stream().map(economicMapper::entityToDto)
+                .stream()
+                .map(economicMapper::entityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -222,7 +226,8 @@ public class SnapshotServiceImpl implements SnapshotService {
             Long familyId) {
         List<SnapshotIndicators> toRet = new ArrayList<>();
         List<SnapshotEconomicEntity> originalSnapshots = economicRepository
-                .findByFamilyFamilyId(familyId).stream()
+                .findByFamilyFamilyId(familyId)
+                .stream()
                 .collect(Collectors.toList());
 
         for (SnapshotEconomicEntity os : originalSnapshots) {
