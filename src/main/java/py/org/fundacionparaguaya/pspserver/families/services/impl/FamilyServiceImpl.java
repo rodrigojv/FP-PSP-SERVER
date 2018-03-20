@@ -108,7 +108,6 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public FamilyDTO updateFamily(Long familyId) {
 
         checkArgument(familyId > 0,
@@ -125,6 +124,12 @@ public class FamilyServiceImpl implements FamilyService {
                 .map(familyMapper::entityToDto)
                 .orElseThrow(() ->
                         new UnknownResourceException(i18n.translate("family.notExist")));
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public FamilyDTO updateFamilyAsync(Long familyId) {
+        return this.updateFamily(familyId);
     }
 
     @Override

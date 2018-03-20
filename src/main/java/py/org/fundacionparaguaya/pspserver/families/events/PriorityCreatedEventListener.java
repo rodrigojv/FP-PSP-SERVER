@@ -38,7 +38,7 @@ public class PriorityCreatedEventListener {
     }
 
     private void updateFamily(FamilyEntity familyEntity) {
-        familyService.updateFamily(familyEntity.getFamilyId());
+        familyService.updateFamilyAsync(familyEntity.getFamilyId());
     }
 
     private Optional<FamilyEntity> getFamilyFromEvent(PriorityCreatedEvent event) {
