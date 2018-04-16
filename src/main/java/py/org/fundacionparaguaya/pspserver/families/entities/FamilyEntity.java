@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
+import py.org.fundacionparaguaya.pspserver.network.constants.Status;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.common.entities.LocalDateTimeConverter;
@@ -30,17 +31,12 @@ import java.time.format.DateTimeFormatter;
 public class FamilyEntity extends BaseEntity {
 
     @Id
-    @GenericGenerator(name = "familySequenceGenerator",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @Parameter(name = SequenceStyleGenerator.SCHEMA,
-                            value = "ps_families"),
-                    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM,
-                    value = "family_family_id_seq"),
-                    @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM,
-                    value = "1"),
-                    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM,
-                    value = "1") })
+    @GenericGenerator(name = "familySequenceGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+    parameters = {
+            @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "ps_families"),
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "family_family_id_seq"),
+            @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(generator = "familySequenceGenerator")
     @Column(name = "family_id")
     private Long familyId;
@@ -79,6 +75,8 @@ public class FamilyEntity extends BaseEntity {
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime lastModifiedAt;
 
+    @Column(name = "image_url")
+    private String imageURL;
 
     public FamilyEntity() {
     };
@@ -186,11 +184,18 @@ public class FamilyEntity extends BaseEntity {
         this.lastModifiedAt = lastModifiedAt;
     }
 
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
     @PrePersist
     public void preSave() {
         this.lastModifiedAt = LocalDateTime.now();
     }
-
 
     @Transient
     public String getLastModifiedAtAsISOString() {
@@ -219,20 +224,20 @@ public class FamilyEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("familyId", familyId)
-                .add("name", name)
-                .add("code", code)
-                .add("country", country)
-                .add("city", city)
-                .add("locationType", locationType)
-                .add("locationPositionGps", locationPositionGps)
-                .add("person", person)
-                .add("application", application)
-                .add("organization", organization)
-                .add("isActive", isActive)
-                .add("lastModifiedAt", lastModifiedAt)
+        return MoreObjects.toStringHelper(this).add("familyId", familyId).add("name", name).add("code", code)
+                .add("country", country).add("city", city).add("locationType", locationType)
+                .add("locationPositionGps", locationPositionGps).add("person", person).add("application", application)
+                .add("organization", organization).add("isActive", isActive).add("lastModifiedAt", lastModifiedAt)
                 .toString();
+    }
+
+    @Transient
+    public Enum<Status> getStatus() {
+        if (isActive) {
+            return Status.ACTIVE;
+        } else {
+            return Status.INACTIVE;
+        }
     }
 
 }

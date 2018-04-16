@@ -1,6 +1,8 @@
 package py.org.fundacionparaguaya.pspserver.surveys.specifications;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,28 +22,43 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEnti
  */
 public class SnapshotEconomicSpecification {
 
+    private static final String SHORT_DATE_FORMAT = "dd/MM/yyyy";
+
     private static final long MONTH_AGO = 2;
 
     private SnapshotEconomicSpecification() {
         // not called
     }
 
-    public static Specification<SnapshotEconomicEntity> byApplication(
-            Long applicationId) {
+    public static Specification<SnapshotEconomicEntity> byApplication(Long applicationId) {
         return new Specification<SnapshotEconomicEntity>() {
             @Override
-            public Predicate toPredicate(Root<SnapshotEconomicEntity> root,
-                    CriteriaQuery<?> query, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<SnapshotEconomicEntity> root, CriteriaQuery<?> query,
+                    CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
 
                 if (applicationId != null) {
-                    predicates.add(cb.equal(
-                            root.join("family").join("application").get("id"),
-                            applicationId));
+                    predicates.add(cb.equal(root.join("family").join("application").get("id"), applicationId));
+
                 }
 
-                return cb.and(
-                        predicates.toArray(new Predicate[predicates.size()]));
+                return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+    }
+
+    public static Specification<SnapshotEconomicEntity> byOrganization(Long organizationId) {
+        return new Specification<SnapshotEconomicEntity>() {
+            @Override
+            public Predicate toPredicate(Root<SnapshotEconomicEntity> root, CriteriaQuery<?> query,
+                    CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+
+                if (organizationId != null) {
+                    predicates.add(cb.equal(root.join("family").join("organization").get("id"), organizationId));
+                }
+
+                return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             }
         };
     }
@@ -49,23 +66,40 @@ public class SnapshotEconomicSpecification {
     public static Specification<SnapshotEconomicEntity> createdAtLess2Months() {
         return new Specification<SnapshotEconomicEntity>() {
             @Override
-            public Predicate toPredicate(Root<SnapshotEconomicEntity> root,
-                    CriteriaQuery<?> query, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<SnapshotEconomicEntity> root, CriteriaQuery<?> query,
+                    CriteriaBuilder cb) {
 
                 LocalDateTime limit = LocalDateTime.now();
                 limit = limit.minusMonths(MONTH_AGO).withDayOfMonth(1);
 
-                return cb.and(cb.greaterThan(
-                        root.<LocalDateTime>get(
-                                SnapshotEconomicEntity_.getCreatedAt()),
-                        limit));
+                return cb.and(cb.greaterThan(root.<LocalDateTime>get(SnapshotEconomicEntity_.getCreatedAt()), limit));
 
             }
         };
     }
 
-    public static Specification<SnapshotEconomicEntity> forFamily(
-            Long familyId) {
+    public static Specification<SnapshotEconomicEntity> createdAtBetween2Dates(String dateFrom, String dateTo) {
+        return new Specification<SnapshotEconomicEntity>() {
+            @Override
+            public Predicate toPredicate(Root<SnapshotEconomicEntity> root, CriteriaQuery<?> query,
+                    CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+
+                if (dateFrom != null && dateTo != null) {
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(SHORT_DATE_FORMAT);
+
+                    predicates.add(cb.greaterThanOrEqualTo(root.get(SnapshotEconomicEntity_.getCreatedAt()),
+                            LocalDate.parse(dateFrom, formatter).atStartOfDay()));
+                    predicates.add(cb.lessThan(root.get(SnapshotEconomicEntity_.getCreatedAt()),
+                            LocalDate.parse(dateTo, formatter).plusDays(1).atStartOfDay()));
+                }
+                return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+    }
+
+    public static Specification<SnapshotEconomicEntity> forFamily(Long familyId) {
         return (root, query, cb) -> {
             if (familyId == null) {
                 return null;
@@ -74,8 +108,7 @@ public class SnapshotEconomicSpecification {
         };
     }
 
-    public static Specification<SnapshotEconomicEntity> forSurvey(
-            Long surveyId) {
+    public static Specification<SnapshotEconomicEntity> forSurvey(Long surveyId) {
         return (root, query, cb) -> {
             if (surveyId == null) {
                 return null;

@@ -23,7 +23,6 @@ import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -41,7 +40,7 @@ public class OrganizationController {
 
     @PostMapping()
     public ResponseEntity<OrganizationDTO> addOrganization(@Valid @RequestBody OrganizationDTO organizationDTO)
-                                                                        throws URISyntaxException, IOException {
+                                                                                    throws URISyntaxException {
         OrganizationDTO result = organizationService.addOrganization(organizationDTO);
         return ResponseEntity
                 .created(new URI("/api/v1/organizations/" + result.getId()))
@@ -67,9 +66,10 @@ public class OrganizationController {
                                 @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
                                 @RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
                                 @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
-                                @AuthenticationPrincipal UserDetailsDTO details) {
+                                @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
+                                @AuthenticationPrincipal UserDetailsDTO userDetails) {
         PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
-        Page<OrganizationDTO> pageProperties = organizationService.listOrganizations(pageRequest, details);
+        Page<OrganizationDTO> pageProperties = organizationService.listOrganizations(userDetails, filter, pageRequest);
         PaginableList<OrganizationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
         return ResponseEntity.ok(response);
     }
@@ -87,10 +87,10 @@ public class OrganizationController {
     }
 
     @DeleteMapping("/{organizationId}")
-    public ResponseEntity<Void> deleteOrganization(@PathVariable("organizationId") Long organizationId) {
+    public ResponseEntity<OrganizationDTO> deleteOrganization(@PathVariable("organizationId") Long organizationId) {
         LOG.debug("REST request to delete Organization: {}", organizationId);
-        organizationService.deleteOrganization(organizationId);
-        return ResponseEntity.ok().build();
+        OrganizationDTO dto = organizationService.deleteOrganization(organizationId);
+        return ResponseEntity.accepted().body(dto);
     }
 
     @GetMapping("/dashboard")

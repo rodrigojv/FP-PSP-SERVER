@@ -13,162 +13,153 @@ import javax.persistence.*;
 @Table(name = "applications", schema = "ps_network")
 public class ApplicationEntity {
 
-	@Id
-	@GenericGenerator(
-			name = "applicationsSequenceGenerator",
-			strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-			parameters = {
-					@Parameter(name = SequenceStyleGenerator.SCHEMA, value = "ps_network"),
-					@Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "applications_id_seq"),
-					@Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
-					@Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1")
-			}
-	)
-	@GeneratedValue(generator = "applicationsSequenceGenerator")
-	@Column(name = "id")
-	private Long id;
+    @Id
+    @GenericGenerator(name = "applicationsSequenceGenerator",
+    strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+            @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "ps_network"),
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "applications_id_seq"),
+            @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+            @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(generator = "applicationsSequenceGenerator")
+    @Column(name = "id")
+    private Long id;
 
-	private String name;
+    private String name;
 
-	private String code;
+    private String code;
 
-	private String description;
+    private String description;
 
-	private boolean isActive;
+    private boolean isActive;
 
-	@ManyToOne(targetEntity = CountryEntity.class)
-	@JoinColumn(name = "country")
-	private CountryEntity country;
+    @ManyToOne(targetEntity = CountryEntity.class)
+    @JoinColumn(name = "country")
+    private CountryEntity country;
 
-	@ManyToOne(targetEntity = CityEntity.class)
-	@JoinColumn(name = "city")
-	private CityEntity city;
+    @ManyToOne(targetEntity = CityEntity.class)
+    @JoinColumn(name = "city")
+    private CityEntity city;
 
-	private String information;
+    private String information;
 
-	private boolean isHub;
+    private boolean isHub;
 
-	private boolean isPartner;
+    private boolean isPartner;
 
-	private String logoUrl;
+    private String logoUrl;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public boolean isActive() {
-		return isActive;
-	}
+    public boolean isActive() {
+        return isActive;
+    }
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
 
-	public CountryEntity getCountry() {
-		return country;
-	}
+    public CountryEntity getCountry() {
+        return country;
+    }
 
-	public void setCountry(CountryEntity country) {
-		this.country = country;
-	}
+    public void setCountry(CountryEntity country) {
+        this.country = country;
+    }
 
-	public CityEntity getCity() {
-		return city;
-	}
+    public CityEntity getCity() {
+        return city;
+    }
 
-	public void setCity(CityEntity city) {
-		this.city = city;
-	}
+    public void setCity(CityEntity city) {
+        this.city = city;
+    }
 
-	public String getInformation() {
-		return information;
-	}
+    public String getInformation() {
+        return information;
+    }
 
-	public void setInformation(String information) {
-		this.information = information;
-	}
+    public void setInformation(String information) {
+        this.information = information;
+    }
 
-	public boolean isHub() {
-		return isHub;
-	}
+    public boolean isHub() {
+        return isHub;
+    }
 
-	public void setHub(boolean isHub) {
-		this.isHub = isHub;
-	}
+    public void setHub(boolean isHub) {
+        this.isHub = isHub;
+    }
 
-	public boolean isPartner() {
-		return isPartner;
-	}
+    public boolean isPartner() {
+        return isPartner;
+    }
 
-	public void setDirect(boolean isOrganization) {
-		this.isPartner = isOrganization;
-	}
+    public void setDirect(boolean isOrganization) {
+        this.isPartner = isOrganization;
+    }
 
-	public String getLogoUrl() {
-		return logoUrl;
-	}
+    public String getLogoUrl() {
+        return logoUrl;
+    }
 
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-	}
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (id == null || obj == null || getClass() != obj.getClass())
-			return false;
-		ApplicationEntity toCompare = (ApplicationEntity) obj;
-		return id.equals(toCompare.id);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (id == null || obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        ApplicationEntity toCompare = (ApplicationEntity) obj;
+        return id.equals(toCompare.id);
+    }
 
-	@Override
-	public int hashCode() {
-		return id == null ? 0 : id.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return id == null ? 0 : id.hashCode();
+    }
 
-	@Override
-	public String toString() {
-		return MoreObjects.toStringHelper(this)
-				.add("id", id)
-				.add("name", name)
-				.add("code", code)
-				.add("description", description)
-				.add("isActive", isActive)
-				.add("country", country.toString())
-				.add("city", city.toString())
-				.add("information", information)
-				.add("isHub", isHub)
-				.add("isPartner", isPartner)
-				.add("logoUrl", logoUrl)
-				.toString();
-	}
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this).add("id", id).add("name", name)
+                .add("code", code).add("description", description)
+                .add("isActive", isActive).add("country", country.toString())
+                .add("city", city.toString()).add("information", information)
+                .add("isHub", isHub).add("isPartner", isPartner)
+                .add("logoUrl", logoUrl).toString();
+    }
 }

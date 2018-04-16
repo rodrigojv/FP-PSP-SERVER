@@ -3,6 +3,7 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
+import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleApplicationDTO;
@@ -24,6 +26,7 @@ import py.org.fundacionparaguaya.pspserver.security.services.UserService;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.Principal;
 
 @RestController
 @RequestMapping(value = "/api/v1/users")
@@ -58,8 +61,9 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable("userId") long userId, @RequestBody UserDTO userDTO) {
-        UserDTO result = userService.updateUser(userId, userDTO);
+    public ResponseEntity<UserDTO> updateUser(@PathVariable("userId") long userId, @RequestBody UserDTO userDTO,
+                                              Principal principal) {
+        UserDTO result = userService.updateUserByRequest(userId, userDTO, principal.getName());
         return ResponseEntity.ok(result);
     }
 
@@ -75,8 +79,10 @@ public class UserController {
                             @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
                             @RequestParam(value = "sort_by", required = false, defaultValue = "username") String sortBy,
                             @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
+                            @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
                             @AuthenticationPrincipal UserDetailsDTO userDetails) {
-        Page<UserDTO> pageProperties = userService.listUsers(page, perPage, orderBy, sortBy, userDetails);
+        PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, "user." + sortBy);
+        Page<UserDTO> pageProperties = userService.listUsers(userDetails, filter, pageRequest);
         PaginableList<UserDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
 
         return ResponseEntity.ok(response);

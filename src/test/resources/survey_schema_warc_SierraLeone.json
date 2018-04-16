@@ -1,0 +1,2972 @@
+{
+	"title": "Stoplight survey. Sierra Leone, WARC group",
+	"description": "Poverty stoplight survey for Sierra Leone WARC group",
+	"type": "object",
+	"required": [
+		"firstName",
+		"lastName",
+		"birthdate",
+		"countryOfBirth"
+
+	],
+	"properties": {
+
+		"firstName": {
+			"type": "string",
+			"title": {
+				"es": "Please, insert your name"
+			},
+			"default": ""
+		},
+
+		"lastName": {
+			"type": "string",
+			"title": {
+				"es": "Please insert your surname"
+			},
+			"default": ""
+		},
+
+		"birthdate": {
+			"type": "string",
+			"format": "date",
+			"title": {
+				"es": "Please select your date of birth"
+			}
+		},
+
+		"countryOfBirth": {
+			"type": "string",
+			"title": {
+				"es": "Please select your country of birth"
+			},
+			"enum": [
+				"AF",
+				"AL",
+				"DZ",
+				"AS",
+				"AD",
+				"AO",
+				"AQ",
+				"AR",
+				"AM",
+				"AW",
+				"AU",
+				"AT",
+				"AZ",
+				"BS",
+				"BH",
+				"BD",
+				"BB",
+				"BY",
+				"BE",
+				"BZ",
+				"BJ",
+				"BM",
+				"BT",
+				"BO",
+				"BA",
+				"BW",
+				"BV",
+				"BR",
+				"IO",
+				"VG",
+				"BN",
+				"BG",
+				"BF",
+				"BI",
+				"KH",
+				"CM",
+				"CV",
+				"KY",
+				"CF",
+				"TD",
+				"CL",
+				"CN",
+				"CX",
+				"CC",
+				"CO",
+				"KM",
+				"CG",
+				"CK",
+				"CR",
+				"HR",
+				"CU",
+				"CY",
+				"CZ",
+				"DK",
+				"DJ",
+				"DM",
+				"DO",
+				"EC",
+				"AI",
+				"EG",
+				"GQ",
+				"ER",
+				"EE",
+				"ET",
+				"FK",
+				"FO",
+				"FJ",
+				"FI",
+				"FR",
+				"GF",
+				"PF",
+				"TF",
+				"GA",
+				"GM",
+				"GE",
+				"DE",
+				"GH",
+				"GI",
+				"CA",
+				"GR",
+				"GL",
+				"GP",
+				"GU",
+				"GT",
+				"GG",
+				"GY",
+				"GN",
+				"GW",
+				"HT",
+				"HM",
+				"HN",
+				"HK",
+				"HU",
+				"IS",
+				"IN",
+				"ID",
+				"IR",
+				"IQ",
+				"IE",
+				"AX",
+				"IM",
+				"IL",
+				"IT",
+				"CI",
+				"JM",
+				"JP",
+				"JO",
+				"KZ",
+				"KE",
+				"KI",
+				"KW",
+				"KG",
+				"LA",
+				"LV",
+				"LB",
+				"LS",
+				"LR",
+				"LY",
+				"LI",
+				"LT",
+				"LU",
+				"MO",
+				"MK",
+				"MG",
+				"MW",
+				"MY",
+				"MV",
+				"ML",
+				"MT",
+				"MH",
+				"MQ",
+				"MU",
+				"MR",
+				"YT",
+				"RE",
+				"MX",
+				"FM",
+				"MD",
+				"MC",
+				"MN",
+				"ME",
+				"MS",
+				"MA",
+				"MZ",
+				"MM",
+				"NA",
+				"NR",
+				"NP",
+				"NL",
+				"AN",
+				"NC",
+				"NZ",
+				"NI",
+				"NE",
+				"NG",
+				"NU",
+				"NF",
+				"KP",
+				"NO",
+				"EH",
+				"AG",
+				"OM",
+				"PK",
+				"PW",
+				"PS",
+				"PA",
+				"PG",
+				"PY",
+				"PE",
+				"PH",
+				"PN",
+				"PL",
+				"GD",
+				"PT",
+				"PR",
+				"QA",
+				"RO",
+				"RU",
+				"RW",
+				"KN",
+				"PM",
+				"WS",
+				"BL",
+				"SM",
+				"ST",
+				"SA",
+				"SN",
+				"RS",
+				"SC",
+				"SL",
+				"SG",
+				"SK",
+				"SI",
+				"SB",
+				"SO",
+				"ZA",
+				"GS",
+				"KR",
+				"ES",
+				"LK",
+				"SH",
+				"LC",
+				"VC",
+				"SD",
+				"SR",
+				"SJ",
+				"SZ",
+				"JE",
+				"SE",
+				"CH",
+				"SY",
+				"TW",
+				"TJ",
+				"TH",
+				"TH",
+				"SV",
+				"TL",
+				"TG",
+				"TK",
+				"TO",
+				"TT",
+				"TN",
+				"TR",
+				"TM",
+				"TC",
+				"TV",
+				"UG",
+				"UA",
+				"AE",
+				"GB",
+				"US",
+				"UY",
+				"UZ",
+				"VU",
+				"VA",
+				"VE",
+				"VN",
+				"VI",
+				"WF",
+				"YE"
+			],
+			"enumNames": [
+				"Afghanistan",
+				"Albania",
+				"Algiers",
+				"American Samoa",
+				"Andorra",
+				"Angola",
+				"Antarctica",
+				"Argentina",
+				"Armenia",
+				"Aruba",
+				"Australia",
+				"Austria",
+				"Azerbaijan",
+				"Bahamas",
+				"Bahrain",
+				"Bangladesh",
+				"Barbados",
+				"Belarus",
+				"Belgium",
+				"Belize",
+				"Benin",
+				"Bermuda",
+				"Bhutan",
+				"Bolivia",
+				"Bosnia and Herzegovina",
+				"Botswana",
+				"Bouvet Island",
+				"Brazil",
+				"British Indian Ocean Territory",
+				"British Virgin Islands",
+				"Brunei",
+				"Bulgaria",
+				"Burkina Faso",
+				"Burundi",
+				"Cambodia",
+				"Cameroon",
+				"Cape Verde",
+				"Cayman Islands",
+				"Central African Republic",
+				"Chad",
+				"Chile",
+				"China",
+				"Christmas Islands",
+				"Cocos Islands",
+				"Colombia",
+				"Comoros",
+				"Congo",
+				"Cook Islands",
+				"Costa Rica",
+				"Croatia",
+				"Cuba",
+				"Cyprus",
+				"Czech Republic",
+				"Denmark",
+				"Djibouti",
+				"Domínica",
+				"Dominican Republic",
+				"Ecuador",
+				"Eel",
+				"Egypt",
+				"Equatorial Guinea",
+				"Eritrea",
+				"Estonia",
+				"Ethiopia",
+				"Falkland Islands",
+				"Faroe Islands",
+				"Fiji",
+				"Finland",
+				"France",
+				"French Guiana",
+				"French Polynesia",
+				"French Southern Territories",
+				"Gabon",
+				"Gambia",
+				"Georgia",
+				"Germany",
+				"Ghana",
+				"Gibraltar",
+				"Glen",
+				"Greece",
+				"Greenland",
+				"Guadalupe",
+				"Guam",
+				"Guatemala",
+				"Guernsey",
+				"Guiana",
+				"Guinea",
+				"Guinea-Bissau",
+				"Haiti",
+				"Heard and McDonald Islands",
+				"Honduras",
+				"Hong Kong",
+				"Hungary",
+				"Iceland",
+				"India",
+				"Indonesia",
+				"Iran",
+				"Iraq",
+				"Ireland",
+				"Islas Áland",
+				"Isle of Man",
+				"Israel",
+				"Italy",
+				"Ivory Coast",
+				"Jamaica",
+				"Japan",
+				"Jordan",
+				"Kazakhstan",
+				"Kenya",
+				"Kiribati",
+				"Kuwait",
+				"Kyrgyzstan",
+				"Laos",
+				"Latvia",
+				"Lebanon",
+				"Lesotho",
+				"Liberia",
+				"Libya",
+				"Liechtenstein",
+				"Lithuania",
+				"Luxembourg",
+				"Macao",
+				"Macedonia",
+				"Madagascar",
+				"Malawi",
+				"Malaysia",
+				"Maldives",
+				"Mali",
+				"Malt",
+				"Marshall Islands",
+				"Martinique",
+				"Mauricio",
+				"Mauritania",
+				"Mayotte",
+				"Meeting",
+				"Mexico",
+				"Micronesia",
+				"Moldova",
+				"Monaco",
+				"Mongolia",
+				"Montenegro",
+				"Montserrat",
+				"Morocco",
+				"Mozambique",
+				"Myanmar",
+				"Namibia",
+				"Nauru",
+				"Nepal",
+				"Netherlands",
+				"Netherlands Antilles",
+				"New Caledonia",
+				"New Zealand",
+				"Nicaragua",
+				"Niger",
+				"Nigeria",
+				"Niue",
+				"Norkfolk Islands",
+				"North Korea",
+				"Norway",
+				"Occidental Sahara",
+				"Old and bearded",
+				"Oman",
+				"Pakistan",
+				"Palau Islands",
+				"Palestine",
+				"Panama",
+				"Papua New Guinea",
+				"Paraguay",
+				"Peru",
+				"Philippines",
+				"Pitcairn Islands",
+				"Poland",
+				"Pomegranate",
+				"Portugal",
+				"Puerto Rico",
+				"Qatar",
+				"Romania",
+				"Russia",
+				"Rwanda",
+				"Saint Kitts and Nevis",
+				"Saint Pierre and Miquelon",
+				"Samoa",
+				"San Bartolome",
+				"San Marino",
+				"Sao Tome and Principe",
+				"Saudi Arabia",
+				"Senegal",
+				"Serbia and Montenegro",
+				"Seychelles",
+				"Sierra Leone",
+				"Singapore",
+				"Slovakia",
+				"Slovenia",
+				"Solomon Islands",
+				"Somalia",
+				"South Africa",
+				"South Georgia and the South Sandwich Islands",
+				"South Korea",
+				"Spain",
+				"Sri Lanka",
+				"St. Helen",
+				"St. lucia",
+				"St. Vincent and the Grenadines",
+				"Sudan",
+				"Surinam",
+				"Svalbard and Jan Mayen Islands",
+				"Swaziland",
+				"Sweater",
+				"Sweden",
+				"Switzerland",
+				"Syria",
+				"Taiwan",
+				"Tajikistan",
+				"Tanzania",
+				"Thailand",
+				"The Savior",
+				"Timor-Leste",
+				"Togo",
+				"Tokelau",
+				"Tonga",
+				"Trinidad and Tobago",
+				"Tunisia",
+				"Turkey",
+				"Turkmenistan",
+				"Turks and Caicos Islands",
+				"Tuvalu",
+				"Uganda",
+				"Ukraine",
+				"United Arab Emirates",
+				"United Kingdom",
+				"United States of America",
+				"Uruguay",
+				"Uzbekistan",
+				"Vanuatu",
+				"Vatican CITY",
+				"Venezuela",
+				"Vietnam",
+				"Virgin Islands of the United States of America",
+				"Wallis and Futuna",
+				"Yemen"
+			],
+			"default": "SL"
+		},
+
+		"gender": {
+			"type": "string",
+			"title": {
+				"es": "Gender"
+			},
+			"enum": [
+				"F",
+				"M",
+				"O"
+			],
+			"enumNames": [
+				"Female",
+				"Male",
+				"Other or prefer not to disclose"
+			],
+			"default": "F"
+		},
+
+		"activityMain": {
+			"type": "string",
+			"title": {
+				"es": "Please select your main economic activity"
+			},
+			"enum": [
+				"CF",
+				"VF",
+				"TF",
+				"PT",
+				"LR",
+				"ES",
+				"DM",
+				"T",
+				"F",
+				"H",
+				"D",
+				"CL",
+				"S",
+				"O",
+				"N"
+			],
+			"enumNames": [
+				"CROP FARMING",
+				"VEGETABLE FARMING",
+				"TREE FARMING",
+				"PETTY TRADING",
+				"LIVESTOCK REARING",
+				"EMPLOYED FOR A SALARY/WAGE",
+				"DOMESTIC MAID",
+				"TEACHER",
+				"FISHING",
+				"HUNTING",
+				"DRIVER/MOTORBIKE RIDER",
+				"CASUAL LABOR",
+				"SERVICES",
+				"OTHER",
+				"NONE"
+			],
+			"default": "CF"
+
+		},
+
+		"activitySecondary": {
+			"type": "string",
+			"title": {
+				"es": "Please select your secondary economic activity"
+			},
+			"enum": [
+				"CF",
+				"VF",
+				"TF",
+				"PT",
+				"LR",
+				"ES",
+				"DM",
+				"T",
+				"F",
+				"H",
+				"D",
+				"CL",
+				"S",
+				"O",
+				"N"
+			],
+			"enumNames": [
+				"CROP FARMING",
+				"VEGETABLE FARMING",
+				"TREE FARMING",
+				"PETTY TRADING",
+				"LIVESTOCK REARING",
+				"EMPLOYED FOR A SALARY/WAGE",
+				"DOMESTIC MAID",
+				"TEACHER",
+				"FISHING",
+				"HUNTING",
+				"DRIVER/MOTORBIKE RIDER",
+				"CASUAL LABOR",
+				"SERVICES",
+				"OTHER",
+				"NONE"
+			],
+			"default": "CF"
+
+		},
+
+		"benefitIncome": {
+			"type": "number",
+			"title": {
+				"es": "Do I have a business that generates me income? How much (per month)?"
+			},
+			"default": 0
+		},
+
+		"salaryIncome": {
+			"type": "number",
+			"title": {
+				"es": "Do I have a monthly salary? How much?"
+			},
+			"default": 0
+		},
+
+		"otherMembersIncome": {
+			"type": "string",
+			"title": {
+				"es": "What are other members income?"
+			},
+			"default": ""
+		},
+
+		"otherMembersSalary": {
+			"type": "string",
+			"title": {
+				"es": "Do they have a salary? How much?"
+			},
+			"default": ""
+		},
+
+		"bussinessWeeklyIncome": {
+			"type": "string",
+			"title": {
+				"es": "Do they have business with weekly income?"
+			},
+			"default": ""
+		},
+
+		"cashBenefitsGovernment": {
+			"type": "string",
+			"title": {
+				"es": "Does my family receives cash benefits from the government?"
+			},
+			"default": ""
+		},
+
+		"situationHouse": {
+			"type": "string",
+			"title": {
+				"es": "What is the situation of my house?"
+			},
+			"enum": [
+				"OT",
+				"ONT",
+				"FP",
+				"R",
+				"S",
+				"B"
+			],
+			"enumNames": [
+				"OWN WITH TITLE",
+				"OWN NO TITLE",
+				"IN FAMILY PROPERTY",
+				"RENTED",
+				"SQUATTERS",
+				"BORROWED"
+			],
+			"default": "OT"
+
+		},
+
+		"memberDisability": {
+			"type": "string",
+			"title": {
+				"es": "In your house is there a member with a disability?"
+			},
+			"default": ""
+		},
+
+		"memberDiedBefore5": {
+			"type": "string",
+			"title": {
+				"es": "During the past five years, did any member of my family die before the age of 5?"
+			},
+			"enum": [
+				"YES",
+				"NO"
+			],
+			"enumNames": [
+				"Yes",
+				"No"
+			],
+			"default": "NO"
+		},
+
+		"familyWaterAccess": {
+			"type": "string",
+			"title": {
+				"es": "Does your family access water service with?"
+			},
+			"default": ""
+		},
+
+		"familyCar": {
+			"type": "string",
+			"title": {
+				"es": "Does your family have a car or truck?"
+			},
+			"enum": [
+				"YES",
+				"NO"
+			],
+			"enumNames": [
+				"Yes",
+				"No"
+			],
+			"default": "NO"
+		},
+
+		"educationalAttend": {
+			"type": "string",
+			"title": {
+				"es": "Are you currently attending school or an educational program?"
+			},
+			"default": ""
+		},
+
+		"currentLevelEducation": {
+			"type": "string",
+			"title": {
+				"es": "Current or maximum degree achieved"
+			},
+			"default": ""
+		},
+
+		"over15": {
+			"type": "number",
+			"title": {
+				"es": "How many people over 15 are there in your family?"
+			},
+			"default": 0
+		},
+
+		"over15HaveAjob": {
+			"type": "number",
+			"title": {
+				"es": "How many of those people over 15 have a job?"
+			},
+			"default": 0
+		},
+
+		"houseHoldWork": {
+			"type": "string",
+			"title": {
+				"es": "Do you work at least 30 hours a week?"
+			},
+			"enum": [
+				"YES",
+				"NO"
+			],
+			"enumNames": [
+				"Yes",
+				"No"
+			],
+			"default": "NO"
+		},
+
+		"houseHoldEarn": {
+			"type": "string",
+			"title": {
+				"es": "Do you earn at least the minimum wage?"
+			},
+			"enum": [
+				"YES",
+				"NO"
+			],
+			"enumNames": [
+				"Yes",
+				"No"
+			],
+			"default": "NO"
+		},
+
+		"houseHoldWorkMore": {
+			"type": "string",
+			"title": {
+				"es": "If you do not work or work less than 30 hours a week, would you like to work or work more?"
+			},
+			"enum": [
+				"YES",
+				"NO"
+			],
+			"enumNames": [
+				"Yes",
+				"No"
+			],
+			"default": "NO"
+		},
+
+		"partnerWorks": {
+			"type": "string",
+			"title": {
+				"es": "Does your partner work at least 30 hours a week?"
+			},
+			"enum": [
+				"YES",
+				"NO",
+				"NA"
+			],
+			"enumNames": [
+				"Yes",
+				"No",
+				"Not applicable"
+			],
+			"default": "NO"
+		},
+
+		"partnerEarns": {
+			"type": "string",
+			"title": {
+				"es": "Does your partner earn at least the minimum wage? "
+			},
+			"enum": [
+				"YES",
+				"NO",
+				"NA"
+			],
+			"enumNames": [
+				"Yes",
+				"No",
+				"Not applicable"
+			],
+			"default": "NO"
+		},
+
+		"partnerWorksMore": {
+			"type": "string",
+			"title": {
+				"es": "If your partner does not work or works less than 30 hours a week, would he/she like to work or to work more?"
+			},
+			"enum": [
+				"YES",
+				"NO",
+				"NA"
+			],
+			"enumNames": [
+				"Yes",
+				"No",
+				"Not applicable"
+			],
+			"default": "NO"
+		},
+
+		"income": {
+			"type": "array",
+			"title": {
+				"es": "Income above the Poverty Line "
+			},
+			"description": {
+				"es": "Income "
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/1/3.jpg",
+						"description": "Family income is $1.90 per day or above",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/1/2.jpg",
+						"description": "Family income is below $1.90 per day and $1.25 per day",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/1/1.jpg",
+						"description": "Family income is below $1.25 per day",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/1/3.jpg",
+				"description": "Family income is $1.90 per day or above",
+				"value": "GREEN"
+			}]
+		},
+		"familySavings": {
+			"type": "array",
+			"title": {
+				"es": "Family savings"
+			},
+			"description": {
+				"es": "Savings"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/2/3.jpg",
+						"description": "One or more family members have savings for at least 6 months from formal institutions.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/2/2.jpg",
+						"description": "One or more family members have informal savings (sou sou, they keep money at home, airtel money, etc) or they have had savings accounts for less than 6 months.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/2/1.jpg",
+						"description": "The family has no informal or formal savings.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/2/3.jpg",
+				"description": "One or more family members have savings for at least 6 months from formal institutions.",
+				"value": "GREEN"
+			}]
+		},
+
+		"creditAccess": {
+			"type": "array",
+			"title": {
+				"es": "Access to credit"
+			},
+			"description": {
+				"es": "Credit"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/3/3.jpg",
+						"description": "At least one family member has had access to formal credit under fair market conditions in the last 12 months or can access to such credit if they need it.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/3/2.jpg",
+						"description": "At least one family member has had access to credit in the last 12 months but only from informal institutions.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/3/1.jpg",
+						"description": "None of my family members has had access to credit in the last 12 months despite wanting to do so.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/3/3.jpg",
+				"description": "At least one family member has had access to formal credit under fair market conditions in the last 12 months or can access to such credit if they need it.",
+				"value": "GREEN"
+			}]
+		},
+
+
+		"sourceIncome": {
+			"type": "array",
+			"title": {
+				"es": "Diversified source of income "
+			},
+			"description": {
+				"es": "Diversified source of income "
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/4/3.jpg",
+						"description": "There are at least two sources of income from different family members.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/4/2.jpg",
+						"description": "There are at least two sources of income from one same family member.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/4/1.jpg",
+						"description": "The family has only one source of income or no source of income.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/4/3.jpg",
+				"description": "There are at least two sources of income from different family members.",
+				"value": "GREEN"
+			}]
+		},
+		"documentation": {
+			"type": "array",
+			"title": {
+				"es": "Documentation: Identity document"
+			},
+			"description": {
+				"es": "Identification"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/5/3.jpg",
+						"description": "All members of my family have a valid identity document appropriate for their age (ID card, school certificate, birth certificate).",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/5/2.jpg",
+						"description": "All members of my family have an identity document appropriate for their age (ID card, school certificate, birth certificate), but at least one of them is expired or not up to date.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/5/1.jpg",
+						"description": "At least one family member does not have a valid identity document.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/5/3.jpg",
+				"description": "All members of my family have a valid identity document appropriate for their age (ID card, school certificate, birth certificate).",
+				"value": "GREEN"
+			}]
+		},
+		"environment": {
+			"type": "array",
+			"title": {
+				"es": "Unpolluted environment"
+			},
+			"description": {
+				"es": "Environment"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/6/3.jpg",
+						"description": "My family lives in an unpolluted environment. There is no smoke or bad odors coming from livestock production or other sources; there is also no chemical waste, no poor waste disposal or poor waste management systems. If there is or there was contamination, steps are taken to solve the issue.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/6/2.jpg",
+						"description": "My family lives in an environment which sometimes is contaminated. There are bad odors and smoke coming from livestock production or other sources, chemical waste, and poor or nonexistent waste disposal or waste management systems. My family’s health is probably at risk, but we have done nothing to deal with contamination.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/6/1.jpg",
+						"description": "My family lives in an environment where there are always bad odors and smoke coming from livestock production or other sources; there is also chemical waste and poor or nonexistent waste disposal or waste management systems. There is a risk for my family’s health, but we have not addressed the contamination because we think that there is nothing that can be done to resolve the issue.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/6/3.jpg",
+				"description": "My family lives in an unpolluted environment. There is no smoke or bad odors coming from livestock production or other sources; there is also no chemical waste, no poor waste disposal or poor waste management systems. If there is or there was contamination, steps are taken to solve the issue.",
+				"value": "GREEN"
+			}]
+		},
+
+
+		"garbage": {
+			"type": "array",
+			"title": {
+				"es": "Garbage disposal"
+			},
+			"description": {
+				"es": "Garbage"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/7/3.jpg",
+						"description": "My family members dispose of their garbage in a trash can until it is collected or they bury their organic waste in a hole, at least 20 meters away from the house, water sources and farming areas. My family recycles inorganic waste.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/7/2.jpg",
+						"description": "My family members bury their garbage in a sealed hole within their property but it is not placed 20 meters or further away from their house, water source and farming areas.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/7/1.jpg",
+						"description": "My family members burn their garbage or dump underground in their property or close to their home, water source or farming areas.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/7/3.jpg",
+				"description": "My family members dispose of their garbage in a trash can until it is collected or they bury their organic waste in a hole, at least 20 meters away from the house, water sources and farming areas. My family recycles inorganic waste.",
+				"value": "GREEN"
+			}]
+		},
+
+
+		"water": {
+			"type": "array",
+			"title": {
+				"es": "Access to drinking water"
+			},
+			"description": {
+				"es": "Water"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/8/3.jpg",
+						"description": "My family has access to drinking water through a tap inside of the house.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/8/2.jpg",
+						"description": "My family has access to drinking water outside of the house through a tap or a well protected tank, but the distance to access it is up to 30 minutes on foot there and back.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/8/1.jpg",
+						"description": "My family consumes impotable water or has to bring drinking water from a place further than 30 minutes on foot, there and back.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/8/3.jpg",
+				"description": "My family has access to drinking water through a tap inside of the house.",
+				"value": "GREEN"
+			}]
+		},
+		"heatlthService": {
+			"type": "array",
+			"title": {
+				"es": "Access to health services "
+			},
+			"description": {
+				"es": "Health services "
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/9/3.jpg",
+						"description": "In the last 3 months every time a member of family needed basic or specialized medical attention they received.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/9/2.jpg",
+						"description": "In the last 3 months when a member of my family needed basic urgent medical attention, it could obtained. They could not obtain specialized attention or appropriate medication.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/9/1.jpg",
+						"description": "In the last 3 months, when my family needed basic medical attention, we could not obtain it due to one of the following: we could not have access to any medical care nearby, the care that was provided was very poor or the medical consultations or medications were too expensive.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/9/3.jpg",
+				"description": "In the last 3 months every time a member of family needed basic or specialized medical attention they received.",
+				"value": "GREEN"
+			}]
+		},
+		"nutrition": {
+			"type": "array",
+			"title": {
+				"es": "Nutritious diet "
+			},
+			"description": {
+				"es": "Nutrition"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/10/3.jpg",
+						"description": "All members of my family: \n a) consumed a wide variety of food during the last week: 1. meat (beef, chicken, fish, lamb, etc.), 2. milk and/or dairy, 3. a variety of vegetables, 4. eggs, 5. different kinds of fruit, 6. rice, pasta, potato, cassava, corn, etc. \n and b) had, at least, three meals a day: breakfast, lunch and dinner.\n If they skipped a meal or a specific type of food, it was voluntary, and not associated with a lack of money or food (due to religious or philosophical beliefs, for example).",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/10/2.jpg",
+						"description": "My family members’ diets do not include all of the components cited in the green level. However, in the past week, all members of my family had three meals a day, or if they skipped a meal, it was for voluntary reasons, not one associated with a lack of money or food.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/10/1.jpg",
+						"description": "During the last week, at least once, a member of my family went to bed hungry or skipped a meal involuntarily due to a lack of money or food.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/10/3.jpg",
+				"description": "All members of my family: \n a) consumed a wide variety of food during the last week: 1. meat (beef, chicken, fish, lamb, etc.), 2. milk and/or dairy, 3. a variety of vegetables, 4. eggs, 5. different kinds of fruit, 6. rice, pasta, potato, cassava, corn, etc. \n and b) had, at least, three meals a day: breakfast, lunch and dinner.\n If they skipped a meal or a specific type of food, it was voluntary, and not associated with a lack of money or food (due to religious or philosophical beliefs, for example).",
+				"value": "GREEN"
+			}]
+		},
+
+		"hygiene": {
+			"type": "array",
+			"title": {
+				"es": "Personal Hygiene "
+			},
+			"description": {
+				"es": "Hygiene"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/11/3.jpg",
+						"description": "All of my family members: \n a) wash their hands with soap every time they use the bathroom, \n b) wash their hands with soap before eating and cooking any meal, \n c) brush their teeth on a daily basis, and \n d) bathe every day. ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/11/2.jpg",
+						"description": "Some members of my family do not engage in only one of the hygienic practices described in the green level.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/11/1.jpg",
+						"description": "Some members of my family do not engage in more than one of the hygienic practices described in the green level. \nOr I am not aware of my family’s hygienic practices.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/11/3.jpg",
+				"description": "All of my family members: \n a) wash their hands with soap every time they use the bathroom, \n b) wash their hands with soap before eating and cooking any meal, \n c) brush their teeth on a daily basis, and \n d) bathe every day. ",
+				"value": "GREEN"
+			}]
+		},
+		"sexualHealth": {
+			"type": "array",
+			"title": {
+				"es": "Sexual health "
+			},
+			"description": {
+				"es": "Sexual health "
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/12/3.jpg",
+					"description": "All members of my family: \n a) in their reproductive years use some kind of family planning; \n b)  the women that need gynecological exams are aware and have had one in the last 12 months, and \n c) those that are pregnant attend all of the requisite prenatal exams.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/12/2.jpg",
+						"description": "The members of my family do not follow one of the components described in the green level. \n OR (in the case of women): \n A pregnant woman travels as necessary to receive examinations and prenatal care (B in the green level).",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/12/1.jpg",
+						"description": "The members of my family do not follow more than one of the components described in the green level. \n OR (in the case of women): \n A pregnant woman does not receive any tests or prenatal examinations.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/12/3.jpg",
+				"description": "All members of my family: \n a) in their reproductive years use some kind of family planning; \n b)  the women that need gynecological exams are aware and have had one in the last 12 months, and \n c) those that are pregnant attend all of the requisite prenatal exams.",
+				"value": "GREEN"
+			}]
+		},
+
+		"teeth": {
+			"type": "array",
+			"title": {
+				"es": "Healthy teeth"
+			},
+			"description": {
+				"es": "Teeth"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/13/3.jpg",
+					"description": "My family members do not have any dental issues, or if they do, they are being properly treated.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/13/2.jpg",
+						"description": "One of my family members has dental problems that are not being treated.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/13/1.jpg",
+						"description": "More than one of my family members has dental problems and they are not being treated.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/13/3.jpg",
+				"description": "My family members do not have any dental issues, or if they do, they are being properly treated.",
+				"value": "GREEN"
+			}]
+		},
+
+		"vision": {
+			"type": "array",
+			"title": {
+				"es": "Healthy vision "
+			},
+			"description": {
+				"es": "Vision"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/14/3.jpg",
+					"description": "My family members do not have problems with their vision, or if they do, they are being properly treated (using glasses, for example).",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/14/2.jpg",
+						"description": "One member of my family has problems with their vision and is not being treated.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/14/1.jpg",
+						"description": "More than one of my family members have problems with their vision and are not being treated.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/14/3.jpg",
+				"description": "My family members do not have problems with their vision, or if they do, they are being properly treated (using glasses, for example).",
+				"value": "GREEN"
+			}]
+		},
+
+		"vaccines": {
+			"type": "array",
+			"title": {
+				"es": "Vaccines"
+			},
+			"description": {
+				"es": "Vaccines"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/15/3.jpg",
+					"description": "I know all the vaccines that my family members needs to have and all  members of my family are immunized and up-to-date with all the mandatory vaccines according to the Ministry of Public Health and Sanitation.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/15/2.jpg",
+						"description": "One member of my family is either not immunized or not up-to-date or we are not sure of the vaccines we need according to the Ministry of Health and Sanitation.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/15/1.jpg",
+						"description": "More than one member of my family is either not immunized or not up-to-date or we are not sure of the vaccines we need according to the Ministry of Health and Sanitation.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/15/3.jpg",
+				"description": "I know all the vaccines that my family members needs to have and all  members of my family are immunized and up-to-date with all the mandatory vaccines according to the Ministry of Public Health and Sanitation.",
+				"value": "GREEN"
+			}]
+		},
+
+		"insurance": {
+			"type": "array",
+			"title": {
+				"es": "Insurance"
+			},
+			"description": {
+				"es": "Insurance"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/16/3.jpg",
+					"description": "All members of my family have medical and retirement insurance, and if we own a bike/automobile it is also insured.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/16/2.jpg",
+						"description": "My family has only medical or retirement insurance.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/16/1.jpg",
+						"description": "My family does not have any type of insurance.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/16/3.jpg",
+				"description": "All members of my family have medical and retirement insurance, and if we own a bike/automobile it is also insured.",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+		"house": {
+			"type": "array",
+			"title": {
+				"es": "Safe house"
+			},
+			"description": {
+				"es": "House"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/17/3.jpg",
+					"description": "My family has a home that has: \n a) tile roof, zinc sheet roof or reinforced concrete roof, \n B) solid walls made out of wood, concrete or fired materials (like clay, bricks, ceramics, concrete, or something similar), \n c) wooden floor or floor made from fired materials, \n d) hard wood or metal external doors and windows, and they all lock in a safe way using locks, padlocks, locking pins, or other similar devices, \n e) the home is prepared for different climatic conditions.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/17/2.jpg",
+						"description": "My family has a home that does not include one of the components described in the green level.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/17/1.jpg",
+						"description": "My family has a home that does not include two or more components described in the green level.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/17/3.jpg",
+				"description": "My family has a home that has: \n a) tile roof, zinc sheet roof or reinforced concrete roof, \n B) solid walls made out of wood, concrete or fired materials (like clay, bricks, ceramics, concrete, or something similar), \n c) wooden floor or floor made from fired materials, \n d) hard wood or metal external doors and windows, and they all lock in a safe way using locks, padlocks, locking pins, or other similar devices, \n e) the home is prepared for different climatic conditions.",
+				"value": "GREEN"
+			}]
+		},
+		"confHome": {
+			"type": "array",
+			"title": {
+				"es": "Comfortable home "
+			},
+			"description": {
+				"es": "Comfortable home "
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/18/3.jpg",
+					"description": "My family has: \n a) more than one room, \n b) enough mattresses for all its members (one per person or couple), and \n c) mosquito net for every bed",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/18/2.jpg",
+						"description": "My family does not have one of the components described in the green level- it does not exist or is insufficient.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/18/1.jpg",
+						"description": "My family does not have two or more elements described in the green level- they do not exist or are insufficient.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/18/3.jpg",
+				"description": "My family has: \n a) more than one room, \n b) enough mattresses for all its members (one per person or couple), and \n c) mosquito net for every bed",
+				"value": "GREEN"
+			}]
+		},
+
+		"separateBedrooms": {
+			"type": "array",
+			"title": {
+				"es": "Separate bedrooms "
+			},
+			"description": {
+				"es": "Separate bedrooms "
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/19/3.jpg",
+					"description": "On average, each bedroom is used by two or less members of my family. If any of the age groups (children, teenagers, or adults) share a room, it is because they want to.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/19/2.jpg",
+						"description": "On average, each bedroom is used by two or less members of my family.  Some age groups (children, teenagers, or adults),  share rooms unwillingly.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/19/1.jpg",
+						"description": "On average, each bedroom is used by three or more members of my family.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/19/3.jpg",
+				"description": "On average, each bedroom is used by two or less members of my family. If any of the age groups (children, teenagers, or adults) share a room, it is because they want to.",
+				"value": "GREEN"
+			}]
+		},
+		"kitchen": {
+			"type": "array",
+			"title": {
+				"es": "Raised and ventilated kitchen"
+			},
+			"description": {
+				"es": "Kitchen"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/20/3.jpg",
+					"description": "My family cooks in a covered, separate and protected space. We have a raised stove and do not use manure, wood or charcoal.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/20/2.jpg",
+						"description": "My family cooks outside or in a stove (not on a raised stove), we also do not use manure, coal or firewood",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/20/1.jpg",
+						"description": "My family cooks mainly using manure, wood or charcoal. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/20/3.jpg",
+				"description": "My family cooks in a covered, separate and protected space. We have a raised stove and do not use manure, wood or charcoal.",
+				"value": "GREEN"
+			}]
+		},
+
+		"bathroom": {
+			"type": "array",
+			"title": {
+				"es": "Bathroom"
+			},
+			"description": {
+				"es": "Bathroom"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/21/3.jpg",
+					"description": "My family has one or several bathrooms with the following characteristics: a) has a complete toilet (WC) b) cistern inside c) ensures privacy, d) has a good evacuation system, is e) not shared with other families  and f) it is kept clean.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/21/2.jpg",
+						"description": "Although my family’s bathroom does not contain all of the components described in the green level, it has some kind of toilet with water, a latrine with a slab floor and good ventilation, or organic toilet. It is not shared with another family.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/21/1.jpg",
+						"description": "My family shares its bathroom or latrine with other families, or does not qualify for the yellow level.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/21/3.jpg",
+				"description": "My family has one or several bathrooms with the following characteristics: a) has a complete toilet (WC) b) cistern inside c) ensures privacy, d) has a good evacuation system, is e) not shared with other families  and f) it is kept clean.",
+				"value": "GREEN"
+			}]
+		},
+
+		"refrigerator": {
+			"type": "array",
+			"title": {
+				"es": "Refrigerator and other goods"
+			},
+			"description": {
+				"es": "Refrigerator"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/22/3.jpg",
+					"description": "My family has a refrigerator and two or more of the following goods: radio, TV, telephone, motorcycle, and/ or washing machine.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/22/2.jpg",
+						"description": "My family has two of the following goods: radio, TV, phone, motorcycle, washing machine, and/or fridge.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/22/1.jpg",
+						"description": "My family has one or none of the following goods: radio, TV, telephone, motorcycle, washing machine, or refrigerator.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/22/3.jpg",
+				"description": "My family has a refrigerator and two or more of the following goods: radio, TV, telephone, motorcycle, and/ or washing machine.",
+				"value": "GREEN"
+			}]
+		},
+
+		"telephone": {
+			"type": "array",
+			"title": {
+				"es": "Telephone or mobile phone "
+			},
+			"description": {
+				"es": "Telephone"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/23/3.jpg",
+					"description": "My family has a landline or wireless service constantly at their disposal (such as always having enough top-up).",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/23/2.jpg",
+						"description": "My family has a landline or wireless service, but it can only be used sometimes (such as often lacking enough top-up and not easily being able to purchase more.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/23/1.jpg",
+						"description": "My family does not have phone service (neither landline nor wireless).",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/23/3.jpg",
+				"description": "My family has a landline or wireless service constantly at their disposal (such as always having enough top-up).",
+				"value": "GREEN"
+			}]
+		},
+
+		"clothing": {
+			"type": "array",
+			"title": {
+				"es": "Sufficient and appropriate clothing"
+			},
+			"description": {
+				"es": "Clothing"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/24/3.jpg",
+					"description": "All members of my family have clothes and footwear that are appropriate for each season, and enough of them to change every day.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/24/2.jpg",
+						"description": "All members of my family have clothes and footwear that are appropriate for each season, but not enough to change every day.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/24/1.jpg",
+						"description": "At least one member of my family is lacking appropriate clothes and footwear for each season.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/24/3.jpg",
+				"description": "All members of my family have clothes and footwear that are appropriate for each season, and enough of them to change every day.",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+
+		"safety": {
+			"type": "array",
+			"title": {
+				"es": "Personal safety"
+			},
+			"description": {
+				"es": "Safety"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/25/3.jpg",
+					"description": "None of my family members have suffered acts of physical violence in the last twelve months.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/25/2.jpg",
+						"description": "At least one member of my family suffered an act of physical violence in the last twelve months, but it didn´t impact their normal activities or their capacity to go to work.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/25/1.jpg",
+						"description": "At least one member of my family suffered an act of physical violence in the last twelve months and as result, that member could not go to work for an entire day or more, or the act of violence caused a death.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/25/3.jpg",
+				"description": "None of my family members have suffered acts of physical violence in the last twelve months.",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+
+		"securityProperty": {
+			"type": "array",
+			"title": {
+				"es": "Security of property"
+			},
+			"description": {
+				"es": "Security of property"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/26/3.jpg",
+					"description": "My family has not suffered an act of violence and/or theft against our property in the last twelve months.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/26/2.jpg",
+						"description": "My family has suffered an act of violence and/or theft against our property in the last twelve months, and the value of the damaged or stolen property was less than the equivalent of a week’s worth of my family's income.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/26/1.jpg",
+						"description": "My family has suffered more than one act of violence and/or theft against our property in the last twelve months, or we suffered a single act where the value of the damaged or stolen property is equivalent or higher than a week’s worth of my family's income.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/26/3.jpg",
+				"description": "My family has not suffered an act of violence and/or theft against our property in the last twelve months.",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+
+		"electricity": {
+			"type": "array",
+			"title": {
+				"es": "Electricity"
+			},
+			"description": {
+				"es": "Electricity"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/27/3.jpg",
+					"description": "My family has permanent access to electricity via a legal connection.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/27/2.jpg",
+						"description": "My family has access to electricity, but it is a via an illegal connection and/or insufficient (there is no electricity for four hours or more per day during high season).",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/27/1.jpg",
+						"description": "My family does not have access to electricity.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/27/3.jpg",
+				"description": "My family has permanent access to electricity via a legal connection.",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+
+		"transportation": {
+			"type": "array",
+			"title": {
+				"es": "Regular means of transportation"
+			},
+			"description": {
+				"es": "Transportation"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/28/3.jpg",
+					"description": "My family has access to a regular and reliable means of transportation, either our own or public. If it is public, it comes by at least every hour, and the stop is less than ten minutes away from our house.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/28/2.jpg",
+						"description": "My family has access to transportation, but it is irregular and unreliable. It is either our own or public. If it is public, it comes by at least every two hours, and the stop is less than thirty minutes away from our house.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/28/1.jpg",
+						"description": "My family does not have access to their own mode of transportation. Public transportation is more than 30 minutes away from the house and passes infrequently, with a wait time of more than two hours.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/28/3.jpg",
+				"description": "My family has access to a regular and reliable means of transportation, either our own or public. If it is public, it comes by at least every hour, and the stop is less than ten minutes away from our house.",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+
+		"road": {
+			"type": "array",
+			"title": {
+				"es": "All-weather access road"
+			},
+			"description": {
+				"es": "Road"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/29/3.jpg",
+					"description": "The road my family uses to go to the nearest urban center is asphalted, gravelly, cobbled, or paved in a way to make it accessible at all times, even during strong and continuous rainfall.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/29/2.jpg",
+						"description": "The road my family uses to go to the nearest urban center is a dirt road or is asphalted, paved, cobbled, in poor condition and difficult to travel in a period of heavy or continuous rain.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/29/1.jpg",
+						"description": "The road my family uses to go to the nearest urban center is a dirt road, and with the slightest rain it becomes difficult to travel.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/29/3.jpg",
+				"description": "The road my family uses to go to the nearest urban center is asphalted, gravelly, cobbled, or paved in a way to make it accessible at all times, even during strong and continuous rainfall.",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+
+		"schooling": {
+			"type": "array",
+			"title": {
+				"es": "Children enrolled throughout secondary school"
+			},
+			"description": {
+				"es": "Schooling"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/30/3.jpg",
+					"description": "All of my school aged family members attend school or finished high school.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/30/2.jpg",
+						"description": "Among my family members there is at least one school aged child or a teenager that does not attend school.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/30/1.jpg",
+						"description": "None of my family members of school age attend school.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/30/3.jpg",
+				"description": "All of my school aged family members attend school or finished high school.",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+
+		"literacy": {
+			"type": "array",
+			"title": {
+				"es": "Knows how to read, write and comprehend "
+			},
+			"description": {
+				"es": "Literacy"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/31/3.jpg",
+					"description": "All of my family members aged 15 years and older can read and write in English with ease.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/31/2.jpg",
+						"description": "All of my family members aged 15 years and older can read and write in English, however, it is difficult for at least one family member to read and/or write their ideas.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/31/1.jpg",
+						"description": "At least one family member aged 15 years and older cannot read or write in English.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/31/3.jpg",
+				"description": "All of my family members aged 15 years and older can read and write in English with ease.",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+		"schoolSupplies": {
+			"type": "array",
+			"title": {
+				"es": "School supplies and books"
+			},
+			"description": {
+				"es": "Supplies"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/32/3.jpg",
+					"description": "The members of my family currently attending school have all of the school supplies and books recommended by the teacher.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/32/2.jpg",
+						"description": "The members of my family currently attending school do not have all of the necessary school supplies recommended by the teacher. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/32/1.jpg",
+						"description": "The members of my family currently attending school lack most of the school supplies recommended by the teacher. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/32/3.jpg",
+				"description": "The members of my family currently attending school have all of the school supplies and books recommended by the teacher.",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+		"budget": {
+			"type": "array",
+			"title": {
+				"es": "Ability to plan and budget"
+			},
+			"description": {
+				"es": "Budget"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/33/3.jpg",
+					"description": "In my family we plan our economic future and do a monthly budget, which we routinely use to manage the money we spend. ",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/33/2.jpg",
+						"description": "In my family we plan our economic future and we do a monthly budget, but we do not routinely use it to manage the money we spend.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/33/1.jpg",
+						"description": "In my family we do not plan our economic future and we do not have a written budget.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/33/3.jpg",
+				"description": "In my family we plan our economic future and do a monthly budget, which we routinely use to manage the money we spend. ",
+				"value": "GREEN"
+			}]
+		}
+	,
+		"generateIncome": {
+			"type": "array",
+			"title": {
+				"es": "Ability to generate income"
+			},
+			"description": {
+				"es": "Generate income"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/34/3.jpg",
+					"description": "At least one member of my family: \n a) has professional training, or has acquired or developed other special skills for the generation of income. This allows them to find work easily; or \n b) has an enterprise (business or their own endeavor) that generates enough income to sustain the home’s basic expenditures.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/34/2.jpg",
+						"description": "At least one member of my family: \n a) has professional training, or has acquired or developed other special skills for the generation of income. However, there are situations in which they can’t manage to generate income; or \n b) has an enterprise (business or their own endeavor) that generates income, but it is insufficient to cover the basic expenditures of the home.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/34/1.jpg",
+						"description": "None of my family members: \n a) has professional training, or has acquired or developed other special skills for the generation of income; or \n b) has an enterprise (business or their own endeavor). ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/34/3.jpg",
+				"description": "At least one member of my family: \n a) has professional training, or has acquired or developed other special skills for the generation of income. This allows them to find work easily; or \n b) has an enterprise (business or their own endeavor) that generates enough income to sustain the home’s basic expenditures.",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+		"informationAccess": {
+			"type": "array",
+			"title": {
+				"es": "Access to information (TV or internet)"
+			},
+			"description": {
+				"es": "Access to information"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/35/3.jpg",
+					"description": "My family has a television or internet access. ",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/35/2.jpg",
+						"description": "My family has only a radio.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/35/1.jpg",
+						"description": "My family does not have a radio, television, or internet.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/35/3.jpg",
+				"description": "My family has a television or internet access. ",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+		"entertainment": {
+			"type": "array",
+			"title": {
+				"es": "Access to entertainment"
+			},
+			"description": {
+				"es": "Entertainment"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/36/3.jpg",
+					"description": "All of my family members have weekly recreational activities.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/36/2.jpg",
+						"description": "Some members of my family have weekly recreational activities.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/36/1.jpg",
+						"description": "The majority of my family members do not have weekly recreational activities.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/36/3.jpg",
+				"description": "All of my family members have weekly recreational activities.",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+		"diversityRespect": {
+			"type": "array",
+			"title": {
+				"es": "Respect for diversity"
+			},
+			"description": {
+				"es": "Respect for diversity"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/37/3.jpg",
+					"description": "I believe that all people, regardless of their religion, ethnicity, language, abilities, gender, deserve to be treated equally.  ",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/37/2.jpg",
+						"description": "I believe that one of these groups of people should not be treated equally: \n Religion \n Ethnicity \n Language \n Gender",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/37/1.jpg",
+						"description": "I believe that more than one of these groups should not be treated equally: \n Religion \n Ethnicity \n Language \n Gender",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/37/3.jpg",
+				"description": "I believe that all people, regardless of their religion, ethnicity, language, abilities, gender, deserve to be treated equally.  ",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+		"humanRights": {
+			"type": "array",
+			"title": {
+				"es": "Human rights awareness"
+			},
+			"description": {
+				"es": "Human rights awareness"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/38/3.jpg",
+					"description": "There are certain rights that no one can take away from me based on who I am, regardless of sex, age, ethnic or racial origin, nationality, social class, sexual orientation, religion, disability, et cetera. ",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/38/2.jpg",
+						"description": "I only know about some human rights that I am entitled to, or believe that I should be deprived of my rights based on one of the following reasons: \n My sex, age, ethnic or racial origin, nationality, social class, sexual orientation, religion, disability, et cetera. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/38/1.jpg",
+						"description": "I Don't really know much about what basic human rights I am entitled to as a person, or believe that I should be deprived of my rights based on more than one of the following reasons: \n My sex, age, ethnic or racial origin, nationality, social class, sexual orientation, religion, disability, et cetera. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/38/3.jpg",
+				"description": "There are certain rights that no one can take away from me based on who I am, regardless of sex, age, ethnic or racial origin, nationality, social class, sexual orientation, religion, disability, et cetera. ",
+				"value": "GREEN"
+			}]
+		}
+
+	,
+		"childLabor": {
+			"type": "array",
+			"title": {
+				"es": "Child labor"
+			},
+			"description": {
+				"es": "Child labor"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/39/3.jpg",
+					"description": "In my family, no boy/girl between the ages of ten to fourteen years old is working. ",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/39/2.jpg",
+						"description": "In my family, there is at least one boy/girl between the ages of ten to fourteen who is working, but the child nevertheless goes to school regularly.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/39/1.jpg",
+						"description": "In my family, there is at least one boy/girl between the ages of ten to fourteen years old that is working, and who does not attend school regularly.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/39/3.jpg",
+				"description": "In my family, no boy/girl between the ages of ten to fourteen years old is working. ",
+				"value": "GREEN"
+			}]
+		}
+
+
+	,
+		"group": {
+			"type": "array",
+			"title": {
+				"es": "Forms part of a group"
+			},
+			"description": {
+				"es": "Group"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/40/3.jpg",
+					"description": "At least one member of my family actively and regularly participates in two or more groups, or one or more members play a leadership role in a group.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/40/2.jpg",
+						"description": "At least one member of my family  actively and regularly participates in a group.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/40/1.jpg",
+						"description": "No one in my family actively and regularly participates in a group.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/40/3.jpg",
+				"description": "At least one member of my family actively and regularly participates in two or more groups, or one or more members play a leadership role in a group.",
+				"value": "GREEN"
+			}]
+		}
+
+
+	,
+		"publicSectorInfluence": {
+			"type": "array",
+			"title": {
+				"es": "Influence in the public sector"
+			},
+			"description": {
+				"es": "Influence"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/41/3.jpg",
+					"description": "My family does not have problems that requires intervention by local authorities, or if there is a problem we make an official request and follow up on it. Or we have organized ourselves with other people in the same situation to strengthen our position.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/41/2.jpg",
+						"description": "My family has problems that require intervention by local authorities. We have reported the situation but did not follow up or had no solution.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/41/1.jpg",
+						"description": "My family has problems that require intervention by local authorities but usually don’t reach them or don’t know how to do it.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/41/3.jpg",
+				"description": "My family does not have problems that requires intervention by local authorities, or if there is a problem we make an official request and follow up on it. Or we have organized ourselves with other people in the same situation to strengthen our position.",
+				"value": "GREEN"
+			}]
+		}
+
+
+	,
+		"conflicts": {
+			"type": "array",
+			"title": {
+				"es": "Ability to resolve problems and conflicts"
+			},
+			"description": {
+				"es": "Conflicts"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/42/3.jpg",
+					"description": "When a problem or conflict arises, my family members have a conversation  (without insults, violence, or fights) about the matter, with all parties involved, and resolve it without making it worse.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/42/2.jpg",
+						"description": "When a problem or conflict arises, my family members occasionally do not have a conversation (there are insults, violence or fights) about the issue at hand and the problem can escalate.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/42/1.jpg",
+						"description": "When a problem or conflict arises, my family members do not have a conversation, and insults, violence or fights are frequent.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/42/3.jpg",
+				"description": "When a problem or conflict arises, my family members have a conversation  (without insults, violence, or fights) about the matter, with all parties involved, and resolve it without making it worse.",
+				"value": "GREEN"
+			}]
+		}
+
+
+	,
+		"voting": {
+			"type": "array",
+			"title": {
+				"es": "Register to vote and vote during elections"
+			},
+			"description": {
+				"es": "Voting"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/43/3.jpg",
+					"description": "All of the adults in my family voted in the last elections.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/43/2.jpg",
+						"description": "Only some of the adults in my family voted in the last elections.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/43/1.jpg",
+						"description": "Not all of the adults in my family are registered to vote, or none of the adults voted in the last elections.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/43/3.jpg",
+				"description": "All of the adults in my family voted in the last elections.",
+				"value": "GREEN"
+			}]
+		}
+
+
+	,
+		"lifePlan": {
+			"type": "array",
+			"title": {
+				"es": "Awareness of one’s needs"
+			},
+			"description": {
+				"es": "Life plan"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/44/3.jpg",
+					"description": "My family is aware we can improve a current situation. For this we have goals that we want and can reach in the medium term (3 months) and long term.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/44/2.jpg",
+						"description": "My family believes that we can improve our current situation, but we do not have medium and long term goals.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/44/1.jpg",
+						"description": "My family believes that we can not improve our current situation or we don’t want to because we accept as we are.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/44/3.jpg",
+				"description": "My family is aware we can improve a current situation. For this we have goals that we want and can reach in the medium term (3 months) and long term.",
+				"value": "GREEN"
+			}]
+		}
+
+
+	,
+		"selfEsteem": {
+			"type": "array",
+			"title": {
+				"es": "Self esteem"
+			},
+			"description": {
+				"es": "Self esteem"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/45/3.jpg",
+					"description": "Generally I feel good about myself and I feel competent. Or many times people tell that I am competent or capable in what I do.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/45/2.jpg",
+						"description": "Sometimes I feel good about myself and competent, but not all the time. People tell me I am competent or capable in what I do, but is not very often.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/45/1.jpg",
+						"description": " I often feel bad about myself and incompetent. I don’t know or believe that people admire me or things I do.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/45/3.jpg",
+				"description": "Generally I feel good about myself and I feel competent. Or many times people tell that I am competent or capable in what I do.",
+				"value": "GREEN"
+			}]
+		}
+
+
+	,
+		"moralConscience": {
+			"type": "array",
+			"title": {
+				"es": "Moral conscience"
+			},
+			"description": {
+				"es": "Moral conscience"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/46/3.jpg",
+					"description": "My family takes into account who their actions might affect when they make decisions.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/46/2.jpg",
+						"description": "My family often times makes decisions without regards for how their actions might affect others. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/46/1.jpg",
+						"description": "My family makes decisions thinking only about themselves, we did not know that the consequences of our actions would affect others. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/46/3.jpg",
+				"description": "My family takes into account who their actions might affect when they make decisions.",
+				"value": "GREEN"
+			}]
+		}
+
+
+	,
+		"emotions": {
+			"type": "array",
+			"title": {
+				"es": "Emotional-effective capacity"
+			},
+			"description": {
+				"es": "Emotions"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/47/3.jpg",
+					"description": "I understand that emotions, like anger, sadness, fear, or jealousy can have a negative influence on my life and there are ways to control them. In general, I manage to control them, and I try not act hastily or make decisions in the heat of the moment.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/47/2.jpg",
+						"description": "I understand that emotions, like anger, sadness, fear, or jealousy can have a negative influence on my life and there are ways to control them. However, many times it is difficult for me and my emotions can cause me to do things that I regret later.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/47/1.jpg",
+						"description": "Emotions like anger, sadness, fear, and jealousy are constants in my life and determine my actions. There is nothing I can do to change this (there is no way to control them).",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/47/3.jpg",
+				"description": "I understand that emotions, like anger, sadness, fear, or jealousy can have a negative influence on my life and there are ways to control them. In general, I manage to control them, and I try not act hastily or make decisions in the heat of the moment.",
+				"value": "GREEN"
+			}]
+		}
+
+
+	,
+		"DomesticViolence": {
+			"type": "array",
+			"title": {
+				"es": "Domestic violence"
+			},
+			"description": {
+				"es": "Domestic violence"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/48/3.jpg",
+					"description": "None of my family members are targets of domestic violence (physical/sexual, emotional and economic).",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/48/2.jpg",
+						"description": "Violence exists in my family, however we understand this is not right and we are trying to do something about it.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/48/1.jpg",
+						"description": "Violence exists in my family and we do nothing to stop it.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/48/3.jpg",
+				"description": "None of my family members are targets of domestic violence (physical/sexual, emotional and economic).",
+				"value": "GREEN"
+			}]
+		}
+
+
+	,
+		"entrepreneurship": {
+			"type": "array",
+			"title": {
+				"es": "Entrepreneurial spirit"
+			},
+			"description": {
+				"es": "Entrepreneurship"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/49/3.jpg",
+					"description": "At least two members of my family have an entrepreneurial spirit, they actively seek to change the situation in their personal lives or the community. They have a plan and know how to enact it",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/49/2.jpg",
+						"description": "One member of my family has an entrepreneurial spirit, they seek to change the situation in their personal lives or the community, but they re not actively doing so, or do not have a plan to do so.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/49/1.jpg",
+						"description": "The members of my family do not undertake new challenges. We believe that nothing can change or we do not want to change; we submit to the current situation.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/49/3.jpg",
+				"description": "At least two members of my family have an entrepreneurial spirit, they actively seek to change the situation in their personal lives or the community. They have a plan and know how to enact it",
+				"value": "GREEN"
+			}]
+		},
+		"autonomy": {
+			"type": "array",
+			"title": {
+				"es": "Autonomy and ability to make decisions"
+			},
+			"description": {
+				"es": "Autonomy"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/50/3.jpg",
+					"description": "I make all decisions about the key aspects of my life and participate actively in the decisions of my family. These decisions reflect what I value, I know there are limits, but I arrange my own life within them.",
+					"value": "GREEN"
+				},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/50/2.jpg",
+						"description": "I make some decisions about the key aspects of my life and participate actively in the decisions of my family. Some decisions reflect what I value and others are taken, mainly, to please others or avoid negative consequences.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/50/1.jpg",
+						"description": "I do not participate in key aspects of my life or my family. I do as I am told and my decisions are made to please others or avoid negative consequences.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/50/3.jpg",
+				"description": "I make all decisions about the key aspects of my life and participate actively in the decisions of my family. These decisions reflect what I value, I know there are limits, but I arrange my own life within them.",
+				"value": "GREEN"
+			}]
+		}
+
+	}
+}

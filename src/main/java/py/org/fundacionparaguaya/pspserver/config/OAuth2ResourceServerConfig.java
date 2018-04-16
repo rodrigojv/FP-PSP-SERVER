@@ -24,7 +24,7 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
 
         http
                 .authorizeRequests()
-                .antMatchers("/management/*").hasRole(Role.ROLE_ROOT.getSecurityName())
+                .antMatchers("/management/**").hasRole(Role.ROLE_ROOT.getSecurityName())
                 // Organizations related resources
                 .antMatchers(HttpMethod.GET, ProtectedModule.ORGANIZATIONS.getUrls()).authenticated()
                 .antMatchers(ProtectedModule.ORGANIZATIONS.getUrls()).hasAnyRole(ProtectedModule.ORGANIZATIONS.getWriteRoles())

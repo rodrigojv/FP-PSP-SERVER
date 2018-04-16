@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyMapDTO;
@@ -21,6 +22,7 @@ import py.org.fundacionparaguaya.pspserver.families.services.FamilySnapshotsMana
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -37,7 +39,7 @@ public class FamilyController {
     private FamilySnapshotsManager familyMapService;
 
     public FamilyController(FamilyService familyService,
-            FamilySnapshotsManager familyMapService) {
+                            FamilySnapshotsManager familyMapService) {
         this.familyService = familyService;
         this.familyMapService = familyMapService;
     }
@@ -49,6 +51,14 @@ public class FamilyController {
         return ResponseEntity
                 .created(new URI("/api/v1/families/" + result.getFamilyId()))
                 .body(result);
+    }
+
+    @PutMapping("/{familyId}/image")
+    public String uploadFamilyPhoto(@PathVariable("familyId") Long familyId,
+                                    @RequestParam("file") MultipartFile file) throws IOException {
+
+        String url=familyService.imageUpload(familyId, file);
+        return url;
     }
 
     @PutMapping("/{familyId}")
@@ -78,15 +88,15 @@ public class FamilyController {
     @GetMapping()
     public ResponseEntity<List<FamilyDTO>> getAllFamilies(
             @RequestParam(value = "organization_id", required = false)
-                                     Long organizationId,
+                    Long organizationId,
             @RequestParam(value = "country_id", required = false)
-                                     Long countryId,
+                    Long countryId,
             @RequestParam(value = "city_id", required = false)
-                                     Long cityId,
+                    Long cityId,
             @RequestParam(value = "free_text", required = false)
-                                     String name,
+                    String name,
             @RequestParam(value = "application_id", required = false)
-                                     Long applicationId,
+                    Long applicationId,
             @RequestParam(value = "last_modified_gt", required = false) String lastModifiedGt,
             @AuthenticationPrincipal UserDetailsDTO user) {
         FamilyFilterDTO filter = FamilyFilterDTO.builder()

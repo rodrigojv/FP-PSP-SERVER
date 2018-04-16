@@ -24,6 +24,7 @@ import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 
 /**
@@ -50,6 +51,12 @@ public class SnapshotController {
             @RequestParam(value = "family_id", required = false) Long familiyId) {
         List<Snapshot> snapshots = snapshotService.find(surveyId, familiyId);
         return ResponseEntity.ok(snapshots);
+    }
+
+    @GetMapping(value = "/survey/{survey_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity getSnapshotsBySurvey(@PathVariable("survey_id") Long surveyId){
+        List<SurveyData> surveyDataList = snapshotService.findBySurveyId(surveyId);
+        return ResponseEntity.ok(surveyDataList);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

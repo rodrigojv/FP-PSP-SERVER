@@ -1,26 +1,32 @@
 package py.org.fundacionparaguaya.pspserver.surveys.entities;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-import py.org.fundacionparaguaya.pspserver.common.entities.LocalDateTimeConverter;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
+import py.org.fundacionparaguaya.pspserver.common.entities.LocalDateTimeConverter;
+import py.org.fundacionparaguaya.pspserver.network.entities.SurveyOrganizationEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
 
 /**
  * Created by rodrigovillalba on 10/16/17.
@@ -49,6 +55,7 @@ public class SurveyEntity implements Serializable {
 
     private String description;
 
+
     @Column(name = "survey_definition")
     @Type(
          type = "py.org.fundacionparaguaya.pspserver."
@@ -67,6 +74,17 @@ public class SurveyEntity implements Serializable {
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime lastModifiedAt;
 
+    @OneToMany(mappedBy = "survey")
+    private List<SurveyOrganizationEntity> surveysOrganizations = new ArrayList<SurveyOrganizationEntity>();
+
+    public List<SurveyOrganizationEntity> getSurveysOrganizations() {
+        return surveysOrganizations;
+    }
+
+    public void setSurveysOrganizations(
+            List<SurveyOrganizationEntity> surveysOrganizations) {
+        this.surveysOrganizations = surveysOrganizations;
+    }
 
     public SurveyEntity() {
     }

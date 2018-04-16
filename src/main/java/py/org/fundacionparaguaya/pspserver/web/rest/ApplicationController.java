@@ -26,7 +26,6 @@ import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -48,7 +47,7 @@ public class ApplicationController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ApplicationDTO> addApplication(@Valid @RequestBody ApplicationDTO applicationDto)
-                                                                                throws URISyntaxException, IOException {
+                                                                                            throws URISyntaxException {
         ApplicationDTO result = applicationService.addApplication(applicationDto);
         return ResponseEntity
                 .created(new URI("/api/v1/applications/" + result.getId()))
@@ -80,9 +79,11 @@ public class ApplicationController {
                                 @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
                                 @RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
                                 @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
-                                @AuthenticationPrincipal UserDetailsDTO details) {
+                                @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
+                                @AuthenticationPrincipal UserDetailsDTO userDetails) {
         PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
-        Page<ApplicationDTO> pageProperties = applicationService.getPaginatedApplications(pageRequest, details);
+        Page<ApplicationDTO> pageProperties =
+                                        applicationService.getPaginatedApplications(userDetails, filter, pageRequest);
         PaginableList<ApplicationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
         return ResponseEntity.ok(response);
     }
@@ -94,10 +95,10 @@ public class ApplicationController {
     }
 
     @DeleteMapping("/{applicationId}")
-    public ResponseEntity<Void> deleteApplication(@PathVariable("applicationId") Long applicationId) {
+    public ResponseEntity<ApplicationDTO> deleteApplication(@PathVariable("applicationId") Long applicationId) {
         LOG.debug("REST request to delete Application: {}", applicationId);
-        applicationService.deleteApplication(applicationId);
-        return ResponseEntity.ok().build();
+        ApplicationDTO dto = applicationService.deleteApplication(applicationId);
+        return ResponseEntity.accepted().body(dto);
     }
 
     @GetMapping("/{applicationId}/organizations")

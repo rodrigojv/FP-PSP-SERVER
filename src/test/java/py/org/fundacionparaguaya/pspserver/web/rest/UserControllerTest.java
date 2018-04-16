@@ -17,6 +17,7 @@ import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 import py.org.fundacionparaguaya.pspserver.security.services.UserService;
 import py.org.fundacionparaguaya.pspserver.util.TestHelper;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,6 +60,7 @@ public class UserControllerTest {
                 .username("foo.user")
                 .email("foo@bar")
                 .pass("123")
+                .active(true)
                 .build();
     }
 
@@ -78,15 +80,23 @@ public class UserControllerTest {
     @Test
     public void requestingPostUserShouldUpdateUser() throws Exception {
         Long userId = 999L;
-        when(userService.updateUser(eq(userId), anyObject()))
+        String principal = "principal";
+        when(userService.updateUserByRequest(eq(userId), anyObject(), eq(principal)))
                 .thenReturn(mockUser);
 
         String json = TestHelper.mapToJson(mockUser);
         mockMvc.perform(put("/api/v1/users/{userId}", userId)
+                .principal(new Principal() {
+                    @Override
+                    public String getName() {
+                        return "principal";
+                    }
+                })
                 .content(json).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username", is(mockUser.getUsername())));
+                .andExpect(jsonPath("$.email", is(mockUser.getEmail())))
+                .andExpect(jsonPath("$.active", is(mockUser.isActive())));
     }
 
     @Test

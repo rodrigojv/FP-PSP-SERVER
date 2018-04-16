@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
  */
 @StaticMetamodel(FamilyEntity.class)
 public class FamilyEntity_ {
+
     private static volatile SingularAttribute<FamilyEntity, ApplicationEntity> application;
     private static volatile SingularAttribute<FamilyEntity, OrganizationEntity> organization;
     private static volatile SingularAttribute<FamilyEntity, CountryEntity> country;
@@ -50,6 +51,5 @@ public class FamilyEntity_ {
     public static SingularAttribute<FamilyEntity, LocalDateTime> getLastModifiedAt() {
         return lastModifiedAt;
     }
-
 
 }

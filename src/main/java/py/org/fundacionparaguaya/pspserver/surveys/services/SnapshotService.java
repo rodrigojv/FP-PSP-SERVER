@@ -6,6 +6,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotTaken;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public interface SnapshotService {
 
     List<Snapshot> find(Long surveyId, Long familiyId);
 
+    List<SurveyData> findBySurveyId(Long surveyId);
+
     SnapshotIndicators getSnapshotIndicators(Long snapshotId);
 
     List<SnapshotIndicators> getSnapshotIndicatorsByFamily(Long familyId);
@@ -33,4 +36,6 @@ public interface SnapshotService {
     List<TopOfIndicators> getTopOfIndicators(Long organizationId);
 
     void deleteSnapshotsBySurvey(UserDetailsDTO user, Long surveyId);
+
+    List<SurveyData> getIndicatorsValue(SurveyData indicators);
 }

@@ -9,6 +9,7 @@ import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity_;
 import py.org.fundacionparaguaya.pspserver.network.entities.UserApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.UserApplicationEntity_;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity_;
 
@@ -25,7 +26,7 @@ public class UserApplicationSpecification {
     public static Specification<UserApplicationEntity> hasApplication(ApplicationDTO application) {
         return (Root<UserApplicationEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
             if (application == null) {
-                return null;
+                return builder.conjunction();
             }
 
             Join<UserApplicationEntity, ApplicationEntity> applicationJoin =
@@ -39,7 +40,7 @@ public class UserApplicationSpecification {
     public static Specification<UserApplicationEntity> hasOrganization(OrganizationDTO organization) {
         return (Root<UserApplicationEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
             if (organization == null) {
-            return null;
+                return builder.conjunction();
             }
 
             Join<UserApplicationEntity, OrganizationEntity> organizationJoin =
@@ -47,6 +48,30 @@ public class UserApplicationSpecification {
             Expression<Long> byOrganizationId = organizationJoin.<Long>get(OrganizationEntity_.getId());
 
             return builder.equal(byOrganizationId, organization.getId());
+        };
+    }
+
+    public static Specification<UserApplicationEntity> byLoggedUser(UserDetailsDTO userDetails) {
+        return (root, query, builder) ->
+                builder.and(
+                        hasApplication(userDetails.getApplication()).toPredicate(root, query, builder),
+                        hasOrganization(userDetails.getOrganization()).toPredicate(root, query, builder));
+    }
+
+    public static Specification<UserApplicationEntity> byFilter(String filter) {
+        return (Root<UserApplicationEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
+            if (filter == null || filter.isEmpty()) {
+                return builder.conjunction();
+            }
+
+            Join<UserApplicationEntity, UserEntity> userJoin = root.join(UserApplicationEntity_.getUser());
+            Expression<String> username = userJoin.<String>get(UserEntity_.getUsername());
+            Expression<String> email = userJoin.<String>get(UserEntity_.getEmail());
+
+            return builder.or(
+                    builder.like(builder.lower(username), "%" + filter.toLowerCase() + "%"),
+                    builder.like(builder.lower(email), "%" + filter.toLowerCase() + "%")
+            );
         };
     }
 

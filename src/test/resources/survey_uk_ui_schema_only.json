@@ -185,7 +185,7 @@
 		"birthdate",
 		"countryOfBirth",
 		"gender",
-		"phoneNumber",
+		"email",
 		"postCode",
 		"areaOfResidence",
 		"currency",
@@ -264,7 +264,7 @@
 		"identificationNumber",
 		"identificationType",
 		"lastName",
-		"phoneNumber",
+		"email",
 		"postCode"
 	],
 

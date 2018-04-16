@@ -59,7 +59,7 @@ public class ApplicationDTO implements Serializable {
     }
 
     public static class Builder {
-        private Long applicationId;
+        private Long id;
         private String name;
         private String code;
         private String description;
@@ -73,8 +73,8 @@ public class ApplicationDTO implements Serializable {
         private String logoUrl;
         private String file;
 
-        public Builder applicationId(Long applicationId) {
-            this.applicationId = applicationId;
+        public Builder id(Long applicationId) {
+            this.id = applicationId;
             return this;
         }
 
@@ -139,7 +139,7 @@ public class ApplicationDTO implements Serializable {
         }
 
         public ApplicationDTO build() {
-            return new ApplicationDTO(applicationId, name, code, description, isActive, country, city,
+            return new ApplicationDTO(id, name, code, description, isActive, country, city,
                                         information, isHub, isPartner, dashboard, logoUrl, file);
         }
     }

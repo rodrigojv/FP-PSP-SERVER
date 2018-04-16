@@ -1,0 +1,344 @@
+{
+  "properties": {},
+
+  "ui:custom:fields" : {
+     "income" : {
+        "ui:field": "gallery"
+      },
+      "familySavings" : {
+        "ui:field": "gallery"
+      },
+      "creditAccess" : {
+        "ui:field": "gallery"
+      },
+      "sourceIncome" : {
+        "ui:field": "gallery"
+      },
+      "documentation" : {
+        "ui:field": "gallery"
+      },
+      "environment" : {
+        "ui:field": "gallery"
+      },
+      "garbage" : {
+        "ui:field": "gallery"
+      },
+      "water" : {
+        "ui:field": "gallery"
+      },
+      "heatlthService" : {
+        "ui:field": "gallery"
+      },
+      "nutrition" : {
+        "ui:field": "gallery"
+      },
+      "hygiene" : {
+        "ui:field": "gallery"
+      },
+      "sexualHealth" : {
+        "ui:field": "gallery"
+      },
+      "teeth" : {
+        "ui:field": "gallery"
+      },
+      "vision" : {
+        "ui:field": "gallery"
+      },
+      "vaccines" : {
+        "ui:field": "gallery"
+      },
+      "insurance" : {
+        "ui:field": "gallery"
+      },
+      "house" : {
+        "ui:field": "gallery"
+      },
+      "confHome" : {
+        "ui:field": "gallery"
+      },
+      "separateBedrooms" : {
+        "ui:field": "gallery"
+      },
+      "kitchen" : {
+        "ui:field": "gallery"
+      },
+      "bathroom" : {
+        "ui:field": "gallery"
+      },
+      "refrigerator" : {
+        "ui:field": "gallery"
+      },
+      "telephone" : {
+        "ui:field": "gallery"
+      },
+      "clothing" : {
+        "ui:field": "gallery"
+      },
+      "safety" : {
+        "ui:field": "gallery"
+      },
+      "securityProperty" : {
+        "ui:field": "gallery"
+      },
+      "electricity" : {
+        "ui:field": "gallery"
+      },
+      "transportation" : {
+        "ui:field": "gallery"
+      },
+      "road" : {
+        "ui:field": "gallery"
+      },
+      "schooling" : {
+        "ui:field": "gallery"
+      },
+      "literacy" : {
+        "ui:field": "gallery"
+      },
+      "schoolSupplies" : {
+        "ui:field": "gallery"
+      },
+      "budget" : {
+        "ui:field": "gallery"
+      },
+      "generateIncome" : {
+        "ui:field": "gallery"
+      },
+      "informationAccess" : {
+        "ui:field": "gallery"
+      },
+      "entertainment" : {
+        "ui:field": "gallery"
+      },
+      "diversityRespect" : {
+        "ui:field": "gallery"
+      },
+
+      "humanRights" : {
+        "ui:field": "gallery"
+      },
+      "childLabor" : {
+        "ui:field": "gallery"
+      },
+      "group" : {
+        "ui:field": "gallery"
+      },
+      "publicSectorInfluence" : {
+        "ui:field": "gallery"
+      },
+      "conflicts" : {
+        "ui:field": "gallery"
+      },
+      "voting" : {
+        "ui:field": "gallery"
+      },
+      "lifePlan" : {
+        "ui:field": "gallery"
+      },
+      "selfEsteem" : {
+        "ui:field": "gallery"
+      },
+      "moralConscience" : {
+        "ui:field": "gallery"
+      },
+      "emotions" : {
+        "ui:field": "gallery"
+      },
+      "DomesticViolence" : {
+        "ui:field": "gallery"
+      },
+      "entrepreneurship" : {
+        "ui:field": "gallery"
+      },
+      "autonomy" : {
+        "ui:field": "gallery"
+      },
+
+      "birthdate": {
+         "ui:field": "date"
+      },
+      "over15": {
+      	"ui:field": "numberFormat"
+      },
+      "over15HaveAjob": {
+      	"ui:field": "numberFormat"
+      },
+    "benefitIncome": {
+        "ui:field": "numberFormat"
+      },
+    "salaryIncome": {
+        "ui:field": "numberFormat"
+      }
+
+   },
+
+  "ui:order": [
+    "firstName",
+  	"lastName",
+  	"birthdate",
+  	"countryOfBirth",
+  	"gender",
+  	"activityMain",
+  	"activitySecondary",
+  	"benefitIncome",
+    "salaryIncome",
+    "otherMembersIncome",
+    "otherMembersSalary",
+    "bussinessWeeklyIncome",
+    "cashBenefitsGovernment",
+    "situationHouse",
+    "memberDisability",
+    "memberDiedBefore5",
+    "familyWaterAccess",
+    "familyCar",
+    "educationalAttend",
+    "currentLevelEducation",
+    "over15",
+    "over15HaveAjob",
+    "houseHoldWork",
+    "houseHoldEarn",
+    "houseHoldWorkMore",
+    "partnerWorks",
+    "partnerEarns",
+    "partnerWorksMore",
+
+
+    "income",
+    "familySavings",
+    "creditAccess",
+    "sourceIncome",
+    "documentation",
+    "environment",
+    "garbage",
+    "water",
+    "heatlthService",
+    "nutrition",
+    "hygiene",
+    "sexualHealth",
+    "teeth",
+    "vision",
+    "vaccines",
+    "insurance",
+    "house",
+    "confHome",
+    "separateBedrooms",
+    "kitchen",
+    "bathroom",
+    "refrigerator",
+    "telephone",
+    "clothing",
+    "safety",
+    "securityProperty",
+    "electricity",
+    "transportation",
+    "road",
+    "schooling",
+    "literacy",
+    "schoolSupplies",
+    "budget",
+    "generateIncome",
+    "informationAccess",
+    "entertainment",
+    "diversityRespect",
+    "humanRights",
+    "childLabor",
+    "group",
+    "publicSectorInfluence",
+    "conflicts",
+    "voting",
+    "lifePlan",
+    "selfEsteem",
+    "moralConscience",
+    "emotions",
+    "DomesticViolence",
+    "entrepreneurship",
+    "autonomy"
+  ],
+
+  "ui:group:personal": [
+    "firstName",
+    "lastName",
+    "birthdate",
+    "countryOfBirth",
+    "gender"
+  ],
+
+  "ui:group:economics": [
+    "activityMain",
+    "activitySecondary",
+    "benefitIncome",
+    "salaryIncome",
+    "otherMembersIncome",
+    "otherMembersSalary",
+    "bussinessWeeklyIncome",
+    "cashBenefitsGovernment",
+    "situationHouse",
+    "memberDisability",
+    "memberDiedBefore5",
+    "familyWaterAccess",
+    "familyCar",
+    "educationalAttend",
+    "currentLevelEducation",
+    "over15",
+    "over15HaveAjob",
+    "houseHoldWork",
+    "houseHoldEarn",
+    "houseHoldWorkMore",
+    "partnerWorks",
+    "partnerEarns",
+    "partnerWorksMore"
+  ],
+
+  "ui:group:indicators": [
+    "income",
+    "familySavings",
+    "creditAccess",
+    "sourceIncome",
+    "documentation",
+    "environment",
+    "garbage",
+    "water",
+    "heatlthService",
+    "nutrition",
+    "hygiene",
+    "sexualHealth",
+    "teeth",
+    "vision",
+    "vaccines",
+    "insurance",
+    "house",
+    "confHome",
+    "separateBedrooms",
+    "kitchen",
+    "bathroom",
+    "refrigerator",
+    "telephone",
+    "clothing",
+    "safety",
+    "securityProperty",
+    "electricity",
+    "transportation",
+    "road",
+    "schooling",
+    "literacy",
+    "schoolSupplies",
+    "budget",
+    "generateIncome",
+    "informationAccess",
+    "entertainment",
+    "diversityRespect",
+    "humanRights",
+    "childLabor",
+    "group",
+    "publicSectorInfluence",
+    "conflicts",
+    "voting",
+    "lifePlan",
+    "selfEsteem",
+    "moralConscience",
+    "emotions",
+    "DomesticViolence",
+    "entrepreneurship",
+    "autonomy"
+  ]
+}

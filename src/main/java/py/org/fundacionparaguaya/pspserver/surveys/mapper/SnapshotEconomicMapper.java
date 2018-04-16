@@ -74,10 +74,10 @@ public class SnapshotEconomicMapper implements
         NewSnapshot snapshot) {
 
         return new SnapshotIndicatorEntity()
-                .staticProperties(snapshot
-                .getMappedIndicatorSurveyData(propertyAttributeSupport
-                    .staticIndicator(),
-                    propertyAttributeSupport::propertySchemaToSystemName))
+                .staticProperties(
+                       snapshot.getMappedIndicatorSurveyData(
+                               propertyAttributeSupport.staticIndicator(),
+                            propertyAttributeSupport::propertySchemaToSystemName))
                 .additionalProperties(snapshot.getIndicatorSurveyData(
                     propertyAttributeSupport.additional()));
 

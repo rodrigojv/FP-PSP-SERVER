@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
-import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
+import py.org.fundacionparaguaya.pspserver.config.I18n;
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.UserApplicationEntity;
@@ -33,8 +35,11 @@ import py.org.fundacionparaguaya.pspserver.security.services.UserService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.byFilter;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.byLoggedUser;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.hasApplication;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.hasOrganization;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.userIsActive;
@@ -58,10 +63,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserApplicationMapper userApplicationMapper;
 
+    private final I18n i18n;
+
     public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository,
                            ApplicationRepository applicationRepository, OrganizationRepository organizationRepository,
                            UserApplicationRepository userApplicationRepository, UserMapper userMapper,
-                           UserApplicationMapper userApplicationMapper) {
+                           UserApplicationMapper userApplicationMapper, I18n i18n) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.applicationRepository = applicationRepository;
@@ -69,6 +76,8 @@ public class UserServiceImpl implements UserService {
         this.userApplicationRepository = userApplicationRepository;
         this.userMapper = userMapper;
         this.userApplicationMapper = userApplicationMapper;
+        this.i18n = i18n;
+
     }
 
     @Override
@@ -170,9 +179,104 @@ public class UserServiceImpl implements UserService {
         Optional.ofNullable(
                 userRepository.findOne(userId))
                 .ifPresent(user -> {
-                    userRepository.delete(user);
+                    user.setActive(false);
+                    userRepository.save(user);
                     LOG.debug("Deleted User: {}", user);
                 });
+    }
+
+    @Override
+    public UserDTO updateUserByRequest(Long userTargetId, UserDTO userTargetDTO, String requesterUserName) {
+        checkArgument(userTargetId > 0, "Argument was %s but expected nonnegative", userTargetId);
+
+        UserEntity userTarget = userRepository.findOne(userTargetId);
+
+        //check if logged user can perform the update over the targeted user.
+        UserEntity responsibleUser = userRepository.findByUsername(requesterUserName);
+        if (canPerformUpdateOverUser(userTarget, responsibleUser)){
+            userTarget.setEmail(userTargetDTO.getEmail());
+            userTarget.setActive(userTargetDTO.isActive());
+            userRepository.save(userTarget);
+            LOG.debug("Changed Information for User: {}", userTarget);
+        }else {
+            throw new RuntimeException(i18n.translate("user.updateNotAllowed"));
+        }
+        return userMapper.entityToDto(userTarget);
+    }
+
+    private boolean canPerformUpdateOverUser(UserEntity targetUser, UserEntity responsibleUser){
+
+        boolean updatePossible = false;
+
+        List<UserRoleEntity> targetUserRoleEntityList = userRoleRepository.findByUser(targetUser);
+
+        if (targetUserRoleEntityList == null){
+            LOG.warn("Currently, only users with 1 rol can be updated. "
+                    + "No role were found for this user");
+            return updatePossible;
+        }
+
+        //there is not a predefined behavior in case the targetUser has more than 1 role for now
+        if (targetUserRoleEntityList.size()>1){
+            LOG.warn("Currently only users with 1 rol can be updated. "
+                    + "There are more than 1 rol for this user");
+            return updatePossible;
+        }
+
+        //We are sure the first item is present, since the targetUserRoleEntityList is != null
+        String roleUserTarget = targetUserRoleEntityList.get(0).getRole().getSecurityName();
+
+        //find out what kind of role our targetUser has
+        boolean targetIsHubAdmin = roleUserTarget.equals(Role.ROLE_HUB_ADMIN.getSecurityName());
+        boolean targetIsOrgAdmin = roleUserTarget.equals(Role.ROLE_APP_ADMIN.getSecurityName());
+        boolean targetIsUser = roleUserTarget.equals(Role.ROLE_SURVEY_USER.getSecurityName());
+
+        //The UserApplicationEntities help to determine if the targetUser depends on the responsibleUser
+        UserApplicationEntity userTargetApplicationEntity =
+                userApplicationRepository.findByUser(targetUser).orElse(null);
+        UserApplicationEntity userResponsibleApplicationEntity =
+                userApplicationRepository
+                        .findByUser(responsibleUser).orElse(null);
+
+        //get the roles of the user responsible of the update
+        List<UserRoleEntity> roleResponsibleUserList =
+                this.userRoleRepository.findByUser(responsibleUser);
+        String roleResponsible;
+
+        //One of the roles of the responsibleUser may allow him to update the targetUser
+        for (UserRoleEntity userRoleEntity : roleResponsibleUserList){
+            roleResponsible = userRoleEntity.getRole().getSecurityName();
+
+            //only HUB_Users can be modified
+            if (roleResponsible.equals(Role.ROLE_ROOT.getSecurityName()) && targetIsHubAdmin){
+
+                //if responsible is root, any hubAdmin can be updated
+                updatePossible = true;
+
+            }
+
+            //Check if the UserTarget role is inmmediatly under the level of the responsibleUser role
+            if (roleResponsible.equals(Role.ROLE_HUB_ADMIN.getSecurityName()) && targetIsOrgAdmin){
+
+                long idHubTarget = userTargetApplicationEntity.getApplication().getId();
+                long idHubResponsible = userResponsibleApplicationEntity.getApplication().getId();
+
+                //Only if they are related to the same hub, the update is posiible
+                updatePossible = idHubResponsible == idHubTarget;
+
+            }
+
+            //Check if the UserTarget role is inmmediatly under the level of the responsibleUser role
+            if (roleResponsible.equals(Role.ROLE_APP_ADMIN.getSecurityName()) && targetIsUser){
+                long idOrgTarget = userTargetApplicationEntity.getOrganization().getId();
+                long idOrgResponsible = userResponsibleApplicationEntity.getOrganization().getId();
+
+                //Only if they are related to the same organization, the update is possible
+                updatePossible = idOrgResponsible == idOrgTarget;
+            }
+        }
+
+        return updatePossible;
     }
 
     @Override
@@ -191,15 +295,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserDTO> listUsers(int page, int perPage, String orderBy, String sortBy, UserDetailsDTO userDetails) {
-        PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, "user." + sortBy);
-
+    public Page<UserDTO> listUsers(UserDetailsDTO userDetails, String filter, PageRequest pageRequest) {
         Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findAll(
-                    Specifications.where(hasApplication(userDetails.getApplication()))
-                            .and(hasOrganization(userDetails.getOrganization()))
-                            .and(userIsActive()),
-                    pageRequest);
+                Specifications
+                        .where(byLoggedUser(userDetails))
+                        .and(userIsActive())
+                        .and(byFilter(filter)),
+                pageRequest);
 
         return userApplicationPage.map(userApplicationMapper::entityToUserDto);
+    }
+
+    @Override
+    public List<UserDTO> listUsers(ApplicationDTO application, OrganizationDTO organization) {
+
+        List<UserApplicationEntity> userApplications = userApplicationRepository.findAll(
+                Specifications
+                        .where(hasApplication(application))
+                        .and(hasOrganization(organization))
+                        .and(userIsActive()));
+
+        return userApplications.stream().map(userApplicationMapper::entityToUserDto).collect(Collectors.toList());
     }
 }

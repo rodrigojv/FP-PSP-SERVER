@@ -11,8 +11,19 @@ import java.util.Optional;
  *
  */
 public enum SurveyStoplightEnum {
-	RED, YELLOW, GREEN;
-	
+	RED(0), YELLOW(1), GREEN(2);
+
+    private final Integer code;
+
+	SurveyStoplightEnum (Integer code){
+
+		this.code = code;
+    }
+
+    public Integer getCode(){
+		return this.code;
+	}
+
 	public static SurveyStoplightEnum fromValue(String value) {
 		SurveyStoplightEnum[] values = SurveyStoplightEnum.values();
 		Optional<SurveyStoplightEnum> findAny = Arrays.asList(values).stream()

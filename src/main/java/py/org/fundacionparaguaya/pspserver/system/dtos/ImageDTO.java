@@ -11,8 +11,6 @@ public class ImageDTO implements Serializable {
 
     private String imageDirectory;
 
-    private String imageNamePrefix;
-
     public File getFile() {
         return file;
     }
@@ -35,13 +33,5 @@ public class ImageDTO implements Serializable {
 
     public void setImageDirectory(String imageDirectory) {
         this.imageDirectory = imageDirectory;
-    }
-
-    public String getImageNamePrefix() {
-        return imageNamePrefix;
-    }
-
-    public void setImageNamePrefix(String imageNamePrefix) {
-        this.imageNamePrefix = imageNamePrefix;
     }
 }

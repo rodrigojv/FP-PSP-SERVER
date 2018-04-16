@@ -51,3 +51,4 @@ es;Fecha de nacimiento;birthdate;birthdate;PERSONAL;MANDATORY
 es;País de nacimiento;countryOfBirth;countryOfBirth;PERSONAL;MANDATORY
 es;Género;gender;gender;PERSONAL;RECOMMENDED
 es;Número de teléfono;phoneNumber;phoneNumber;PERSONAL;RECOMMENDED
+es;Email;email;email;PERSONAL;RECOMMENDED

@@ -1,1587 +1,1817 @@
 {
-  "title": "Stoplight survey example with defaults",
-  "description": "A simple stoplight survey example with default values.",
-  "type": "object",
-  "required": [
-    "identificationType",
-  	"identificationNumber",
-  	"firstName",
-  	"lastName",
-  	"birthdate",
-  	"countryOfBirth",
-  	"gender",
-  	"familyCountry",
-  	"familyCity",
-    "familyUbication",
-    "currency",
-    "areaOfResidence",
-    "employmentStatusPrimary",
-    "activityMain",
-    "employmentStatusSecondary",
-    "activitySecondary",
-    "householdMonthlyIncome",
-    "salaryIncome",
-    "benefitIncome",
-    "pensionIncome",
-    "savingsIncome",
-    "otherIncome",
-    "householdMonthlyOutgoing",
-    "netSuplus",
-    "educationClientLevel",
-    "educationPersonMostStudied",
-    "educationLevelAttained",
-    "housingSituation",
-    "income",
-    "documentation",
-    "drinkingWaterAccess",
-    "nearbyHealthPost",
-    "alimentation",
-    "garbageDisposal",
-    "safeHouse",
-    "safeBathroom",
-    "electricityAccess",
-    "refrigerator",
-    "separateBed",
-    "separateBedrooms",
-    "properKitchen",
-    "phone",
-    "security",
-    "readAndWrite",
-    "middleEducation",
-    "socialCapital",
-    "informationAccess",
-    "influenceInPublicSector",
-    "awarenessOfNeeds",
-    "selfEsteem",
-    "autonomyDecisions"
-  ],
-  "properties": {
-  
-  "identificationType": {
-  		"type": "string",
-      "title": {
-        "es": "Tipo de documento"
-      },
-      "enum": [
-        "CI",
-        "DNI",
-        "PASSPORT"
-      ],
-      "enumNames": [
-        "Cédula de Identidad",
-        "DNI",
-        "Pasaporte"
-      ],
-      "default": "CI"
-  	},
-  	
-  	"identificationNumber": {
-      "type": "string",
-      "title": {
-        "es": "Ingrese su número de documento"
-      },
-      "default": ""
-    },
-    
-    "firstName": {
-      "type": "string",
-      "title": {
-        "es": "Ingrese su nombre"
-      },
-      "default": ""
-    },
-    
-    "lastName": {
-      "type": "string",
-      "title": {
-        "es": "Ingrese su apellido"
-      },
-      "default": ""
-    },
-    
-    "birthdate": {
-      "type": "string",
-      "format": "date",
-      "title": {
-        "es": "Ingrese su fecha de nacimiento"
-      }
-    },
-    
-    "countryOfBirth": {
-  	  "type": "string",
-      "title": {
-        "es": "Ingrese su país de nacimiento"
-      },
-      "enum": [
-        "PY",
-		"AD",
-		"AE",
-		"AF",
-		"AG",
-		"AI",
-		"AL",
-		"AM",
-		"AN",
-		"AO",
-		"AQ",
-		"AR",
-		"AS",
-		"AT",
-		"AU",
-		"AW",
-		"AX",
-		"AZ",
-		"BA",
-		"BB",
-		"BD",
-		"BE",
-		"BF",
-		"BG",
-		"BH",
-		"BI",
-		"BJ",
-		"BL",
-		"BM",
-		"BN",
-		"BO",
-		"BR",
-		"BS",
-		"BT",
-		"BV",
-		"BW",
-		"BY",
-		"BZ",
-		"CA",
-		"CC",
-		"CF",
-		"CG",
-		"CH",
-		"CI",
-		"CK",
-		"CL",
-		"CM",
-		"CN",
-		"CO",
-		"CR",
-		"CU",
-		"CV",
-		"CX",
-		"CY",
-		"CZ",
-		"DE",
-		"DJ",
-		"DK",
-		"DM",
-		"DO",
-		"DZ",
-		"EC",
-		"EE",
-		"EG",
-		"EH",
-		"ER",
-		"ES",
-		"ET",
-		"FI",
-		"FJ",
-		"FK",
-		"FM",
-		"FO",
-		"FR",
-		"GA",
-		"GB",
-		"GD",
-		"GE",
-		"GF",
-		"GG",
-		"GH",
-		"GI",
-		"GL",
-		"GM",
-		"GN",
-		"GP",
-		"GQ",
-		"GR",
-		"GS",
-		"GT",
-		"GU",
-		"GW",
-		"GY",
-		"HK",
-		"HM",
-		"HN",
-		"HR",
-		"HT",
-		"HU",
-		"ID",
-		"IE",
-		"IL",
-		"IM",
-		"IN",
-		"IO",
-		"IQ",
-		"IR",
-		"IS",
-		"IT",
-		"JE",
-		"JM",
-		"JO",
-		"JP",
-		"KE",
-		"KG",
-		"KH",
-		"KI",
-		"KM",
-		"KN",
-		"KP",
-		"KR",
-		"KW",
-		"KY",
-		"KZ",
-		"LA",
-		"LB",
-		"LC",
-		"LI",
-		"LK",
-		"LR",
-		"LS",
-		"LT",
-		"LU",
-		"LV",
-		"LY",
-		"MA",
-		"MC",
-		"MD",
-		"ME",
-		"MG",
-		"MH",
-		"MK",
-		"ML",
-		"MM",
-		"MN",
-		"MO",
-		"MQ",
-		"MR",
-		"MS",
-		"MT",
-		"MU",
-		"MV",
-		"MW",
-		"MX",
-		"MY",
-		"MZ",
-		"NA",
-		"NC",
-		"NE",
-		"NF",
-		"NG",
-		"NI",
-		"NL",
-		"NO",
-		"NP",
-		"NR",
-		"NU",
-		"NZ",
-		"OM",
-		"PA",
-		"PE",
-		"PF",
-		"PG",
-		"PH",
-		"PK",
-		"PL",
-		"PM",
-		"PN",
-		"PR",
-		"PS",
-		"PT",
-		"PW",
-		"QA",
-		"RE",
-		"RO",
-		"RS",
-		"RU",
-		"RW",
-		"SA",
-		"SB",
-		"SC",
-		"SD",
-		"SE",
-		"SG",
-		"SH",
-		"SI",
-		"SJ",
-		"SK",
-		"SL",
-		"SM",
-		"SN",
-		"SO",
-		"SR",
-		"ST",
-		"SV",
-		"SY",
-		"SZ",
-		"TC",
-		"TD",
-		"TF",
-		"TG",
-		"TH",
-		"TH",
-		"TJ",
-		"TK",
-		"TL",
-		"TM",
-		"TN",
-		"TO",
-		"TR",
-		"TT",
-		"TV",
-		"TW",
-		"UA",
-		"UG",
-		"US",
-		"UY",
-		"UZ",
-		"VA",
-		"VC",
-		"VE",
-		"VG",
-		"VI",
-		"VN",
-		"VU",
-		"WF",
-		"WS",
-		"YE",
-		"YT",
-		"ZA"
-	  ],
-      "enumNames": [
-        "Paraguay",
-	    "Andorra",
-		"Emiratos Árabes Unidos",
-		"Afganistán",
-		"Antigua y Barbuda",
-		"Anguila",
-		"Albania",
-		"Armenia",
-		"Antillas Neerlandesas",
-		"Angola",
-		"Antártida",
-		"Argentina",
-		"Samoa Americana",
-		"Austria",
-		"Australia",
-		"Aruba",
-		"Islas Áland",
-		"Azerbaiyán",
-		"Bosnia y Herzegovina",
-		"Barbados",
-		"Bangladesh",
-		"Bélgica",
-		"Burkina Faso",
-		"Bulgaria",
-		"Bahréin",
-		"Burundi",
-		"Benin",
-		"San Bartolomé",
-		"Bermudas",
-		"Brunéi",
-		"Bolivia",
-		"Brasil",
-		"Bahamas",
-		"Bhután",
-		"Isla Bouvet",
-		"Botsuana",
-		"Belarús",
-		"Belice",
-		"Canadá",
-		"Islas Cocos",
-		"República Centro-Africana",
-		"Congo",
-		"Suiza",
-		"Costa de Marfil",
-		"Islas Cook",
-		"Chile",
-		"Camerún",
-		"China",
-		"Colombia",
-		"Costa Rica",
-		"Cuba",
-		"Cabo Verde",
-		"Islas Christmas",
-		"Chipre",
-		"República Checa",
-		"Alemania",
-		"Yibuti",
-		"Dinamarca",
-		"Domínica",
-		"República Dominicana",
-		"Argel",
-		"Ecuador",
-		"Estonia",
-		"Egipto",
-		"Sahara Occidental",
-		"Eritrea",
-		"España",
-		"Etiopía",
-		"Finlandia",
-		"Fiji",
-		"Islas Malvinas",
-		"Micronesia",
-		"Islas Faroe",
-		"Francia",
-		"Gabón",
-		"Reino Unido",
-		"Granada",
-		"Georgia",
-		"Guayana Francesa",
-		"Guernsey",
-		"Ghana",
-		"Gibraltar",
-		"Groenlandia",
-		"Gambia",
-		"Guinea",
-		"Guadalupe",
-		"Guinea Ecuatorial",
-		"Grecia",
-		"Georgia del Sur e Islas Sandwich del Sur",
-		"Guatemala",
-		"Guam",
-		"Guinea-Bissau",
-		"Guayana",
-		"Hong Kong",
-		"Islas Heard y McDonald",
-		"Honduras",
-		"Croacia",
-		"Haití",
-		"Hungría",
-		"Indonesia",
-		"Irlanda",
-		"Israel",
-		"Isla de Man",
-		"India",
-		"Territorio Británico del Océano Índico",
-		"Irak",
-		"Irán",
-		"Islandia",
-		"Italia",
-		"Jersey",
-		"Jamaica",
-		"Jordania",
-		"Japón",
-		"Kenia",
-		"Kirguistán",
-		"Camboya",
-		"Kiribati",
-		"Comoros",
-		"San Cristóbal y Nieves",
-		"Corea del Norte",
-		"Corea del Sur",
-		"Kuwait",
-		"Islas Caimán",
-		"Kazajstán",
-		"Laos",
-		"Líbano",
-		"Santa Lucía",
-		"Liechtenstein",
-		"Sri Lanka",
-		"Liberia",
-		"Lesotho",
-		"Lituania",
-		"Luxemburgo",
-		"Letonia",
-		"Libia",
-		"Marruecos",
-		"Mónaco",
-		"Moldova",
-		"Montenegro",
-		"Madagascar",
-		"Islas Marshall",
-		"Macedonia",
-		"Mali",
-		"Myanmar",
-		"Mongolia",
-		"Macao",
-		"Martinica",
-		"Mauritania",
-		"Montserrat",
-		"Malta",
-		"Mauricio",
-		"Maldivas",
-		"Malawi",
-		"México",
-		"Malasia",
-		"Mozambique",
-		"Namibia",
-		"Nueva Caledonia",
-		"Níger",
-		"Islas Norkfolk",
-		"Nigeria",
-		"Nicaragua",
-		"Países Bajos",
-		"Noruega",
-		"Nepal",
-		"Nauru",
-		"Niue",
-		"Nueva Zelanda",
-		"Omán",
-		"Panamá",
-		"Perú",
-		"Polinesia Francesa",
-		"Papúa Nueva Guinea",
-		"Filipinas",
-		"Pakistán",
-		"Polonia",
-		"San Pedro y Miquelón",
-		"Islas Pitcairn",
-		"Puerto Rico",
-		"Palestina",
-		"Portugal",
-		"Islas Palaos",
-		"Qatar",
-		"Reunión",
-		"Rumanía",
-		"Serbia y Montenegro",
-		"Rusia",
-		"Ruanda",
-		"Arabia Saudita",
-		"Islas Solomón",
-		"Seychelles",
-		"Sudán",
-		"Suecia",
-		"Singapur",
-		"Santa Elena",
-		"Eslovenia",
-		"Islas Svalbard y Jan Mayen",
-		"Eslovaquia",
-		"Sierra Leona",
-		"San Marino",
-		"Senegal",
-		"Somalia",
-		"Surinam",
-		"Santo Tomé y Príncipe",
-		"El Salvador",
-		"Siria",
-		"Suazilandia",
-		"Islas Turcas y Caicos",
-		"Chad",
-		"Territorios Australes Franceses",
-		"Togo",
-		"Tailandia",
-		"Tanzania",
-		"Tayikistán",
-		"Tokelau",
-		"Timor-Leste",
-		"Turkmenistán",
-		"Túnez",
-		"Tonga",
-		"Turquía",
-		"Trinidad y Tobago",
-		"Tuvalu",
-		"Taiwán",
-		"Ucrania",
-		"Uganda",
-		"Estados Unidos de América",
-		"Uruguay",
-		"Uzbekistán",
-		"Ciudad del Vaticano",
-		"San Vicente y las Granadinas",
-		"Venezuela",
-		"Islas Vírgenes Británicas",
-		"Islas Vírgenes de los Estados Unidos de América",
-		"Vietnam",
-		"Vanuatu",
-		"Wallis y Futuna",
-		"Samoa",
-		"Yemen",
-		"Mayotte",
-		"Sudáfrica"
-	  ],
-      "default": "PY"
-  	},
-  	
-  	"gender": {
-  	  "type": "string",
-      "title": {
-        "es": "Ingrese su género"
-      },
-      "enum": [
-        "F",
-        "M"
-      ],
-      "enumNames": [
-        "Femenino",
-        "Masculino"
-      ],
-      "default": "F"
-   },
-   
-   "phoneNumber": {
-      "type": "string",
-      "title": {
-        "es": "Ingrese su número de teléfono"
-      }
-    },
-  
-    "currency": {
-      "type": "string",
-      "title": {
-        "es": "Moneda en la que gana su dinero"
-      },
-      "default": "PYG/Paraguayan Guarani"
-    },
-    "areaOfResidence": {
-      "type": "string",
-      "title": {
-        "es": "Tipo de area de residencia, normalmente los valores son RURAL/URBAN"
-      },
-      "enum": [
-        "URBAN",
-        "RURAL"
-      ],
-      "enumNames": [
-        "URBANA",
-        "RURAL"
-      ],
-      "default": "URBAN"
-    },
-    "employmentStatusPrimary": {
-      "type": "string",
-      "title": {
-        "es": "Puesto en su empleo primario"
-      },
-      "enum": [
-        "SELF-EMPLOYED",
-        "UNEMPLOYED",
-        "EMPLOYEE-FULL-TIME",
-        "EMPLOYEE-PART-TIME",
-        "CASUAL-WORK",
-        "WORK-BASED-TRAINING",
-        "STUDENT",
-        "VOLUNTEERING-INTERNSHIP",
-        "TRAVELLING",
-        "MEDICAL-TREATMENT",
-        "CUSTODIAL-SENTENCE",
-        "OTHER-INACTIVE"
-      ],
-      "enumNames": [
-        "Trabajo independiente",
-        "No tiene",
-        "Empleo de tiempo completo",
-        "Empleo de tiempo compartido",
-        "Trabajo ocasional",
-        "Trabajo Basado en Entrenamiento",
-        "Estudiante",
-        "Voluntariado/Pasantía",
-        "Viajando",
-        "Tratamiendo médico",
-        "Libertal condicional",
-        "Otros"
-      ],
-      "default": "SELF-EMPLOYED"
-    },
-    "activityMain": {
-      "type": "string",
-      "title": {
-        "es": "Ingrese su actividad principal"
-      },
-      "enum": [
-        "AGRICULTURE",
-        "MINING-QUARRYING",
-        "MANUFACTURING",
-        "ELECTRICITY-GAS",
-        "WATER-SEWERAGE",
-        "CONSTRUCTION",
-        "TRADE",
-        "TRANSPORTATION-STORAGE",
-        "ACCOMMODATION-FOOD",
-        "INFORMATION-COMMUNICATION",
-        "FINANCIAL",
-        "REAL-ESTATE",
-        "PROFESSIONAL",
-        "ADMINISTRATIVE",
-        "PUBLIC-ADMINISTRATION",
-        "EDUCATION",
-        "HEALTH-SOCIAL",
-        "ARTS",
-        "OTHER",
-        "HOUSEHOLDS",
-        "EXTRATERRITORIAL"
-      ],
-      "enumNames": [
-        "Agricultura, Silvicultura y Pesca",
-        "Minas y Canteras",
-        "Manufactura",
-        "Suministro de electricidad, gas, vapor y aire acondicionado",
-        "Actividades de abastecimiento de agua, alcantarillado y gestión de residuos",
-        "Construcción",
-        "Comercio mayorista y minorista, reparación de vehículos y motocicletas",
-        "Transporte y almacenamiento",
-        "Actividades de alojamiento y servicio de comida",
-        "Información y Comunicación",
-        "Actividades financieras y de seguros",
-        "Actividades inmobiliarias",
-        "Actividades profesionales, científicas y técnicas",
-        "Actividades administrativas",
-        "Administración pública y defensa",
-        "Educación",
-        "Actividades de salud y servicio social",
-        "Arte, entretenimiento y recreación",
-        "Otras actividades de servicio",
-        "Actividades de hogares como empleadores; otras actividades que producen bienes y servicios para uso propio",
-        "Actividades de organizaciones extraterritoriales"
-      ],
-      "default": "AGRICULTURE"
-    },
-    "employmentStatusSecondary": {
-      "type": "string",
-      "title": {
-        "es": "Puesto en su empleo secundario"
-      },
-      "enum": [
-        "SELF-EMPLOYED",
-        "UNEMPLOYED",
-        "EMPLOYEE-FULL-TIME",
-        "EMPLOYEE-PART-TIME",
-        "CASUAL-WORK",
-        "WORK-BASED-TRAINING",
-        "STUDENT",
-        "VOLUNTEERING-INTERNSHIP",
-        "TRAVELLING",
-        "MEDICAL-TREATMENT",
-        "CUSTODIAL-SENTENCE",
-        "OTHER-INACTIVE"
-      ],
-      "enumNames": [
-        "Trabajo independiente",
-        "No tiene",
-        "Empleo de tiempo completo",
-        "Empleo de tiempo compartido",
-        "Trabajo ocasional",
-        "Trabajo Basado en Entrenamiento",
-        "Estudiante",
-        "Voluntariado/Pasantía",
-        "Viajando",
-        "Tratamiendo médico",
-        "Libertal condicional",
-        "Otros"
-      ],
-      "default": "SELF-EMPLOYED"
-    },
-    "activitySecondary": {
-      "type": "string",
-      "title": {
-        "es": "Ingrese su actividad secundaria"
-      },
-      "enum": [
-        "AGRICULTURE",
-        "MINING-QUARRYING",
-        "MANUFACTURING",
-        "ELECTRICITY-GAS",
-        "WATER-SEWERAGE",
-        "CONSTRUCTION",
-        "TRADE",
-        "TRANSPORTATION-STORAGE",
-        "ACCOMMODATION-FOOD",
-        "INFORMATION-COMMUNICATION",
-        "FINANCIAL",
-        "REAL-ESTATE",
-        "PROFESSIONAL",
-        "ADMINISTRATIVE",
-        "PUBLIC-ADMINISTRATION",
-        "EDUCATION",
-        "HEALTH-SOCIAL",
-        "ARTS",
-        "OTHER",
-        "HOUSEHOLDS",
-        "EXTRATERRITORIAL"
-      ],
-      "enumNames": [
-        "Agricultura, Silvicultura y Pesca",
-        "Minas y Canteras",
-        "Manufactura",
-        "Suministro de electricidad, gas, vapor y aire acondicionado",
-        "Actividades de abastecimiento de agua, alcantarillado y gestión de residuos",
-        "Construcción",
-        "Comercio mayorista y minorista, reparación de vehículos y motocicletas",
-        "Transporte y almacenamiento",
-        "Actividades de alojamiento y servicio de comida",
-        "Información y Comunicación",
-        "Actividades financieras y de seguros",
-        "Actividades inmobiliarias",
-        "Actividades profesionales, científicas y técnicas",
-        "Actividades administrativas",
-        "Administración pública y defensa",
-        "Educación",
-        "Actividades de salud y servicio social",
-        "Arte, entretenimiento y recreación",
-        "Otras actividades de servicio",
-        "Actividades de hogares como empleadores; otras actividades que producen bienes y servicios para uso propio",
-        "Actividades de organizaciones extraterritoriales"
-      ],
-      "default": "AGRICULTURE"
-    },
-    "householdMonthlyIncome": {
-      "type": "number",
-      "title": {
-        "es": "Ingrese su ingreso mensual familiar"
-      },
-      "default": 0
-    },
-    "salaryIncome": {
-      "type": "number",
-      "title": {
-        "es": "Ingrese su ingreso mensual por salario"
-      },
-      "default": 0
-    },
-    "benefitIncome": {
-      "type": "number",
-      "title": {
-        "es": "Si recibe algún tipo de beneficio del estado u organización, ingrese el monto"
-      },
-      "default": 0
-    },
-    "pensionIncome": {
-      "type": "number",
-      "title": {
-        "es": "Si recibe ingreso por pensión, ingrese el monto"
-      },
-      "default": 0
-    },
-    "savingsIncome": {
-      "type": "number",
-      "title": {
-        "es": "Ingrese la cantidad que tenga de ahorros"
-      },
-      "default": 0
-    },
-    "otherIncome": {
-      "type": "number",
-      "title": {
-        "es": "Ingrese otros ingresos que tenga"
-      },
-      "default": 0
-    },
-    "householdMonthlyOutgoing": {
-      "type": "number",
-      "title": {
-        "es": "Ingrese los gastos mensuales que tiene en su familia"
-      },
-      "default": 0
-    },
-    "netSuplus": {
-      "type": "number",
-      "title": {
-        "es": "Ingrese net deficit"
-      },
-      "default": 0
-    },
-    "educationClientLevel": {
-      "type": "string",
-      "title": {
-        "es": "Nivel de educación de la persona entrevistada o la cabeza de familia"
-      },
-      "enum": [
-        "INCOMPLETE-PRIMARY",
-        "COMPLETED-PRIMARY",
-        "INCOMPLETE-SECONDARY",
-        "COMPLETED-SECONDARY",
-        "INCOMPLETE-COLLEGE",
-        "COLLEGE-DEGREE"
-      ],
-      "enumNames": [
-        "Primaria incompleta",
-        "Primaria completa",
-        "Secundaria incompleta",
-        "Secundaria completa",
-        "Universitaria incompleta",
-        "Título universitario"
-      ],
-      "default": "INCOMPLETE-PRIMARY"
-    },
-    "educationPersonMostStudied": {
-      "type": "string",
-      "title": {
-        "es": "Nivel de educación de la persona con más estudios en la familia"
-      },
-      "enum": [
-        "INCOMPLETE-PRIMARY",
-        "COMPLETED-PRIMARY",
-        "INCOMPLETE-SECONDARY",
-        "COMPLETED-SECONDARY",
-        "INCOMPLETE-COLLEGE",
-        "COLLEGE-DEGREE"
-      ],
-      "enumNames": [
-        "Primaria incompleta",
-        "Primaria completa",
-        "Secundaria incompleta",
-        "Secundaria completa",
-        "Universitaria incompleta",
-        "Título universitario"
-      ],
-      "default": "INCOMPLETE-PRIMARY"
-    },
-    "educationLevelAttained": {
-      "type": "string",
-      "title": {
-        "es": "Nivel de educación alcanzado por la persona con más estudios en la familia"
-      },
-      "enum": [
-        "NONE",
-        "LEVEL-1",
-        "LEVEL-2",
-        "LEVEL-3",
-        "LEVEL-4",
-        "LEVEL-5",
-        "LEVEL-6",
-        "OTHER"
-      ],
-      "enumNames": [
-        "Ninguno",
-        "Nivel 1",
-        "Nivel 2",
-        "Nivel 3",
-        "Nivel 4",
-        "Nivel 5",
-        "Nivel 6",
-        "Otro"
-      ],
-      "default": "NONE"
-    },
-    "housingSituation": {
-      "type": "string",
-      "title": {
-        "es": "Situación de la vivienda"
-      },
-      "enum": [
-        "OWN-TITTLE",
-        "OWN-NO-TITTLE",
-        "FAMILY-PROPERTY",
-        "RENTED",
-        "BORROWED"
-      ],
-      "enumNames": [
-        "Propia con título",
-        "Propia sin título",
-        "En propiedad familiar",
-        "Alquilada",
-        "Prestada"
-      ],
-      "default": "OWN-TITTLE"
-    },
-    "otherUsefulInfo": {
-      "type": "string",
-      "title": {
-        "es": "Otra información relevante"
-      },
-      "default": "ninguna"
-    },
-    
-    "familyCountry":{
-      "type": "string",
-      "title": {
-        "es": "País en el que reside la familia"
-      },
-      "enum": [
-        "Paraguay"
-      ],
-      "enumNames": [
-        "Paraguay"
-      ],
-      "default": "Paraguay"
-    
-    },
-    
-    "familyCity":{
-      "type": "string",
-      "title": {
-        "es": "Ciudad en el que reside la familia"
-      },
-      "enum": [
-        "Asunción"
-      ],
-      "enumNames": [
-        "Asunción"
-      ],
-      "default": "Asunción"
-    
-    },
-    
-    "familyUbication": {
-    	"type": "string",
-    	"title": {
-    		"es": "Seleccione la ubicación geográfica de la familia"
-    	},
-        "default":"-25.2968485,-57.6331085" 
-    },
-    "income": {
-      "type": "array",
-      "title": {
-        "es": "Cuál es su nivel de ingreso?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/1-3.jpg", 
-          "description":"Los ingresos de la familia superan la línea de la pobreza.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/1-2.jpg", 
-          "description":"Los ingresos de la familia son inferiores a la línea de pobreza general y superiores a la línea de pobreza extrema.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/1-1.jpg", 
-          "description":"Los ingresos de la familia son inferiores a la línea de pobreza extrema.",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/1-3.jpg", 
-          "description":"Los ingresos de la familia superan la línea de la pobreza.",
-          "value":"GREEN"}]
-    },
-    "documentation": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con documentación"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/6-3.jpg", 
-          "description":"Todos los miembros de la familia mayores a 12 años de edad tienen cédula de identidad vigente.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/6-2.jpg", 
-          "description":"Un miembro de mi familia mayor a 12 años de edad no tiene cédula de identidad.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/6-1.jpg", 
-          "description":"Más de un miembro de mi familia mayor a 12 años de edad no tiene cédula de identidad.",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/6-3.jpg", 
-          "description":"Todos los miembros de la familia mayores a 12 años de edad tienen cédula de identidad vigente.",
-          "value":"GREEN"}]
-    },
-    
-    "drinkingWaterAccess": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con acceso a agua potable?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/7-3.jpg", 
-          "description":"Mi familia cuenta con agua potable a través de una canilla dentro del predio",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/7-2.jpg", 
-          "description":"Mi familia tiene acceso a agua potable fuera de la casa (canilla, pozo o aljibe protegido, agua de manantial o pluvial protegido) a menos de 30 minutos de caminata ida y vuelta.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/7-1.jpg", 
-          "description":"El agua que bebe mi familia no es potable y/o tiene que carrearla desde un punto a más de 30 minutos de caminata ida y vuelta.",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/7-3.jpg", 
-          "description":"Mi familia cuenta con agua potable a través de una canilla dentro del predio",
-          "value":"GREEN"}]
-    },
-    "nearbyHealthPost": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con un puesto de salud cercano?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/8-3.jpg", 
-          "description":"En los últimos 90 días, todas las veces que mi familia necesitó atención médica pudimos obtenerla.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/8-2.jpg", 
-          "description":"En los últimos 90 días, cuando mi familia necesitó atención médica de emergencia o básica, pudo obtenerla. No pudimos obtener atención especializada y medicinas caras.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/8-1.jpg", 
-          "description":"En los 90 días necesitamos atención médica por alguna enfermedad o accidente, y no pudimos obtenerla debido a que no hay atención cercana, la atención fue mala o porque las consultas fueron muy caras.",
-          "value":"RED"}
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/8-3.jpg", 
-          "description":"En los últimos 90 días, todas las veces que mi familia necesitó atención médica pudimos obtenerla.",
-          "value":"GREEN"}]
-    },
-    "alimentation": {
-      "type": "array",
-      "title": {
-        "es": "Tiene una alimentación nutritiva?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/9-3.jpg", 
-          "description":"Todos los miembros de mi familia: (a) consumieron una buena variedad de alimentos durante la última semana: 1. Carnes (vaca, pollo, pescado, cordero, etc.) 2. Leche y/o derivados 3. Verduras variadas 4. Huevos 5. Frutas variadas 6. Arroz, fideo, papa, mandioca, maíz, etc. y (b) tuvieron al menos 3 comidas en el día: desayuno, almuerzo y cena. O si se saltaron una o alg{un tipo de alimento (religiosas o filosóficas), fue por motivos voluntarios no asociados a la falta de dinero o alimento.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/9-2.jpg", 
-          "description":"Los miembros de mi familia no incluyeron en su dieta todos los alimentos necesarios, pero en la última semana todos los miembros de mi familiar tuvieron 3 comidas en el día, p si se saltaron una, fue por motivos voluntarios no asociados a la falta de dinero o alimento.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/9-1.jpg", 
-          "description":"En la última semana, al menos un miembro de mi familia por lo menos una vez se acostó con hambre o saltó una comida involuntariamente por falta de alimento o dinero.",
-          "value":"RED"}
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/9-3.jpg", 
-          "description":"Todos los miembros de mi familia: (a) consumieron una buena variedad de alimentos durante la última semana: 1. Carnes (vaca, pollo, pescado, cordero, etc.) 2. Leche y/o derivados 3. Verduras variadas 4. Huevos 5. Frutas variadas 6. Arroz, fideo, papa, mandioca, maíz, etc. y (b) tuvieron al menos 3 comidas en el día: desayuno, almuerzo y cena. O si se saltaron una o alg{un tipo de alimento (religiosas o filosóficas), fue por motivos voluntarios no asociados a la falta de dinero o alimento.",
-          "value":"GREEN"}]
-    },
-    "garbageDisposal": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con posibilidad de deshacerse de la basura?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/13-3.jpg", 
-          "description":"La familia guarda sus residuos en un basurero hasta su recolección o dispone de los mismos enterrando los desechos orgánicos en un hoyo distanciado al menos 20mts. de una fuente de agua, campo de cultivo o de viviendas y reciclando los inorgánicos.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/13-2.jpg", 
-          "description":"La familia entierra su basura en su terreno en un hoyo tapado que no está distanciado 20mts. de la fuente de agua, campo de cultivo o de las viviendas.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/13-1.jpg", 
-          "description":"La familia dispone de sus basuras de manera inadecuada provocando contaminación y problemas de salud: las quema, o las tira a cielo abierto en su terreno y/o creca de viviendas, fuentes de agua o campos cultivados.",
-          "value":"RED"}
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/13-3.jpg", 
-          "description":"La familia guarda sus residuos en un basurero hasta su recolección o dispone de los mismos enterrando los desechos orgánicos en un hoyo distanciado al menos 20mts. de una fuente de agua, campo de cultivo o de viviendas y reciclando los inorgánicos.",
-          "value":"GREEN"}]
-    },
-    "safeHouse": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con una casa segura?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/16-3.jpg", 
-          "description":"La vivienda tiene: (a) techa de tejas, chapa zinc u hormigón armado; (b) paredes solidas de madera, cemento o material cocido (ladrillo, baldosa, cemento, tejuelita, cerámica o similar), y (c) piso de madera o material cocido. Adicionalmente, las puertas y ventanas externas son de madera maciza o metal y todas se cierran de manera segura utilizando candados, cerraduras, trancas, pasadores resistentes u otros similares. La vivienda está preparada para distintas condiciciones climáticas.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/16-2.jpg", 
-          "description":"La vivienda tiene: (a) techa de tejas, chapa zinc u hormigón armado; (b) paredes solidas de madera, cemento o material cocido (ladrillo, baldosa, cemento, tejuelita, cerámica o similar), y (c) piso de madera o material cocido.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/16-1.jpg", 
-          "description":"La vivienda no cuenta con alguno de los componentes descriptos en las demás opciones.",
-          "value":"RED"}
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/16-3.jpg", 
-          "description":"La vivienda tiene: (a) techa de tejas, chapa zinc u hormigón armado; (b) paredes solidas de madera, cemento o material cocido (ladrillo, baldosa, cemento, tejuelita, cerámica o similar), y (c) piso de madera o material cocido. Adicionalmente, las puertas y ventanas externas son de madera maciza o metal y todas se cierran de manera segura utilizando candados, cerraduras, trancas, pasadores resistentes u otros similares. La vivienda está preparada para distintas condiciciones climáticas.",
-          "value":"GREEN"}]
-    },
-    "safeBathroom": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con baño seguro?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/17-3.jpg", 
-          "description":"La familia tiene baño con las siguientes características: (a) cuenta con inodoro completo (WC), (b) cisterna, (c) asegura la privacidad, (d) cuenta con un buen sistema de evacuación, y (e) no se comparte con otra familia.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/17-2.jpg", 
-          "description":"Aunque el baño de la familia no reúne todos los requisitos, la familia cuenta con algún tipo de letrina o inodoro con cagua, una letrina con losa y buena ventilación, o inodoro orgánico. No se comparte con otra familia.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/17-1.jpg", 
-          "description":"La familia no cuenta con letrina ni baño con las características mencionadas en las demás opciones, o comparte con otra familia.",
-          "value":"RED"}    
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/17-3.jpg", 
-          "description":"La familia tiene baño con las siguientes características: (a) cuenta con inodoro completo (WC), (b) cisterna, (c) asegura la privacidad, (d) cuenta con un buen sistema de evacuación, y (e) no se comparte con otra familia.",
-          "value":"GREEN"}]
-    },
-    "electricityAccess": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con acceso a electricidad?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/18-3.jpg", 
-          "description":"La familia tiene acceso permanente y no clandestino a la electricidad.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/18-2.jpg", 
-          "description":"La familia tiene acceso a electricidad, pero el acceso es clandestino y/o insuficiente (pasa 4 horas o más del día sin electricidad en temporada alta).", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/18-1.jpg", 
-          "description":"La familia no tiene acceso a electricidad.",
-          "value":"RED"}
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/18-3.jpg", 
-          "description":"La familia tiene acceso permanente y no clandestino a la electricidad.",
-          "value":"GREEN"}]
-    },
-    "refrigerator": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con una heladera y otros electrodomésticos?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/19-3.jpg", 
-          "description":"La familia cuenta con heladera y dos o más de los siguientes activos: radio, TV, teléfono, motocicleta, lavarropas.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/19-2.jpg", 
-          "description":"La familia cuenta con dos de los siguientes activos: radio, TV, teléfono, motocicleta, heladera, lavarropas, o, cuenta con tres o más de esos activos, pero no tiene heladera.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/19-1.jpg", 
-          "description":"La familia cuenta con uno o ninguno de los siguientes activos: radio, TV, teléfono, motocicleta, heladera, lavarropas.",
-          "value":"RED"}
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/19-3.jpg", 
-          "description":"La familia cuenta con heladera y dos o más de los siguientes activos: radio, TV, teléfono, motocicleta, lavarropas.",
-          "value":"GREEN"}]
-    },
-    "separateBed": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con camas separadas?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/20-3.jpg", 
-          "description":"No hay hacinamiento en la familia, y ninguno comparte dormitorio involuntariamente.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/20-2.jpg", 
-          "description":"No hay hacinamiento en la familia, pero por lo menos una persona comparte el dormitorio con otra de manera involuntaria.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/20-1.jpg", 
-          "description":"La familia vive en condiciones de hacinamiento, es decir que en promedio, tres personas o más comparten un mismo dormitorio.",
-          "value":"RED"}
-          ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/20-3.jpg", 
-          "description":"No hay hacinamiento en la familia, y ninguno comparte dormitorio involuntariamente.",
-          "value":"GREEN"}]
-    },
-    "separateBedrooms": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con dormitorios separados?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/20-3.jpg", 
-          "description":"No hay hacinamiento en la familia, y ninguno comparte dormitorio involuntariamente.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/20-2.jpg", 
-          "description":"No hay hacinamiento en la familia, pero por lo menos una persona comparte el dormitorio con otra de manera involuntaria.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/20-1.jpg", 
-          "description":"La familia vive en condiciones de hacinamiento, es decir que en promedio, tres personas o más comparten un mismo dormitorio.",
-          "value":"RED"}
-          ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/20-3.jpg", 
-          "description":"No hay hacinamiento en la familia, y ninguno comparte dormitorio involuntariamente.",
-          "value":"GREEN"}]
-    },
-    "properKitchen": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con cocina elevada y ventilada?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/21-3.jpg", 
-          "description":"La familia cuenta con un espacio cubierto, cocina elevada y ventilada, y principalmente no cocina con estiércol, carbón o leña.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/21-2.jpg", 
-          "description":"La familia no cocina con estiércol, carbón o leña, pero cocina al aire libre y/o cocina en fogón o fogata (no cuenta con cocina elevada).", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/21-1.jpg", 
-          "description":"La familia cocina principalmente con estiércol, carbón o leña.",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/21-3.jpg", 
-          "description":"La familia cuenta con un espacio cubierto, cocina elevada y ventilada, y principalmente no cocina con estiércol, carbón o leña.",
-          "value":"GREEN"}]
-    },
-    "phone": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con teléfono o celular?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/25-3.jpg", 
-          "description":"La familia cuenta con servicio de telefonía fija o celular disponible de manera constante.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/25-2.jpg", 
-          "description":"La familia cuenta con servicio de telefonía fija o celular, pero puede utilizarlo solamente parte del tiempo.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/25-1.jpg", 
-          "description":"La familia no cuenta con servicio de telefonía (ni celular ni fija).",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/25-3.jpg", 
-          "description":"La familia cuenta con servicio de telefonía fija o celular disponible de manera constante.",
-          "value":"GREEN"}]
-    },
-    "security": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con seguridad?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/26-3.jpg", 
-          "description":"Ningún miemrbo de la familia ha sufrido actos de violencia contra su persona en los últimos 12 meses.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/26-2.jpg", 
-          "description":"Alguien en la familia sufrió un acto de violencia contra su persona sin consecuencias graves en los último 12 meses.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/26-1.jpg", 
-          "description":"Alguien en la familia sufrió un acto de violencia contra su persona en los últimos 12 meses y como resultado no pudo trabajar por un día entero o más o fue causa de muerte.",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/26-3.jpg", 
-          "description":"Ningún miemrbo de la familia ha sufrido actos de violencia contra su persona en los últimos 12 meses.",
-          "value":"GREEN"}]
-    },
-    "readAndWrite": {
-      "type": "array",
-      "title": {
-        "es": "Puede leer, escribir y comprender en español?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/28-3.jpg", 
-          "description":"Todos los miembros adultos de la familia (15 años o más) pueden leer y escribir y sienten que lo hacen con facilidad.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/28-2.jpg", 
-          "description":"Todos los miembros adultos (15 años o más) saben leer y escribir, pero al menos uno siente que le cuesta leer y/o escribir sus ideas.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/28-1.jpg", 
-          "description":"Al menos un miembro adulto de la familia (15 años o más) no puede leer y/o escribir.",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/28-3.jpg", 
-          "description":"Todos los miembros adultos de la familia (15 años o más) pueden leer y escribir y sienten que lo hacen con facilidad.",
-          "value":"GREEN"}]
-    },
-    "middleEducation": {
-      "type": "array",
-      "title": {
-        "es": "Tuvo acceso a educación media?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/29-3.jpg", 
-          "description":"Todos los miembros de la familia en edad escolar van a la escuela o terminaron el 3° curso.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/29-2.jpg", 
-          "description":"Al menos un niño o adolescente en edad escolar no asiste a la escuela o colegio.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/29-1.jpg", 
-          "description":"Ningún miembro de la familia en edad escolar asiste a la escuela o colegio.",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/29-3.jpg", 
-          "description":"Todos los miembros de la familia en edad escolar van a la escuela o terminaron el 3° curso.",
-          "value":"GREEN"}]
-    },
-    "socialCapital": {
-      "type": "array",
-      "title": {
-        "es": "Puede planificar y presupuestar a futuro?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/31-3.jpg", 
-          "description":"La familia planifica su futuro económico con un presupuesto familiar escrito que utiliza en forma mensual que rige la economía permanentemente.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/31-2.jpg", 
-          "description":"La familia planifica su futuro económico con un presupuesto mensual escrito pero no lo utiliza regularmente y éste no rige la economía familiar.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/31-1.jpg", 
-          "description":"La familia no planifica su futuro económico ni tiene un presupuesto familiar.",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/31-3.jpg", 
-          "description":"La familia planifica su futuro económico con un presupuesto familiar escrito que utiliza en forma mensual que rige la economía permanentemente.",
-          "value":"GREEN"}]
-    },
-    "informationAccess": {
-      "type": "array",
-      "title": {
-        "es": "Cuenta con acceso a la información?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/34-3.jpg", 
-          "description":"La familia cuenta con televisión y/o internet en su hogar.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/34-2.jpg", 
-          "description":"La familia cuenta con radio, pero no cuenta con TV y/o Internet en su hogar.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/34-1.jpg", 
-          "description":"La familia no cuenta con radio ni TV ni conexión a Internet en su hogar.",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/34-3.jpg", 
-          "description":"La familia cuenta con televisión y/o internet en su hogar.",
-          "value":"GREEN"}]
-    },
-    "influenceInPublicSector": {
-      "type": "array",
-      "title": {
-        "es": "Tiene incidencia en el sector público?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/40-3.jpg", 
-          "description":"No hay problemas en los cuales la familia requiere que el Estado los resuelva, o si hay, la familia presentó una petición oficial, y le dio o da seguimiento continuo a este trámite, o se organizó con otras personas en la misma situación para hacer más fuerte su petición.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/40-2.jpg", 
-          "description":"Hay problemas en los cuales la familia requiere que el Estado los resuelva, la familia presentó una petición oficial, pero no le han dado seguimiento a este trámite.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/40-1.jpg", 
-          "description":"Hay problemas en los cuales la familia requiere que el Estado los resuelva, pero no presentaron una petición oficial.",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/40-3.jpg", 
-          "description":"No hay problemas en los cuales la familia requiere que el Estado los resuelva, o si hay, la familia presentó una petición oficial, y le dio o da seguimiento continuo a este trámite, o se organizó con otras personas en la misma situación para hacer más fuerte su petición.",
-          "value":"GREEN"}]
-    },
-    "awarenessOfNeeds": {
-      "type": "array",
-      "title": {
-        "es": "Tiene consciencia de sus necesidades?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/43-3.jpg", 
-          "description":"En mi familia sabemos que podemos mejorar nuestra situación de vida. Tenemos metas realizables a mediano (6 meses) y largo plazo y tomamos activamente acciones para lograrlas.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/43-2.jpg", 
-          "description":"En mi familia pensamos que podemos mejorar nuestra situación de vida, pero nos cuesta imaginar cómo podemos llegar hasta allí. Si tenemos metas concretas son solamente a corto plazo.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/43-1.jpg", 
-          "description":"En mi familia aceptamos nuestra situación tal como está. No pensamos que podemos mejorar nuestra calidad de vida, o no queremos hacerlo porque nos sentimos cómodos como estamos. No tenemos metas.",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/43-3.jpg", 
-          "description":"En mi familia sabemos que podemos mejorar nuestra situación de vida. Tenemos metas realizables a mediano (6 meses) y largo plazo y tomamos activamente acciones para lograrlas.",
-          "value":"GREEN"}]
-    },
-    "selfEsteem": {
-      "type": "array",
-      "title": {
-        "es": "Nivel de autoestima?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/44-3.jpg", 
-          "description":"Generalmente, me siento capacitado, y la mayor parte de las veces tengo un sentimiento de logro. Muchas veces, la gente me dice que soy competente o capaz en lo que hago.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/44-2.jpg", 
-          "description":"A veces me siento apto y tengo un sentimiento de logro por lo que hago, pero con la misma frecuencia me siento incapaz. La gente me dice que soy competente o capaz en lo que hago, pero no es muy frecuente.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/44-1.jpg", 
-          "description":"No me siento apto, y casi nunca logro lo que quiero. No creo que me admiren por lo que hago.",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/44-3.jpg", 
-          "description":"Generalmente, me siento capacitado, y la mayor parte de las veces tengo un sentimiento de logro. Muchas veces, la gente me dice que soy competente o capaz en lo que hago.",
-          "value":"GREEN"}]
-    },
-    "autonomyDecisions": {
-      "type": "array",
-      "title": {
-        "es": "Puede tomar decisiones de forma autónoma?"
-      },
-      "items": {
-        "type": "object",
-        "enum": [
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/50-3.jpg", 
-          "description":"Activamente participo en las decisiones sobre los aspectos claves de mi vida que me importan. Estas decisiones reflejan lo que valoro. Obviamente hay restricciones, pero dentro de estos yo formo mi propia vida.",
-          "value":"GREEN"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/50-2.jpg", 
-          "description":"Activamente tomo algunas de las decisiones que son importantes para mí, pero no todas, Algunas de las decisiones reflejan mis valores; otras son tomadas principalmente para complacer a otros o evitar consecuencias negativas.", 
-          "value":"YELLOW"},
-          {"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/50-1.jpg", 
-          "description":"No puedo tomar las decisiones que afectan mi vida. Hago lo que me dicen, o hago cosas porque no hay otra forma de hacerlas. Algunas veces tomo decisiones para complacer a otros para evitar consecuencias negativas.",
-          "value":"RED"}
-          
-        ]
-      },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/50-3.jpg", 
-          "description":"Activamente participo en las decisiones sobre los aspectos claves de mi vida que me importan. Estas decisiones reflejan lo que valoro. Obviamente hay restricciones, pero dentro de estos yo formo mi propia vida.",
-          "value":"GREEN"}]
-    }
-  }
-  
+	"title": "Stoplight survey example with defaults",
+	"description": "A simple stoplight survey example with default values.",
+	"type": "object",
+	"required": [
+		"identificationType",
+		"identificationNumber",
+		"firstName",
+		"lastName",
+		"birthdate",
+		"countryOfBirth",
+		"gender",
+		"familyCountry",
+		"familyCity",
+		"familyUbication",
+		"currency",
+		"areaOfResidence",
+		"employmentStatusPrimary",
+		"activityMain",
+		"employmentStatusSecondary",
+		"activitySecondary",
+		"householdMonthlyIncome",
+		"salaryIncome",
+		"benefitIncome",
+		"pensionIncome",
+		"savingsIncome",
+		"otherIncome",
+		"householdMonthlyOutgoing",
+		"netSuplus",
+		"educationClientLevel",
+		"educationPersonMostStudied",
+		"educationLevelAttained",
+		"housingSituation",
+		"income",
+		"documentation",
+		"drinkingWaterAccess",
+		"nearbyHealthPost",
+		"alimentation",
+		"garbageDisposal",
+		"safeHouse",
+		"safeBathroom",
+		"electricityAccess",
+		"refrigerator",
+		"separateBed",
+		"separateBedrooms",
+		"properKitchen",
+		"phone",
+		"security",
+		"readAndWrite",
+		"middleEducation",
+		"socialCapital",
+		"informationAccess",
+		"influenceInPublicSector",
+		"awarenessOfNeeds",
+		"selfEsteem",
+		"autonomyDecisions"
+	],
+	"properties": {
+
+		"identificationType": {
+			"type": "string",
+			"title": {
+				"es": "Tipo de documento"
+			},
+			"enum": [
+				"CI",
+				"DNI",
+				"PASSPORT"
+			],
+			"enumNames": [
+				"Cédula de Identidad",
+				"DNI",
+				"Pasaporte"
+			],
+			"default": "CI"
+		},
+
+		"identificationNumber": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su número de documento"
+			},
+			"default": ""
+		},
+
+		"firstName": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su nombre"
+			},
+			"default": ""
+		},
+
+		"lastName": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su apellido"
+			},
+			"default": ""
+		},
+
+		"birthdate": {
+			"type": "string",
+			"format": "date",
+			"title": {
+				"es": "Ingrese su fecha de nacimiento"
+			}
+		},
+
+		"countryOfBirth": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su país de nacimiento"
+			},
+			"enum": [
+				"PY",
+				"AD",
+				"AE",
+				"AF",
+				"AG",
+				"AI",
+				"AL",
+				"AM",
+				"AN",
+				"AO",
+				"AQ",
+				"AR",
+				"AS",
+				"AT",
+				"AU",
+				"AW",
+				"AX",
+				"AZ",
+				"BA",
+				"BB",
+				"BD",
+				"BE",
+				"BF",
+				"BG",
+				"BH",
+				"BI",
+				"BJ",
+				"BL",
+				"BM",
+				"BN",
+				"BO",
+				"BR",
+				"BS",
+				"BT",
+				"BV",
+				"BW",
+				"BY",
+				"BZ",
+				"CA",
+				"CC",
+				"CF",
+				"CG",
+				"CH",
+				"CI",
+				"CK",
+				"CL",
+				"CM",
+				"CN",
+				"CO",
+				"CR",
+				"CU",
+				"CV",
+				"CX",
+				"CY",
+				"CZ",
+				"DE",
+				"DJ",
+				"DK",
+				"DM",
+				"DO",
+				"DZ",
+				"EC",
+				"EE",
+				"EG",
+				"EH",
+				"ER",
+				"ES",
+				"ET",
+				"FI",
+				"FJ",
+				"FK",
+				"FM",
+				"FO",
+				"FR",
+				"GA",
+				"GB",
+				"GD",
+				"GE",
+				"GF",
+				"GG",
+				"GH",
+				"GI",
+				"GL",
+				"GM",
+				"GN",
+				"GP",
+				"GQ",
+				"GR",
+				"GS",
+				"GT",
+				"GU",
+				"GW",
+				"GY",
+				"HK",
+				"HM",
+				"HN",
+				"HR",
+				"HT",
+				"HU",
+				"ID",
+				"IE",
+				"IL",
+				"IM",
+				"IN",
+				"IO",
+				"IQ",
+				"IR",
+				"IS",
+				"IT",
+				"JE",
+				"JM",
+				"JO",
+				"JP",
+				"KE",
+				"KG",
+				"KH",
+				"KI",
+				"KM",
+				"KN",
+				"KP",
+				"KR",
+				"KW",
+				"KY",
+				"KZ",
+				"LA",
+				"LB",
+				"LC",
+				"LI",
+				"LK",
+				"LR",
+				"LS",
+				"LT",
+				"LU",
+				"LV",
+				"LY",
+				"MA",
+				"MC",
+				"MD",
+				"ME",
+				"MG",
+				"MH",
+				"MK",
+				"ML",
+				"MM",
+				"MN",
+				"MO",
+				"MQ",
+				"MR",
+				"MS",
+				"MT",
+				"MU",
+				"MV",
+				"MW",
+				"MX",
+				"MY",
+				"MZ",
+				"NA",
+				"NC",
+				"NE",
+				"NF",
+				"NG",
+				"NI",
+				"NL",
+				"NO",
+				"NP",
+				"NR",
+				"NU",
+				"NZ",
+				"OM",
+				"PA",
+				"PE",
+				"PF",
+				"PG",
+				"PH",
+				"PK",
+				"PL",
+				"PM",
+				"PN",
+				"PR",
+				"PS",
+				"PT",
+				"PW",
+				"QA",
+				"RE",
+				"RO",
+				"RS",
+				"RU",
+				"RW",
+				"SA",
+				"SB",
+				"SC",
+				"SD",
+				"SE",
+				"SG",
+				"SH",
+				"SI",
+				"SJ",
+				"SK",
+				"SL",
+				"SM",
+				"SN",
+				"SO",
+				"SR",
+				"ST",
+				"SV",
+				"SY",
+				"SZ",
+				"TC",
+				"TD",
+				"TF",
+				"TG",
+				"TH",
+				"TH",
+				"TJ",
+				"TK",
+				"TL",
+				"TM",
+				"TN",
+				"TO",
+				"TR",
+				"TT",
+				"TV",
+				"TW",
+				"UA",
+				"UG",
+				"US",
+				"UY",
+				"UZ",
+				"VA",
+				"VC",
+				"VE",
+				"VG",
+				"VI",
+				"VN",
+				"VU",
+				"WF",
+				"WS",
+				"YE",
+				"YT",
+				"ZA"
+			],
+			"enumNames": [
+				"Paraguay",
+				"Andorra",
+				"Emiratos Árabes Unidos",
+				"Afganistán",
+				"Antigua y Barbuda",
+				"Anguila",
+				"Albania",
+				"Armenia",
+				"Antillas Neerlandesas",
+				"Angola",
+				"Antártida",
+				"Argentina",
+				"Samoa Americana",
+				"Austria",
+				"Australia",
+				"Aruba",
+				"Islas Áland",
+				"Azerbaiyán",
+				"Bosnia y Herzegovina",
+				"Barbados",
+				"Bangladesh",
+				"Bélgica",
+				"Burkina Faso",
+				"Bulgaria",
+				"Bahréin",
+				"Burundi",
+				"Benin",
+				"San Bartolomé",
+				"Bermudas",
+				"Brunéi",
+				"Bolivia",
+				"Brasil",
+				"Bahamas",
+				"Bhután",
+				"Isla Bouvet",
+				"Botsuana",
+				"Belarús",
+				"Belice",
+				"Canadá",
+				"Islas Cocos",
+				"República Centro-Africana",
+				"Congo",
+				"Suiza",
+				"Costa de Marfil",
+				"Islas Cook",
+				"Chile",
+				"Camerún",
+				"China",
+				"Colombia",
+				"Costa Rica",
+				"Cuba",
+				"Cabo Verde",
+				"Islas Christmas",
+				"Chipre",
+				"República Checa",
+				"Alemania",
+				"Yibuti",
+				"Dinamarca",
+				"Domínica",
+				"República Dominicana",
+				"Argel",
+				"Ecuador",
+				"Estonia",
+				"Egipto",
+				"Sahara Occidental",
+				"Eritrea",
+				"España",
+				"Etiopía",
+				"Finlandia",
+				"Fiji",
+				"Islas Malvinas",
+				"Micronesia",
+				"Islas Faroe",
+				"Francia",
+				"Gabón",
+				"Reino Unido",
+				"Granada",
+				"Georgia",
+				"Guayana Francesa",
+				"Guernsey",
+				"Ghana",
+				"Gibraltar",
+				"Groenlandia",
+				"Gambia",
+				"Guinea",
+				"Guadalupe",
+				"Guinea Ecuatorial",
+				"Grecia",
+				"Georgia del Sur e Islas Sandwich del Sur",
+				"Guatemala",
+				"Guam",
+				"Guinea-Bissau",
+				"Guayana",
+				"Hong Kong",
+				"Islas Heard y McDonald",
+				"Honduras",
+				"Croacia",
+				"Haití",
+				"Hungría",
+				"Indonesia",
+				"Irlanda",
+				"Israel",
+				"Isla de Man",
+				"India",
+				"Territorio Británico del Océano Índico",
+				"Irak",
+				"Irán",
+				"Islandia",
+				"Italia",
+				"Jersey",
+				"Jamaica",
+				"Jordania",
+				"Japón",
+				"Kenia",
+				"Kirguistán",
+				"Camboya",
+				"Kiribati",
+				"Comoros",
+				"San Cristóbal y Nieves",
+				"Corea del Norte",
+				"Corea del Sur",
+				"Kuwait",
+				"Islas Caimán",
+				"Kazajstán",
+				"Laos",
+				"Líbano",
+				"Santa Lucía",
+				"Liechtenstein",
+				"Sri Lanka",
+				"Liberia",
+				"Lesotho",
+				"Lituania",
+				"Luxemburgo",
+				"Letonia",
+				"Libia",
+				"Marruecos",
+				"Mónaco",
+				"Moldova",
+				"Montenegro",
+				"Madagascar",
+				"Islas Marshall",
+				"Macedonia",
+				"Mali",
+				"Myanmar",
+				"Mongolia",
+				"Macao",
+				"Martinica",
+				"Mauritania",
+				"Montserrat",
+				"Malta",
+				"Mauricio",
+				"Maldivas",
+				"Malawi",
+				"México",
+				"Malasia",
+				"Mozambique",
+				"Namibia",
+				"Nueva Caledonia",
+				"Níger",
+				"Islas Norkfolk",
+				"Nigeria",
+				"Nicaragua",
+				"Países Bajos",
+				"Noruega",
+				"Nepal",
+				"Nauru",
+				"Niue",
+				"Nueva Zelanda",
+				"Omán",
+				"Panamá",
+				"Perú",
+				"Polinesia Francesa",
+				"Papúa Nueva Guinea",
+				"Filipinas",
+				"Pakistán",
+				"Polonia",
+				"San Pedro y Miquelón",
+				"Islas Pitcairn",
+				"Puerto Rico",
+				"Palestina",
+				"Portugal",
+				"Islas Palaos",
+				"Qatar",
+				"Reunión",
+				"Rumanía",
+				"Serbia y Montenegro",
+				"Rusia",
+				"Ruanda",
+				"Arabia Saudita",
+				"Islas Solomón",
+				"Seychelles",
+				"Sudán",
+				"Suecia",
+				"Singapur",
+				"Santa Elena",
+				"Eslovenia",
+				"Islas Svalbard y Jan Mayen",
+				"Eslovaquia",
+				"Sierra Leona",
+				"San Marino",
+				"Senegal",
+				"Somalia",
+				"Surinam",
+				"Santo Tomé y Príncipe",
+				"El Salvador",
+				"Siria",
+				"Suazilandia",
+				"Islas Turcas y Caicos",
+				"Chad",
+				"Territorios Australes Franceses",
+				"Togo",
+				"Tailandia",
+				"Tanzania",
+				"Tayikistán",
+				"Tokelau",
+				"Timor-Leste",
+				"Turkmenistán",
+				"Túnez",
+				"Tonga",
+				"Turquía",
+				"Trinidad y Tobago",
+				"Tuvalu",
+				"Taiwán",
+				"Ucrania",
+				"Uganda",
+				"Estados Unidos de América",
+				"Uruguay",
+				"Uzbekistán",
+				"Ciudad del Vaticano",
+				"San Vicente y las Granadinas",
+				"Venezuela",
+				"Islas Vírgenes Británicas",
+				"Islas Vírgenes de los Estados Unidos de América",
+				"Vietnam",
+				"Vanuatu",
+				"Wallis y Futuna",
+				"Samoa",
+				"Yemen",
+				"Mayotte",
+				"Sudáfrica"
+			],
+			"default": "PY"
+		},
+
+		"gender": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su género"
+			},
+			"enum": [
+				"F",
+				"M"
+			],
+			"enumNames": [
+				"Femenino",
+				"Masculino"
+			],
+			"default": "F"
+		},
+
+		"phoneNumber": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su número de teléfono"
+			}
+		},
+
+		"currency": {
+			"type": "string",
+			"title": {
+				"es": "Moneda en la que gana su dinero"
+			},
+			"default": "PYG/Paraguayan Guarani"
+		},
+		"areaOfResidence": {
+			"type": "string",
+			"title": {
+				"es": "Tipo de area de residencia, normalmente los valores son RURAL/URBAN"
+			},
+			"enum": [
+				"URBAN",
+				"RURAL"
+			],
+			"enumNames": [
+				"URBANA",
+				"RURAL"
+			],
+			"default": "URBAN"
+		},
+		"employmentStatusPrimary": {
+			"type": "string",
+			"title": {
+				"es": "Puesto en su empleo primario"
+			},
+			"enum": [
+				"SELF-EMPLOYED",
+				"UNEMPLOYED",
+				"EMPLOYEE-FULL-TIME",
+				"EMPLOYEE-PART-TIME",
+				"CASUAL-WORK",
+				"WORK-BASED-TRAINING",
+				"STUDENT",
+				"VOLUNTEERING-INTERNSHIP",
+				"TRAVELLING",
+				"MEDICAL-TREATMENT",
+				"CUSTODIAL-SENTENCE",
+				"OTHER-INACTIVE"
+			],
+			"enumNames": [
+				"Trabajo independiente",
+				"No tiene",
+				"Empleo de tiempo completo",
+				"Empleo de tiempo compartido",
+				"Trabajo ocasional",
+				"Trabajo Basado en Entrenamiento",
+				"Estudiante",
+				"Voluntariado/Pasantía",
+				"Viajando",
+				"Tratamiendo médico",
+				"Libertal condicional",
+				"Otros"
+			],
+			"default": "SELF-EMPLOYED"
+		},
+		"activityMain": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su actividad principal"
+			},
+			"enum": [
+				"AGRICULTURE",
+				"MINING-QUARRYING",
+				"MANUFACTURING",
+				"ELECTRICITY-GAS",
+				"WATER-SEWERAGE",
+				"CONSTRUCTION",
+				"TRADE",
+				"TRANSPORTATION-STORAGE",
+				"ACCOMMODATION-FOOD",
+				"INFORMATION-COMMUNICATION",
+				"FINANCIAL",
+				"REAL-ESTATE",
+				"PROFESSIONAL",
+				"ADMINISTRATIVE",
+				"PUBLIC-ADMINISTRATION",
+				"EDUCATION",
+				"HEALTH-SOCIAL",
+				"ARTS",
+				"OTHER",
+				"HOUSEHOLDS",
+				"EXTRATERRITORIAL"
+			],
+			"enumNames": [
+				"Agricultura, Silvicultura y Pesca",
+				"Minas y Canteras",
+				"Manufactura",
+				"Suministro de electricidad, gas, vapor y aire acondicionado",
+				"Actividades de abastecimiento de agua, alcantarillado y gestión de residuos",
+				"Construcción",
+				"Comercio mayorista y minorista, reparación de vehículos y motocicletas",
+				"Transporte y almacenamiento",
+				"Actividades de alojamiento y servicio de comida",
+				"Información y Comunicación",
+				"Actividades financieras y de seguros",
+				"Actividades inmobiliarias",
+				"Actividades profesionales, científicas y técnicas",
+				"Actividades administrativas",
+				"Administración pública y defensa",
+				"Educación",
+				"Actividades de salud y servicio social",
+				"Arte, entretenimiento y recreación",
+				"Otras actividades de servicio",
+				"Actividades de hogares como empleadores; otras actividades que producen bienes y servicios para uso propio",
+				"Actividades de organizaciones extraterritoriales"
+			],
+			"default": "AGRICULTURE"
+		},
+		"employmentStatusSecondary": {
+			"type": "string",
+			"title": {
+				"es": "Puesto en su empleo secundario"
+			},
+			"enum": [
+				"SELF-EMPLOYED",
+				"UNEMPLOYED",
+				"EMPLOYEE-FULL-TIME",
+				"EMPLOYEE-PART-TIME",
+				"CASUAL-WORK",
+				"WORK-BASED-TRAINING",
+				"STUDENT",
+				"VOLUNTEERING-INTERNSHIP",
+				"TRAVELLING",
+				"MEDICAL-TREATMENT",
+				"CUSTODIAL-SENTENCE",
+				"OTHER-INACTIVE"
+			],
+			"enumNames": [
+				"Trabajo independiente",
+				"No tiene",
+				"Empleo de tiempo completo",
+				"Empleo de tiempo compartido",
+				"Trabajo ocasional",
+				"Trabajo Basado en Entrenamiento",
+				"Estudiante",
+				"Voluntariado/Pasantía",
+				"Viajando",
+				"Tratamiendo médico",
+				"Libertal condicional",
+				"Otros"
+			],
+			"default": "SELF-EMPLOYED"
+		},
+		"activitySecondary": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su actividad secundaria"
+			},
+			"enum": [
+				"AGRICULTURE",
+				"MINING-QUARRYING",
+				"MANUFACTURING",
+				"ELECTRICITY-GAS",
+				"WATER-SEWERAGE",
+				"CONSTRUCTION",
+				"TRADE",
+				"TRANSPORTATION-STORAGE",
+				"ACCOMMODATION-FOOD",
+				"INFORMATION-COMMUNICATION",
+				"FINANCIAL",
+				"REAL-ESTATE",
+				"PROFESSIONAL",
+				"ADMINISTRATIVE",
+				"PUBLIC-ADMINISTRATION",
+				"EDUCATION",
+				"HEALTH-SOCIAL",
+				"ARTS",
+				"OTHER",
+				"HOUSEHOLDS",
+				"EXTRATERRITORIAL"
+			],
+			"enumNames": [
+				"Agricultura, Silvicultura y Pesca",
+				"Minas y Canteras",
+				"Manufactura",
+				"Suministro de electricidad, gas, vapor y aire acondicionado",
+				"Actividades de abastecimiento de agua, alcantarillado y gestión de residuos",
+				"Construcción",
+				"Comercio mayorista y minorista, reparación de vehículos y motocicletas",
+				"Transporte y almacenamiento",
+				"Actividades de alojamiento y servicio de comida",
+				"Información y Comunicación",
+				"Actividades financieras y de seguros",
+				"Actividades inmobiliarias",
+				"Actividades profesionales, científicas y técnicas",
+				"Actividades administrativas",
+				"Administración pública y defensa",
+				"Educación",
+				"Actividades de salud y servicio social",
+				"Arte, entretenimiento y recreación",
+				"Otras actividades de servicio",
+				"Actividades de hogares como empleadores; otras actividades que producen bienes y servicios para uso propio",
+				"Actividades de organizaciones extraterritoriales"
+			],
+			"default": "AGRICULTURE"
+		},
+		"householdMonthlyIncome": {
+			"type": "number",
+			"title": {
+				"es": "Ingrese su ingreso mensual familiar"
+			},
+			"default": 0
+		},
+		"salaryIncome": {
+			"type": "number",
+			"title": {
+				"es": "Ingrese su ingreso mensual por salario"
+			},
+			"default": 0
+		},
+		"benefitIncome": {
+			"type": "number",
+			"title": {
+				"es": "Si recibe algún tipo de beneficio del estado u organización, ingrese el monto"
+			},
+			"default": 0
+		},
+		"pensionIncome": {
+			"type": "number",
+			"title": {
+				"es": "Si recibe ingreso por pensión, ingrese el monto"
+			},
+			"default": 0
+		},
+		"savingsIncome": {
+			"type": "number",
+			"title": {
+				"es": "Ingrese la cantidad que tenga de ahorros"
+			},
+			"default": 0
+		},
+		"otherIncome": {
+			"type": "number",
+			"title": {
+				"es": "Ingrese otros ingresos que tenga"
+			},
+			"default": 0
+		},
+		"householdMonthlyOutgoing": {
+			"type": "number",
+			"title": {
+				"es": "Ingrese los gastos mensuales que tiene en su familia"
+			},
+			"default": 0
+		},
+		"netSuplus": {
+			"type": "number",
+			"title": {
+				"es": "Ingrese net deficit"
+			},
+			"default": 0
+		},
+		"educationClientLevel": {
+			"type": "string",
+			"title": {
+				"es": "Nivel de educación de la persona entrevistada o la cabeza de familia"
+			},
+			"enum": [
+				"INCOMPLETE-PRIMARY",
+				"COMPLETED-PRIMARY",
+				"INCOMPLETE-SECONDARY",
+				"COMPLETED-SECONDARY",
+				"INCOMPLETE-COLLEGE",
+				"COLLEGE-DEGREE"
+			],
+			"enumNames": [
+				"Primaria incompleta",
+				"Primaria completa",
+				"Secundaria incompleta",
+				"Secundaria completa",
+				"Universitaria incompleta",
+				"Título universitario"
+			],
+			"default": "INCOMPLETE-PRIMARY"
+		},
+		"educationPersonMostStudied": {
+			"type": "string",
+			"title": {
+				"es": "Nivel de educación de la persona con más estudios en la familia"
+			},
+			"enum": [
+				"INCOMPLETE-PRIMARY",
+				"COMPLETED-PRIMARY",
+				"INCOMPLETE-SECONDARY",
+				"COMPLETED-SECONDARY",
+				"INCOMPLETE-COLLEGE",
+				"COLLEGE-DEGREE"
+			],
+			"enumNames": [
+				"Primaria incompleta",
+				"Primaria completa",
+				"Secundaria incompleta",
+				"Secundaria completa",
+				"Universitaria incompleta",
+				"Título universitario"
+			],
+			"default": "INCOMPLETE-PRIMARY"
+		},
+		"educationLevelAttained": {
+			"type": "string",
+			"title": {
+				"es": "Nivel de educación alcanzado por la persona con más estudios en la familia"
+			},
+			"enum": [
+				"NONE",
+				"LEVEL-1",
+				"LEVEL-2",
+				"LEVEL-3",
+				"LEVEL-4",
+				"LEVEL-5",
+				"LEVEL-6",
+				"OTHER"
+			],
+			"enumNames": [
+				"Ninguno",
+				"Nivel 1",
+				"Nivel 2",
+				"Nivel 3",
+				"Nivel 4",
+				"Nivel 5",
+				"Nivel 6",
+				"Otro"
+			],
+			"default": "NONE"
+		},
+		"housingSituation": {
+			"type": "string",
+			"title": {
+				"es": "Situación de la vivienda"
+			},
+			"enum": [
+				"OWN-TITTLE",
+				"OWN-NO-TITTLE",
+				"FAMILY-PROPERTY",
+				"RENTED",
+				"BORROWED"
+			],
+			"enumNames": [
+				"Propia con título",
+				"Propia sin título",
+				"En propiedad familiar",
+				"Alquilada",
+				"Prestada"
+			],
+			"default": "OWN-TITTLE"
+		},
+		"otherUsefulInfo": {
+			"type": "string",
+			"title": {
+				"es": "Otra información relevante"
+			},
+			"default": "ninguna"
+		},
+
+		"familyCountry": {
+			"type": "string",
+			"title": {
+				"es": "País en el que reside la familia"
+			},
+			"enum": [
+				"Paraguay"
+			],
+			"enumNames": [
+				"Paraguay"
+			],
+			"default": "Paraguay"
+
+		},
+
+		"familyCity": {
+			"type": "string",
+			"title": {
+				"es": "Ciudad en el que reside la familia"
+			},
+			"enum": [
+				"Asunción"
+			],
+			"enumNames": [
+				"Asunción"
+			],
+			"default": "Asunción"
+
+		},
+
+		"familyUbication": {
+			"type": "string",
+			"title": {
+				"es": "Seleccione la ubicación geográfica de la familia"
+			},
+			"default": "-25.2968485,-57.6331085"
+		},
+		"income": {
+			"type": "array",
+			"title": {
+				"es": "Cuál es su nivel de ingreso?"
+			},
+			"description": {
+				"es": "Tenemos ingresos suficientes"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/1-3.jpg",
+						"description": "Los ingresos de la familia superan la línea de la pobreza.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/1-2.jpg",
+						"description": "Los ingresos de la familia son inferiores a la línea de pobreza general y superiores a la línea de pobreza extrema.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/1-1.jpg",
+						"description": "Los ingresos de la familia son inferiores a la línea de pobreza extrema.",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/1-3.jpg",
+				"description": "Los ingresos de la familia superan la línea de la pobreza.",
+				"value": "GREEN"
+			}]
+		},
+		"documentation": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con documentación"
+			},
+			"description": {
+				"es": "Tenemos cédula"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/6-3.jpg",
+						"description": "Todos los miembros de la familia mayores a 12 años de edad tienen cédula de identidad vigente.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/6-2.jpg",
+						"description": "Un miembro de mi familia mayor a 12 años de edad no tiene cédula de identidad.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/6-1.jpg",
+						"description": "Más de un miembro de mi familia mayor a 12 años de edad no tiene cédula de identidad.",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/6-3.jpg",
+				"description": "Todos los miembros de la familia mayores a 12 años de edad tienen cédula de identidad vigente.",
+				"value": "GREEN"
+			}]
+		},
+
+		"drinkingWaterAccess": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con acceso a agua potable?"
+			},
+			"description": {
+				"es": "Tenemos canilla"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/7-3.jpg",
+						"description": "Mi familia cuenta con agua potable a través de una canilla dentro del predio",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/7-2.jpg",
+						"description": "Mi familia tiene acceso a agua potable fuera de la casa (canilla, pozo o aljibe protegido, agua de manantial o pluvial protegido) a menos de 30 minutos de caminata ida y vuelta.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/7-1.jpg",
+						"description": "El agua que bebe mi familia no es potable y/o tiene que carrearla desde un punto a más de 30 minutos de caminata ida y vuelta.",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/7-3.jpg",
+				"description": "Mi familia cuenta con agua potable a través de una canilla dentro del predio",
+				"value": "GREEN"
+			}]
+		},
+		"nearbyHealthPost": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con un puesto de salud cercano?"
+			},
+			"description": {
+				"es": "Tenemos acceso a servicios de salud"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/8-3.jpg",
+						"description": "En los últimos 90 días, todas las veces que mi familia necesitó atención médica pudimos obtenerla.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/8-2.jpg",
+						"description": "En los últimos 90 días, cuando mi familia necesitó atención médica de emergencia o básica, pudo obtenerla. No pudimos obtener atención especializada y medicinas caras.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/8-1.jpg",
+						"description": "En los 90 días necesitamos atención médica por alguna enfermedad o accidente, y no pudimos obtenerla debido a que no hay atención cercana, la atención fue mala o porque las consultas fueron muy caras.",
+						"value": "RED"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/8-3.jpg",
+				"description": "En los últimos 90 días, todas las veces que mi familia necesitó atención médica pudimos obtenerla.",
+				"value": "GREEN"
+			}]
+		},
+		"alimentation": {
+			"type": "array",
+			"title": {
+				"es": "Tiene una alimentación nutritiva?"
+			},
+			"description": {
+				"es": "Tenemos buena alimentación"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/9-3.jpg",
+						"description": "Todos los miembros de mi familia: (a) consumieron una buena variedad de alimentos durante la última semana: 1. Carnes (vaca, pollo, pescado, cordero, etc.) 2. Leche y/o derivados 3. Verduras variadas 4. Huevos 5. Frutas variadas 6. Arroz, fideo, papa, mandioca, maíz, etc. y (b) tuvieron al menos 3 comidas en el día: desayuno, almuerzo y cena. O si se saltaron una o alg{un tipo de alimento (religiosas o filosóficas), fue por motivos voluntarios no asociados a la falta de dinero o alimento.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/9-2.jpg",
+						"description": "Los miembros de mi familia no incluyeron en su dieta todos los alimentos necesarios, pero en la última semana todos los miembros de mi familiar tuvieron 3 comidas en el día, p si se saltaron una, fue por motivos voluntarios no asociados a la falta de dinero o alimento.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/9-1.jpg",
+						"description": "En la última semana, al menos un miembro de mi familia por lo menos una vez se acostó con hambre o saltó una comida involuntariamente por falta de alimento o dinero.",
+						"value": "RED"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/9-3.jpg",
+				"description": "Todos los miembros de mi familia: (a) consumieron una buena variedad de alimentos durante la última semana: 1. Carnes (vaca, pollo, pescado, cordero, etc.) 2. Leche y/o derivados 3. Verduras variadas 4. Huevos 5. Frutas variadas 6. Arroz, fideo, papa, mandioca, maíz, etc. y (b) tuvieron al menos 3 comidas en el día: desayuno, almuerzo y cena. O si se saltaron una o alg{un tipo de alimento (religiosas o filosóficas), fue por motivos voluntarios no asociados a la falta de dinero o alimento.",
+				"value": "GREEN"
+			}]
+		},
+		"garbageDisposal": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con posibilidad de deshacerse de la basura?"
+			},
+			"description": {
+				"es": "Manejamos bien nuestra basura"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/13-3.jpg",
+						"description": "La familia guarda sus residuos en un basurero hasta su recolección o dispone de los mismos enterrando los desechos orgánicos en un hoyo distanciado al menos 20mts. de una fuente de agua, campo de cultivo o de viviendas y reciclando los inorgánicos.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/13-2.jpg",
+						"description": "La familia entierra su basura en su terreno en un hoyo tapado que no está distanciado 20mts. de la fuente de agua, campo de cultivo o de las viviendas.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/13-1.jpg",
+						"description": "La familia dispone de sus basuras de manera inadecuada provocando contaminación y problemas de salud: las quema, o las tira a cielo abierto en su terreno y/o creca de viviendas, fuentes de agua o campos cultivados.",
+						"value": "RED"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/13-3.jpg",
+				"description": "La familia guarda sus residuos en un basurero hasta su recolección o dispone de los mismos enterrando los desechos orgánicos en un hoyo distanciado al menos 20mts. de una fuente de agua, campo de cultivo o de viviendas y reciclando los inorgánicos.",
+				"value": "GREEN"
+			}]
+		},
+		"safeHouse": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con una casa segura?"
+			},
+			"description": {
+				"es": "Nuestra casa es segura"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/16-3.jpg",
+						"description": "La vivienda tiene: (a) techa de tejas, chapa zinc u hormigón armado; (b) paredes solidas de madera, cemento o material cocido (ladrillo, baldosa, cemento, tejuelita, cerámica o similar), y (c) piso de madera o material cocido. Adicionalmente, las puertas y ventanas externas son de madera maciza o metal y todas se cierran de manera segura utilizando candados, cerraduras, trancas, pasadores resistentes u otros similares. La vivienda está preparada para distintas condiciciones climáticas.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/16-2.jpg",
+						"description": "La vivienda tiene: (a) techa de tejas, chapa zinc u hormigón armado; (b) paredes solidas de madera, cemento o material cocido (ladrillo, baldosa, cemento, tejuelita, cerámica o similar), y (c) piso de madera o material cocido.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/16-1.jpg",
+						"description": "La vivienda no cuenta con alguno de los componentes descriptos en las demás opciones.",
+						"value": "RED"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/16-3.jpg",
+				"description": "La vivienda tiene: (a) techa de tejas, chapa zinc u hormigón armado; (b) paredes solidas de madera, cemento o material cocido (ladrillo, baldosa, cemento, tejuelita, cerámica o similar), y (c) piso de madera o material cocido. Adicionalmente, las puertas y ventanas externas son de madera maciza o metal y todas se cierran de manera segura utilizando candados, cerraduras, trancas, pasadores resistentes u otros similares. La vivienda está preparada para distintas condiciciones climáticas.",
+				"value": "GREEN"
+			}]
+		},
+		"safeBathroom": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con baño seguro?"
+			},
+			"description": {
+				"es": "Tenemos baño moderno"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/17-3.jpg",
+						"description": "La familia tiene baño con las siguientes características: (a) cuenta con inodoro completo (WC), (b) cisterna, (c) asegura la privacidad, (d) cuenta con un buen sistema de evacuación, y (e) no se comparte con otra familia.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/17-2.jpg",
+						"description": "Aunque el baño de la familia no reúne todos los requisitos, la familia cuenta con algún tipo de letrina o inodoro con cagua, una letrina con losa y buena ventilación, o inodoro orgánico. No se comparte con otra familia.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/17-1.jpg",
+						"description": "La familia no cuenta con letrina ni baño con las características mencionadas en las demás opciones, o comparte con otra familia.",
+						"value": "RED"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/17-3.jpg",
+				"description": "La familia tiene baño con las siguientes características: (a) cuenta con inodoro completo (WC), (b) cisterna, (c) asegura la privacidad, (d) cuenta con un buen sistema de evacuación, y (e) no se comparte con otra familia.",
+				"value": "GREEN"
+			}]
+		},
+		"electricityAccess": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con acceso a electricidad?"
+			},
+			"description": {
+				"es": "Tenemos electricidad"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/18-3.jpg",
+						"description": "La familia tiene acceso permanente y no clandestino a la electricidad.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/18-2.jpg",
+						"description": "La familia tiene acceso a electricidad, pero el acceso es clandestino y/o insuficiente (pasa 4 horas o más del día sin electricidad en temporada alta).",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/18-1.jpg",
+						"description": "La familia no tiene acceso a electricidad.",
+						"value": "RED"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/18-3.jpg",
+				"description": "La familia tiene acceso permanente y no clandestino a la electricidad.",
+				"value": "GREEN"
+			}]
+		},
+		"refrigerator": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con una heladera y otros electrodomésticos?"
+			},
+			"description": {
+				"es": "Tenemos heladera y otros activos"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/19-3.jpg",
+						"description": "La familia cuenta con heladera y dos o más de los siguientes activos: radio, TV, teléfono, motocicleta, lavarropas.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/19-2.jpg",
+						"description": "La familia cuenta con dos de los siguientes activos: radio, TV, teléfono, motocicleta, heladera, lavarropas, o, cuenta con tres o más de esos activos, pero no tiene heladera.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/19-1.jpg",
+						"description": "La familia cuenta con uno o ninguno de los siguientes activos: radio, TV, teléfono, motocicleta, heladera, lavarropas.",
+						"value": "RED"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/19-3.jpg",
+				"description": "La familia cuenta con heladera y dos o más de los siguientes activos: radio, TV, teléfono, motocicleta, lavarropas.",
+				"value": "GREEN"
+			}]
+		},
+		"separateBed": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con camas separadas?"
+			},
+			"description": {
+				"es": "Dormimos en camas separadas"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/20-3.jpg",
+						"description": "No hay hacinamiento en la familia, y ninguno comparte dormitorio involuntariamente.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/20-2.jpg",
+						"description": "No hay hacinamiento en la familia, pero por lo menos una persona comparte el dormitorio con otra de manera involuntaria.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/20-1.jpg",
+						"description": "La familia vive en condiciones de hacinamiento, es decir que en promedio, tres personas o más comparten un mismo dormitorio.",
+						"value": "RED"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/20-3.jpg",
+				"description": "No hay hacinamiento en la familia, y ninguno comparte dormitorio involuntariamente.",
+				"value": "GREEN"
+			}]
+		},
+		"separateBedrooms": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con dormitorios separados?"
+			},
+			"description": {
+				"es": "Dormimos en piezas separadas"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/20-3.jpg",
+						"description": "No hay hacinamiento en la familia, y ninguno comparte dormitorio involuntariamente.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/20-2.jpg",
+						"description": "No hay hacinamiento en la familia, pero por lo menos una persona comparte el dormitorio con otra de manera involuntaria.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/20-1.jpg",
+						"description": "La familia vive en condiciones de hacinamiento, es decir que en promedio, tres personas o más comparten un mismo dormitorio.",
+						"value": "RED"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/20-3.jpg",
+				"description": "No hay hacinamiento en la familia, y ninguno comparte dormitorio involuntariamente.",
+				"value": "GREEN"
+			}]
+		},
+		"properKitchen": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con cocina elevada y ventilada?"
+			},
+			"description": {
+				"es": "Tenemos cocina ventilada y elevada"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/21-3.jpg",
+						"description": "La familia cuenta con un espacio cubierto, cocina elevada y ventilada, y principalmente no cocina con estiércol, carbón o leña.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/21-2.jpg",
+						"description": "La familia no cocina con estiércol, carbón o leña, pero cocina al aire libre y/o cocina en fogón o fogata (no cuenta con cocina elevada).",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/21-1.jpg",
+						"description": "La familia cocina principalmente con estiércol, carbón o leña.",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/21-3.jpg",
+				"description": "La familia cuenta con un espacio cubierto, cocina elevada y ventilada, y principalmente no cocina con estiércol, carbón o leña.",
+				"value": "GREEN"
+			}]
+		},
+		"phone": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con teléfono o celular?"
+			},
+			"description": {
+				"es": "Tenemos teléfono"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/25-3.jpg",
+						"description": "La familia cuenta con servicio de telefonía fija o celular disponible de manera constante.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/25-2.jpg",
+						"description": "La familia cuenta con servicio de telefonía fija o celular, pero puede utilizarlo solamente parte del tiempo.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/25-1.jpg",
+						"description": "La familia no cuenta con servicio de telefonía (ni celular ni fija).",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/25-3.jpg",
+				"description": "La familia cuenta con servicio de telefonía fija o celular disponible de manera constante.",
+				"value": "GREEN"
+			}]
+		},
+		"security": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con seguridad?"
+			},
+			"description": {
+				"es": "Mi familia no fue robada"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/26-3.jpg",
+						"description": "Ningún miemrbo de la familia ha sufrido actos de violencia contra su persona en los últimos 12 meses.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/26-2.jpg",
+						"description": "Alguien en la familia sufrió un acto de violencia contra su persona sin consecuencias graves en los último 12 meses.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/26-1.jpg",
+						"description": "Alguien en la familia sufrió un acto de violencia contra su persona en los últimos 12 meses y como resultado no pudo trabajar por un día entero o más o fue causa de muerte.",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/26-3.jpg",
+				"description": "Ningún miemrbo de la familia ha sufrido actos de violencia contra su persona en los últimos 12 meses.",
+				"value": "GREEN"
+			}]
+		},
+		"readAndWrite": {
+			"type": "array",
+			"title": {
+				"es": "Puede leer, escribir y comprender en español?"
+			},
+			"description": {
+				"es": "Sabemos leer y escribir"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/28-3.jpg",
+						"description": "Todos los miembros adultos de la familia (15 años o más) pueden leer y escribir y sienten que lo hacen con facilidad.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/28-2.jpg",
+						"description": "Todos los miembros adultos (15 años o más) saben leer y escribir, pero al menos uno siente que le cuesta leer y/o escribir sus ideas.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/28-1.jpg",
+						"description": "Al menos un miembro adulto de la familia (15 años o más) no puede leer y/o escribir.",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/28-3.jpg",
+				"description": "Todos los miembros adultos de la familia (15 años o más) pueden leer y escribir y sienten que lo hacen con facilidad.",
+				"value": "GREEN"
+			}]
+		},
+		"middleEducation": {
+			"type": "array",
+			"title": {
+				"es": "Tuvo acceso a educación media?"
+			},
+			"description": {
+				"es": "Los niños y jóvenes van a la escuela/colegio"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/29-3.jpg",
+						"description": "Todos los miembros de la familia en edad escolar van a la escuela o terminaron el 3° curso.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/29-2.jpg",
+						"description": "Al menos un niño o adolescente en edad escolar no asiste a la escuela o colegio.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/29-1.jpg",
+						"description": "Ningún miembro de la familia en edad escolar asiste a la escuela o colegio.",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/29-3.jpg",
+				"description": "Todos los miembros de la familia en edad escolar van a la escuela o terminaron el 3° curso.",
+				"value": "GREEN"
+			}]
+		},
+		"socialCapital": {
+			"type": "array",
+			"title": {
+				"es": "Puede planificar y presupuestar a futuro?"
+			},
+			"description": {
+				"es": "Tenemos presupuesto"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/31-3.jpg",
+						"description": "La familia planifica su futuro económico con un presupuesto familiar escrito que utiliza en forma mensual que rige la economía permanentemente.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/31-2.jpg",
+						"description": "La familia planifica su futuro económico con un presupuesto mensual escrito pero no lo utiliza regularmente y éste no rige la economía familiar.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/31-1.jpg",
+						"description": "La familia no planifica su futuro económico ni tiene un presupuesto familiar.",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/31-3.jpg",
+				"description": "La familia planifica su futuro económico con un presupuesto familiar escrito que utiliza en forma mensual que rige la economía permanentemente.",
+				"value": "GREEN"
+			}]
+		},
+		"informationAccess": {
+			"type": "array",
+			"title": {
+				"es": "Cuenta con acceso a la información?"
+			},
+			"description": {
+				"es": "Tenemos internet y TV"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/34-3.jpg",
+						"description": "La familia cuenta con televisión y/o internet en su hogar.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/34-2.jpg",
+						"description": "La familia cuenta con radio, pero no cuenta con TV y/o Internet en su hogar.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/34-1.jpg",
+						"description": "La familia no cuenta con radio ni TV ni conexión a Internet en su hogar.",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/34-3.jpg",
+				"description": "La familia cuenta con televisión y/o internet en su hogar.",
+				"value": "GREEN"
+			}]
+		},
+		"influenceInPublicSector": {
+			"type": "array",
+			"title": {
+				"es": "Tiene incidencia en el sector público?"
+			},
+			"description": {
+				"es": "Sabemos peticionar a las autoridades"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/40-3.jpg",
+						"description": "No hay problemas en los cuales la familia requiere que el Estado los resuelva, o si hay, la familia presentó una petición oficial, y le dio o da seguimiento continuo a este trámite, o se organizó con otras personas en la misma situación para hacer más fuerte su petición.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/40-2.jpg",
+						"description": "Hay problemas en los cuales la familia requiere que el Estado los resuelva, la familia presentó una petición oficial, pero no le han dado seguimiento a este trámite.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/40-1.jpg",
+						"description": "Hay problemas en los cuales la familia requiere que el Estado los resuelva, pero no presentaron una petición oficial.",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/40-3.jpg",
+				"description": "No hay problemas en los cuales la familia requiere que el Estado los resuelva, o si hay, la familia presentó una petición oficial, y le dio o da seguimiento continuo a este trámite, o se organizó con otras personas en la misma situación para hacer más fuerte su petición.",
+				"value": "GREEN"
+			}]
+		},
+		"awarenessOfNeeds": {
+			"type": "array",
+			"title": {
+				"es": "Tiene consciencia de sus necesidades?"
+			},
+			"description": {
+				"es": "Tenemos mapa de vida"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/43-3.jpg",
+						"description": "En mi familia sabemos que podemos mejorar nuestra situación de vida. Tenemos metas realizables a mediano (6 meses) y largo plazo y tomamos activamente acciones para lograrlas.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/43-2.jpg",
+						"description": "En mi familia pensamos que podemos mejorar nuestra situación de vida, pero nos cuesta imaginar cómo podemos llegar hasta allí. Si tenemos metas concretas son solamente a corto plazo.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/43-1.jpg",
+						"description": "En mi familia aceptamos nuestra situación tal como está. No pensamos que podemos mejorar nuestra calidad de vida, o no queremos hacerlo porque nos sentimos cómodos como estamos. No tenemos metas.",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/43-3.jpg",
+				"description": "En mi familia sabemos que podemos mejorar nuestra situación de vida. Tenemos metas realizables a mediano (6 meses) y largo plazo y tomamos activamente acciones para lograrlas.",
+				"value": "GREEN"
+			}]
+		},
+		"selfEsteem": {
+			"type": "array",
+			"title": {
+				"es": "Nivel de autoestima?"
+			},
+			"description": {
+				"es": "Confío en nuestros logros y necesidades"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/44-3.jpg",
+						"description": "Generalmente, me siento capacitado, y la mayor parte de las veces tengo un sentimiento de logro. Muchas veces, la gente me dice que soy competente o capaz en lo que hago.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/44-2.jpg",
+						"description": "A veces me siento apto y tengo un sentimiento de logro por lo que hago, pero con la misma frecuencia me siento incapaz. La gente me dice que soy competente o capaz en lo que hago, pero no es muy frecuente.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/44-1.jpg",
+						"description": "No me siento apto, y casi nunca logro lo que quiero. No creo que me admiren por lo que hago.",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/44-3.jpg",
+				"description": "Generalmente, me siento capacitado, y la mayor parte de las veces tengo un sentimiento de logro. Muchas veces, la gente me dice que soy competente o capaz en lo que hago.",
+				"value": "GREEN"
+			}]
+		},
+		"autonomyDecisions": {
+			"type": "array",
+			"title": {
+				"es": "Puede tomar decisiones de forma autónoma?"
+			},
+			"description": {
+				"es": "Pensamos en los demás al tomar decisiones"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/50-3.jpg",
+						"description": "Activamente participo en las decisiones sobre los aspectos claves de mi vida que me importan. Estas decisiones reflejan lo que valoro. Obviamente hay restricciones, pero dentro de estos yo formo mi propia vida.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/50-2.jpg",
+						"description": "Activamente tomo algunas de las decisiones que son importantes para mí, pero no todas, Algunas de las decisiones reflejan mis valores; otras son tomadas principalmente para complacer a otros o evitar consecuencias negativas.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/50-1.jpg",
+						"description": "No puedo tomar las decisiones que afectan mi vida. Hago lo que me dicen, o hago cosas porque no hay otra forma de hacerlas. Algunas veces tomo decisiones para complacer a otros para evitar consecuencias negativas.",
+						"value": "RED"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/50-3.jpg",
+				"description": "Activamente participo en las decisiones sobre los aspectos claves de mi vida que me importan. Estas decisiones reflejan lo que valoro. Obviamente hay restricciones, pero dentro de estos yo formo mi propia vida.",
+				"value": "GREEN"
+			}]
+		}
+	}
+
 }

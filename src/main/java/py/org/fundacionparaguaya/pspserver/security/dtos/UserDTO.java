@@ -1,12 +1,17 @@
 package py.org.fundacionparaguaya.pspserver.security.dtos;
 
-import com.google.common.base.MoreObjects;
-import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
-import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
+import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-public class UserDTO {
+import com.google.common.base.MoreObjects;
+
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
+
+public class UserDTO implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     private Long userId;
 

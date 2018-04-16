@@ -42,15 +42,17 @@ public class FamilyDTO implements Serializable {
 
     private boolean isActive;
 
+    private String imageURL;
+
     public FamilyDTO() {
     }
 
-  //CHECKSTYLE:OFF
+    //CHECKSTYLE:OFF
     private FamilyDTO(Long familyId, String name, String code,
-            CountryDTO country, CityDTO city, String locationType,
-            String locationPositionGps, PersonDTO person,
-            ApplicationDTO application, OrganizationDTO organization,
-            boolean isActive) {
+                      CountryDTO country, CityDTO city, String locationType,
+                      String locationPositionGps, PersonDTO person,
+                      ApplicationDTO application, OrganizationDTO organization,
+                      boolean isActive) {
         this.familyId = familyId;
         this.name = name;
         this.code = code;
@@ -63,7 +65,7 @@ public class FamilyDTO implements Serializable {
         this.organization = organization;
         this.isActive = isActive;
     }
-  //CHECKSTYLE:ON
+    //CHECKSTYLE:ON
 
     public static class Builder {
         private Long familyId;
@@ -230,6 +232,14 @@ public class FamilyDTO implements Serializable {
 
     public void setActive(boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     @Override

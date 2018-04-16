@@ -1,9 +1,13 @@
 package py.org.fundacionparaguaya.pspserver.network.specifications;
 
 import org.springframework.data.jpa.domain.Specification;
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity_;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity_;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -51,14 +55,44 @@ public class OrganizationSpecification {
         };
     }
 
-    public static Specification<OrganizationEntity> hasApplication(Long applicationId) {
-        return new Specification<OrganizationEntity>() {
-            @Override
-            public Predicate toPredicate(Root<OrganizationEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+    public static Specification<OrganizationEntity> byLoggedUser(UserDetailsDTO userDetails) {
+        return (Root<OrganizationEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            ApplicationDTO application = userDetails.getApplication();
+            if (application != null) {
                 Join<OrganizationEntity, ApplicationEntity> join = root.join(OrganizationEntity_.getApplication());
-                Expression<Long> expression = join.<Long>get(ID_ATTRIBUTE);
-                return cb.equal(expression, applicationId);
+                Expression<Long> applicationId = join.<Long>get(ApplicationEntity_.getId());
+                predicates.add(builder.equal(applicationId, application.getId()));
             }
+
+            OrganizationDTO organization = userDetails.getOrganization();
+            if (organization != null) {
+                Expression<Long> organizationId = root.get(OrganizationEntity_.getId());
+                predicates.add(builder.equal(organizationId, organization.getId()));
+            }
+
+            return builder.and(predicates.toArray(new Predicate[predicates.size()]));
+        };
+    }
+
+    public static Specification<OrganizationEntity> byFilter(String filter) {
+        return (Root<OrganizationEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
+            if (filter == null || filter.isEmpty()) {
+                return null;
+            }
+
+            Expression<String> organizationName = root.get(OrganizationEntity_.getName());
+            Expression<String> organizationCode = root.get(OrganizationEntity_.getCode());
+            Expression<String> organizationDescription = root.get(OrganizationEntity_.getDescription());
+            Expression<String> organizationInformation = root.get(OrganizationEntity_.getInformation());
+
+            return builder.or(
+                    builder.like(builder.lower(organizationName), "%" + filter.toLowerCase() + "%"),
+                    builder.like(builder.lower(organizationCode), "%" + filter.toLowerCase() + "%"),
+                    builder.like(builder.lower(organizationDescription), "%" + filter.toLowerCase() + "%"),
+                    builder.like(builder.lower(organizationInformation), "%" + filter.toLowerCase() + "%")
+            );
         };
     }
 
@@ -73,12 +107,9 @@ public class OrganizationSpecification {
     }
 
     public static Specification<OrganizationEntity> isActive() {
-        return new Specification<OrganizationEntity>() {
-            @Override
-            public Predicate toPredicate(Root<OrganizationEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                Expression<Boolean> isActive = root.get(OrganizationEntity_.getIsActive());
-                return cb.isTrue(isActive);
-            }
+        return (Root<OrganizationEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
+            Expression<Boolean> organizationIsActive = root.get(OrganizationEntity_.getIsActive());
+            return builder.isTrue(organizationIsActive);
         };
     }
 }

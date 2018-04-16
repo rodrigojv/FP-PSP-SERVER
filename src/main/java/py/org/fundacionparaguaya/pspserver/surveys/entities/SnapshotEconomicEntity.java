@@ -478,4 +478,12 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
         }
         return null;
     }
+
+    @Transient
+    public String getCreatedAtLocalDateString() {
+        if (this.createdAt != null) {
+            return createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        }
+        return null;
+    }
 }

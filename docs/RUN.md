@@ -66,7 +66,7 @@ And that is it ;), your server will be launched by default at http://localhost:8
 
 ## What's next?
 
-- Do you want to set up your AWS Credentials?  [Read the AWS CONFIG instructions.](AWS_CONFIG.md)
+- Do you want to use image upload functionality?, set up the AWS credentials?  [Read the AWS CONFIG instructions.](AWS_CONFIG.md)
 
 - Do you want to make changes to the database using Liquibase?  [Read the Liquibase instructions.](LIQUIBASE.md)
 

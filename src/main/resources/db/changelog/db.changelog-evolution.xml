@@ -292,6 +292,21 @@
     <changeSet id="2018-03-13T15:00" author="rvillalba">
         <sqlFile path="sql/2018-03-13T15:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    
+    <!--Delete unnecessary  users, applications and organizations-->
+    <changeSet id="2018-03-23T11:02" author="mgonzalez">
+        <sqlFile path="sql/2018-03-23T11:02.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!--Add logo_url column to family table-->
+    <changeSet id="2018-03-22T09:00" author="pjlopez">
+        <sqlFile path="sql/2018-03-22T09:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Add column email to Person table-->
+    <changeSet id="2018-04-10T09:00" author="cbenitez">
+        <sqlFile path="sql/2018-04-10T09:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>
 

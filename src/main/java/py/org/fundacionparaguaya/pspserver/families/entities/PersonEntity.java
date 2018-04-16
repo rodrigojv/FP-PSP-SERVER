@@ -19,23 +19,21 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateConverter;
-
 import com.google.common.base.MoreObjects;
 
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
-import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.families.constants.Gender;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
-//import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 @Entity
 @Table(name = "person", schema = "ps_families")
 public class PersonEntity extends BaseEntity {
 
-	private static final long serialVersionUID = 1762584396723284335L;
-	
-	@Id
+    private static final long serialVersionUID = 1762584396723284335L;
+
+    @Id
     @GenericGenerator(
             name = ""
                     + "personSequenceGenerator",
@@ -48,221 +46,230 @@ public class PersonEntity extends BaseEntity {
             }
     )
     @GeneratedValue(generator = "personSequenceGenerator")
-	@Column(name = "person_id")
-	private Long personId;
-	
-	@Column(name = "first_name")
-	private String firstName;
-	
-	@Column(name = "last_name")
-	private String lastName;
-	
-	@Column(name = "identification_type")
-	private String identificationType;
-	
-	@Column(name = "identification_number")
-	private String identificationNumber;
-	
-	@Column(name="person_role")
-	private String personRole;
-	
-	@Column(name = "gender")
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	private Gender gender;
-	
-	@Column(name="activity_primary")
-	private String activityPrimary;
-	
-	@Column(name="activity_secundary")
-	private String activitySecundary;
-	
-	@Column(name="phone_number")
-	private String phoneNumber;
-	
-	@ManyToOne(targetEntity = CountryEntity.class)
-	@JoinColumn(name = "country_of_birth")
-	private CountryEntity countryOfBirth;
-	
-	@ManyToOne(targetEntity = CityEntity.class)
-	@JoinColumn(name = "city")
-	private CityEntity city;
-	
-	@ManyToOne(targetEntity = FamilyEntity.class)
-	@JoinColumn(name = "family_id")
-	private FamilyEntity family;
-	
-	@Column(name="birthdate")
-	@Convert(converter = LocalDateConverter.class)
+    @Column(name = "person_id")
+    private Long personId;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "identification_type")
+    private String identificationType;
+
+    @Column(name = "identification_number")
+    private String identificationNumber;
+
+    @Column(name = "person_role")
+    private String personRole;
+
+    @Column(name = "gender")
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    @Column(name = "activity_primary")
+    private String activityPrimary;
+
+    @Column(name = "activity_secundary")
+    private String activitySecundary;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "email")
+    private String email;
+
+    @ManyToOne(targetEntity = CountryEntity.class)
+    @JoinColumn(name = "country_of_birth")
+    private CountryEntity countryOfBirth;
+
+    @ManyToOne(targetEntity = CityEntity.class)
+    @JoinColumn(name = "city")
+    private CityEntity city;
+
+    @ManyToOne(targetEntity = FamilyEntity.class)
+    @JoinColumn(name = "family_id")
+    private FamilyEntity family;
+
+    @Column(name = "birthdate")
+    @Convert(converter = LocalDateConverter.class)
     private LocalDate birthdate;
-	
-	public FamilyEntity getFamily() {
-		return family;
-	}
 
-	public void setFamily(FamilyEntity family) {
-		this.family = family;
-	}
+    public FamilyEntity getFamily() {
+        return family;
+    }
 
-	public Long getPersonId() {
-		return personId;
-	}
+    public void setFamily(FamilyEntity family) {
+        this.family = family;
+    }
 
-	public void setPersonId(Long personId) {
-		this.personId = personId;
-	}
+    public Long getPersonId() {
+        return personId;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setPersonId(Long personId) {
+        this.personId = personId;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getIdentificationType() {
-		return identificationType;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setIdentificationType(String identificationType) {
-		this.identificationType = identificationType;
-	}
+    public String getIdentificationType() {
+        return identificationType;
+    }
 
-	public String getIdentificationNumber() {
-		return identificationNumber;
-	}
+    public void setIdentificationType(String identificationType) {
+        this.identificationType = identificationType;
+    }
 
-	public void setIdentificationNumber(String identificationNumber) {
-		this.identificationNumber = identificationNumber;
-	}
+    public String getIdentificationNumber() {
+        return identificationNumber;
+    }
 
-	public String getPersonRole() {
-		return personRole;
-	}
+    public void setIdentificationNumber(String identificationNumber) {
+        this.identificationNumber = identificationNumber;
+    }
 
-	public void setPersonRole(String personRole) {
-		this.personRole = personRole;
-	}
+    public String getPersonRole() {
+        return personRole;
+    }
 
-	public Gender getGender() {
-		return gender;
-	}
+    public void setPersonRole(String personRole) {
+        this.personRole = personRole;
+    }
 
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
+    public Gender getGender() {
+        return gender;
+    }
 
-	public String getActivityPrimary() {
-		return activityPrimary;
-	}
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
 
-	public void setActivityPrimary(String activityPrimary) {
-		this.activityPrimary = activityPrimary;
-	}
+    public String getActivityPrimary() {
+        return activityPrimary;
+    }
 
-	public String getActivitySecundary() {
-		return activitySecundary;
-	}
+    public void setActivityPrimary(String activityPrimary) {
+        this.activityPrimary = activityPrimary;
+    }
 
-	public void setActivitySecundary(String activitySecundary) {
-		this.activitySecundary = activitySecundary;
-	}
+    public String getActivitySecundary() {
+        return activitySecundary;
+    }
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    public void setActivitySecundary(String activitySecundary) {
+        this.activitySecundary = activitySecundary;
+    }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-	public CountryEntity getCountryOfBirth() {
-		return countryOfBirth;
-	}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	public void setCountryOfBirth(CountryEntity countryOfBirth) {
-		this.countryOfBirth = countryOfBirth;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public CityEntity getCity() {
-		return city;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setCity(CityEntity city) {
-		this.city = city;
-	}
+    public CountryEntity getCountryOfBirth() {
+        return countryOfBirth;
+    }
 
-	public LocalDate getBirthdate() {
-		return birthdate;
-	}
+    public void setCountryOfBirth(CountryEntity countryOfBirth) {
+        this.countryOfBirth = countryOfBirth;
+    }
 
-	public void setBirthdate(LocalDate birthdate) {
-		this.birthdate = birthdate;
-	}
+    public CityEntity getCity() {
+        return city;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (personId == null || obj == null || getClass() != obj.getClass())
-			return false;
-		PersonEntity toCompare = (PersonEntity) obj;
-		return personId.equals(toCompare.personId);
-	}
-	
-	@Override
-	public int hashCode() {
-		return personId == null ? 0 : personId.hashCode();
-	}
+    public void setCity(CityEntity city) {
+        this.city = city;
+    }
 
-	@Override
-	public String toString() {
-		return MoreObjects.toStringHelper(this)
-				.add("personId", personId)
-				.add("firstName", firstName)
-				.add("lastName", lastName)
-				.add("identificationType", identificationType)
-				.add("identificationNumber", identificationNumber)
-				.add("personRole", personRole)
-				.add("gender", gender)
-				.add("activityPrimary", activityPrimary)
-				.add("activitySecundary", activitySecundary)
-				.add("phoneNumber", phoneNumber)
-				.add("countryOfBirth", countryOfBirth)
-				//.add("city", city.toString())
-				//.add("family", family.toString())
-				.add("birthdate", birthdate)
-				.toString();
-	}
-	
-	public PersonEntity staticProperties(SurveyData indicatorSurveyData) {
-        indicatorSurveyData.entrySet()
-        .stream()
-        .forEach((entry) -> {
-        	try {
-            	Object value = null;
-                if (Double.class.equals(PropertyUtils.
-                    getPropertyType(this, entry.getKey()))){
-                    value = Double.valueOf(entry.getValue().toString());
-                } else {
-                	value = entry.getValue();
-                }
-                PropertyUtils.setProperty(this, entry.getKey(), value);
-        	} catch (Exception e) {
-        		throw new RuntimeException("Could not set property '"
-        				+ entry.getKey() + "' to value '"
-        				+ entry.getValue() + "'", e);
-            }
-        });
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (personId == null || obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        PersonEntity toCompare = (PersonEntity) obj;
+        return personId.equals(toCompare.personId);
+    }
+
+    @Override
+    public int hashCode() {
+        return personId == null ? 0 : personId.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("personId", personId)
+                .add("firstName", firstName)
+                .add("lastName", lastName)
+                .add("identificationType", identificationType)
+                .add("identificationNumber", identificationNumber)
+                .add("personRole", personRole)
+                .add("gender", gender)
+                .add("activityPrimary", activityPrimary)
+                .add("activitySecundary", activitySecundary)
+                .add("phoneNumber", phoneNumber)
+                .add("email", email)
+                .add("countryOfBirth", countryOfBirth)
+                .add("birthdate", birthdate)
+                .toString();
+    }
+
+    public PersonEntity staticProperties(SurveyData indicatorSurveyData) {
+        indicatorSurveyData.entrySet().stream()
+                .forEach(entry -> {
+                    try {
+                        Object value = null;
+                        if (Double.class.equals(PropertyUtils.
+                                getPropertyType(this, entry.getKey()))) {
+                            value = Double.valueOf(entry.getValue().toString());
+                        } else {
+                            value = entry.getValue();
+                        }
+                        PropertyUtils.setProperty(this, entry.getKey(), value);
+                    } catch (Exception e) {
+                        throw new RuntimeException("Could not set property '" + entry.getKey()
+                                + "' to value '" + entry.getValue() + "'", e);
+                    }
+                });
         return this;
     }
-	
 }

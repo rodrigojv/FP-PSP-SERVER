@@ -1,8 +1,19 @@
 # AWS Configurations
 
+These configurations are necessary if image upload functionality is used in the application.  
+
+## User Permissions
+
+Create an AWS IAM user with at least the following permissions: 
+(or create a Policy with the permissions and assign it to the user)
+
+* `PutObject` (add an object to a bucket)
+* `PutObjectAcl` (set access control list ACL permissions to an object in a bucket, e.g. set for public access)
+* `DeleteObject` (delete an object in the bucket)
+
 ## Set up AWS Credentials
 
-Set credentials in the AWS credentials profile file on your local system, located at:
+Set the user credentials in the AWS credentials profile file on your local system, located at:
 
 * _`~/.aws/credentials`_ on Linux, macOS, or Unix
 * _`C:\Users\USERNAME\.aws\credentials`_ on Windows

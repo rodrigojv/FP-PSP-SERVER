@@ -5,7 +5,7 @@
 
 	<groupId>py.org.fundacionparaguaya</groupId>
 	<artifactId>psp-server</artifactId>
-	<version>0.0.5</version>
+	<version>0.0.6</version>
 	<packaging>war</packaging>
 
 	<name>psp-server</name>
@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.6.RELEASE</version>
+		<version>1.5.11.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repositories -->
 	</parent>
 

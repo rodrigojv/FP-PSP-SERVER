@@ -11,8 +11,7 @@ public interface SurveyOrganizationRepository
         extends JpaRepository<SurveyOrganizationEntity, Long>,
         JpaSpecificationExecutor<SurveyOrganizationEntity> {
 
-    SurveyOrganizationEntity findBySurveyIdAndOrganizationId(Long surveyId,
-            Long organizationId);
+    List<SurveyOrganizationEntity> findBySurveyIdAndApplicationId(Long surveyId, Long applicationId);
 
     List<SurveyOrganizationEntity> findBySurveyId(Long surveyId);
 
@@ -20,5 +19,10 @@ public interface SurveyOrganizationRepository
             Long surveyId, Long applicationId, Long organizationId);
 
     void deleteBySurveyId(Long surveyId);
+
+    void deleteBySurveyIdAndApplicationIdAndOrganizationIsNotNull(Long surveyId, Long applicationId);
+
+    List<SurveyOrganizationEntity>
+    findBySurveyIdAndApplicationIdAndOrganizationIsNotNull(Long surveyId, Long applicationId);
 
 }

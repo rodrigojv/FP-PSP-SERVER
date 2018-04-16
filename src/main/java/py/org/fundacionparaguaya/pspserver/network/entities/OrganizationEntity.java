@@ -1,9 +1,12 @@
 package py.org.fundacionparaguaya.pspserver.network.entities;
 
+
 import com.google.common.base.MoreObjects;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
+import py.org.fundacionparaguaya.pspserver.network.constants.Status;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 import javax.persistence.Column;
@@ -13,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -165,5 +169,14 @@ public class OrganizationEntity {
                 .add("information", information)
                 .add("application", application.toString())
                 .toString();
+    }
+
+    @Transient
+    public Enum<Status> getStatus() {
+        if (isActive) {
+            return Status.ACTIVE;
+        } else {
+            return Status.INACTIVE;
+        }
     }
 }
