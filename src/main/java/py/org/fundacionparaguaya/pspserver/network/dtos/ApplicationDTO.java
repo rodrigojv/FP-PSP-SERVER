@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.network.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.MoreObjects;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CityDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CountryDTO;
@@ -28,8 +29,10 @@ public class ApplicationDTO implements Serializable {
 
     private String information;
 
+    @JsonIgnore
     private boolean isHub;
 
+    @JsonIgnore
     private boolean isPartner;
 
     private DashboardDTO dashboard;
@@ -41,8 +44,8 @@ public class ApplicationDTO implements Serializable {
     public ApplicationDTO() {}
 
     private ApplicationDTO(Long id, String name, String code, String description, boolean isActive,
-                           CountryDTO country, CityDTO city, String information, boolean isHub,
-                           boolean isPartner, DashboardDTO dashboard, String logoUrl, String file) {
+                           CountryDTO country, CityDTO city, String information,
+                           DashboardDTO dashboard, String logoUrl, String file) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -51,8 +54,6 @@ public class ApplicationDTO implements Serializable {
         this.country = country;
         this.city = city;
         this.information = information;
-        this.isHub = isHub;
-        this.isPartner = isPartner;
         this.dashboard = dashboard;
         this.logoUrl = logoUrl;
         this.file = file;
@@ -67,8 +68,6 @@ public class ApplicationDTO implements Serializable {
         private CountryDTO country;
         private CityDTO city;
         private String information;
-        private boolean isHub;
-        private boolean isPartner;
         private DashboardDTO dashboard;
         private String logoUrl;
         private String file;
@@ -113,16 +112,6 @@ public class ApplicationDTO implements Serializable {
             return this;
         }
 
-        public Builder isHub(boolean isHub) {
-            this.isHub = isHub;
-            return this;
-        }
-
-        public Builder isPartner(boolean isPartner) {
-            this.isPartner = isPartner;
-            return this;
-        }
-
         public Builder dashboard(DashboardDTO dashboard) {
             this.dashboard = dashboard;
             return this;
@@ -140,7 +129,7 @@ public class ApplicationDTO implements Serializable {
 
         public ApplicationDTO build() {
             return new ApplicationDTO(id, name, code, description, isActive, country, city,
-                                        information, isHub, isPartner, dashboard, logoUrl, file);
+                                        information, dashboard, logoUrl, file);
         }
     }
 
@@ -212,16 +201,8 @@ public class ApplicationDTO implements Serializable {
         this.information = information;
     }
 
-    public boolean isHub() {
-        return isHub;
-    }
-
     public void setHub(boolean isHub) {
         this.isHub = isHub;
-    }
-
-    public boolean isPartner() {
-        return isPartner;
     }
 
     public void setPartner(boolean isPartner) {
@@ -264,12 +245,10 @@ public class ApplicationDTO implements Serializable {
                 .add("code", code)
                 .add("description", description)
                 .add("isActive", isActive)
-                .add("country", country.toString())
-                .add("city", city.toString())
+                .add("country", country)
+                .add("city", city)
                 .add("information", information)
-                .add("isHub", isHub)
-                .add("isPartner", isPartner)
-                .add("dashboard", dashboard.toString())
+                .add("dashboard", dashboard)
                 .add("logoUrl", logoUrl)
                 .toString();
     }

@@ -9,15 +9,19 @@ import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity_;
 import py.org.fundacionparaguaya.pspserver.network.entities.UserApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.UserApplicationEntity_;
+import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity_;
+import py.org.fundacionparaguaya.pspserver.security.entities.UserRoleEntity;
+import py.org.fundacionparaguaya.pspserver.security.entities.UserRoleEntity_;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 
 public class UserApplicationSpecification {
 
@@ -75,13 +79,28 @@ public class UserApplicationSpecification {
         };
     }
 
-    public static Specification<UserApplicationEntity> userIsActive() {
+    public static Specification<UserApplicationEntity> isSurveyUser() {
+        return (Root<UserApplicationEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
+
+            Subquery<Long> surveyUserIds = query.subquery(Long.class);
+            Root<UserRoleEntity> fromUserRole = surveyUserIds.from(UserRoleEntity.class);
+            surveyUserIds
+                    .select(fromUserRole.get(UserRoleEntity_.getUser()).get(UserEntity_.getId()))
+                    .where(builder.equal(fromUserRole.get(UserRoleEntity_.getRole()), Role.ROLE_SURVEY_USER));
+
+            Expression<Long> userId = root.get(UserApplicationEntity_.getUser()).get(UserEntity_.getId());
+
+            return builder.in(userId).value(surveyUserIds);
+        };
+    }
+
+    public static Specification<UserApplicationEntity> userIsActive(Boolean active) {
         return (Root<UserApplicationEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
 
             Join<UserApplicationEntity, UserEntity> userJoin = root.join(UserApplicationEntity_.getUser());
-            Expression<Boolean> active = userJoin.<Boolean>get(UserEntity_.getActive());
+            Expression<Boolean> isActive = userJoin.<Boolean>get(UserEntity_.getActive());
 
-            return builder.isTrue(active);
+            return builder.equal(isActive, active);
         };
     }
 }

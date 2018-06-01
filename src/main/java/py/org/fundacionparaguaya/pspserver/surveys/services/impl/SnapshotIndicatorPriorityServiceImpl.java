@@ -9,6 +9,7 @@ import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterized
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.families.events.PriorityCreatedEvent;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorPriorityEntity;
@@ -94,8 +95,8 @@ public class SnapshotIndicatorPriorityServiceImpl
 
     @Override
     @Transactional
-    public SnapshotIndicatorPriority addSnapshotIndicatorPriority(
-            SnapshotIndicatorPriority priority) {
+    public SnapshotIndicatorPriority addSnapshotIndicatorPriority(SnapshotIndicatorPriority priority,
+                                                                  UserDetailsDTO details) {
 
         checkArgument(priority != null, i18n.translate("argument.notNull", priority));
         checkArgument(priority.getSnapshotIndicatorId() > 0,
@@ -125,6 +126,12 @@ public class SnapshotIndicatorPriorityServiceImpl
 
         SnapshotIndicatorPriorityEntity newSnapshotIndicatorPriority = snapshotPriorityRepository.save(entity);
 
+        SnapshotIndicatorPriority created = snapshotPriorityMapper.entityToDto(newSnapshotIndicatorPriority);
+
+        LOG.info("User '{}' created an Indicator Priority for Snapshot, indicatorPriority_id={}, snapshot_id={}",
+                details.getUsername(), created.getId(), created.getSnapshotIndicatorId());
+        LOG.info("SnapshotIndicatorPriority = {}", created);
+
         // We publish this event so that other components can
         // execute some operations on other entities, like an update
         // on the familiy#lastmModifiedAt property:
@@ -132,8 +139,7 @@ public class SnapshotIndicatorPriorityServiceImpl
         // In this way we only need one extra dependency in this service.
         publisher.publishEvent(PriorityCreatedEvent.of(indicator));
 
-        return snapshotPriorityMapper.entityToDto(newSnapshotIndicatorPriority);
-
+        return created;
     }
 
     @Override

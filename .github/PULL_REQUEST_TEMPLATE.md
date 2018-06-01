@@ -2,7 +2,7 @@
 
 🚨Please review the [guidelines for contributing](../CONTRIBUTING.md) to this repository.
 
-Put an `x` in the boxes that apply.
+Put an `x` in the boxes that apply and remove the spaces surrounding the `x` to make the markdown formatting happy ☺️.
 
 * [ ] Lint and unit tests pass locally with my changes
 * [ ] I have added necessary documentation (if appropriate)

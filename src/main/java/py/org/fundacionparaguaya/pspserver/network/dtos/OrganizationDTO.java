@@ -233,10 +233,10 @@ public class OrganizationDTO implements Serializable {
                 .add("code", code)
                 .add("description", description)
                 .add("isActive", isActive)
-                .add("country", country.toString())
+                .add("country", country)
                 .add("information", information)
-                .add("application", application.toString())
-                .add("dashboard", dashboard.toString())
+                .add("application", application)
+                .add("dashboard", dashboard)
                 .add("logoUrl", logoUrl)
                 .toString();
     }

@@ -58,6 +58,13 @@ public class UserRoleController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<UserRoleDTO> getUserRoleByUserId(
+            @PathVariable("userId") Long userId) {
+        UserRoleDTO dto = userRoleService.getUserRoleByUserId(userId);
+        return ResponseEntity.ok(dto);
+    }
+
     @GetMapping()
     public ResponseEntity<List<UserRoleDTO>> getAllUserRoles() {
         List<UserRoleDTO> userRoles = userRoleService.getAllUserRoles();

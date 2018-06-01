@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -35,6 +36,7 @@ public class TermCondPolEntity extends BaseEntity {
     private static final long serialVersionUID = 1213762117818707037L;
 
     @Id
+    @NotNull
     @GenericGenerator(name = "termcondpolSequenceGenerator",
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {
@@ -67,6 +69,9 @@ public class TermCondPolEntity extends BaseEntity {
     @Column(name = "type_cod")
     @Enumerated(EnumType.STRING)
     private TermCondPolType typeCod;
+
+    @Column(name = "id_application")
+    private Long applicationId;
 
     public Long getId() {
         return id;
@@ -116,6 +121,14 @@ public class TermCondPolEntity extends BaseEntity {
         this.typeCod = type;
     }
 
+    public Long getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -142,6 +155,7 @@ public class TermCondPolEntity extends BaseEntity {
             .add("year", year)
             .add("created date", createdDate)
             .add("type", typeCod)
+                .add("application id", applicationId)
             .toString();
     }
 

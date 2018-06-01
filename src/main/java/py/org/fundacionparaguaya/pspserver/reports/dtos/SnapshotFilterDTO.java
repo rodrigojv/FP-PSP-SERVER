@@ -1,5 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.reports.dtos;
 
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
@@ -10,7 +12,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class SnapshotFilterDTO {
 
     private Long applicationId;
-    private Long organizationId;
+    private List<Long> organizationId;
     private String dateFrom;
     private String dateTo;
     private Long familyId;
@@ -19,7 +21,7 @@ public class SnapshotFilterDTO {
         super();
     }
 
-    public SnapshotFilterDTO(Long applicationId, Long organizationId, Long familyId, String dateFrom,
+    public SnapshotFilterDTO(Long applicationId, List<Long> organizationId, Long familyId, String dateFrom,
             String dateTo) {
         this.applicationId = applicationId;
         this.organizationId = organizationId;
@@ -36,11 +38,11 @@ public class SnapshotFilterDTO {
         this.applicationId = applicationId;
     }
 
-    public Long getOrganizationId() {
+    public List<Long> getOrganizationId() {
         return organizationId;
     }
 
-    public void setOrganizationId(Long organizationId) {
+    public void setOrganizationId(List<Long> organizationId) {
         this.organizationId = organizationId;
     }
 

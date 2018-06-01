@@ -1,8 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.security.services.impl;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import py.org.fundacionparaguaya.pspserver.common.exceptions.InternalServerErrorException;
+import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolType;
 import py.org.fundacionparaguaya.pspserver.security.dtos.TermCondPolDTO;
@@ -11,7 +10,7 @@ import py.org.fundacionparaguaya.pspserver.security.mapper.TermCondPolMapper;
 import py.org.fundacionparaguaya.pspserver.security.repositories.TermCondPolRepository;
 import py.org.fundacionparaguaya.pspserver.security.services.TermCondPolService;
 
-import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,13 +31,31 @@ public class TermCondPolServiceImpl implements TermCondPolService {
     }
 
     @Override
-    public TermCondPolDTO getLastTermCondPol(TermCondPolType type) {
+    public TermCondPolDTO getLastTermCondPol(TermCondPolType type, Long applicationId) {
 
         checkArgument(type != null,
                 "Argument was %s but expected not null", type);
+        checkArgument(applicationId != null,
+                "Argument was %s but expected not null", applicationId);
 
         return Optional.ofNullable(repository
-                .findFirstByTypeCodOrderByCreatedDateDesc(type))
+                .findFirstByTypeCodAndApplicationIdOrderByIdDesc(type, applicationId))
+                .map(mapper::entityToDto)
+                .orElseThrow(() -> new CustomParameterizedException("Terms and Cnditions or Privacy"
+                + " Policy does not exist"));
+    }
+
+    @Override
+    public TermCondPolDTO updateTerms(String htmlFile, Long termCondPolId) {
+        checkArgument(termCondPolId != null,
+                "Argument was %s but expected not null", termCondPolId);
+
+        return Optional.ofNullable(repository
+                .findOne(termCondPolId))
+                .map(entity -> {
+                    entity.setHtml(htmlFile);
+                    return repository.save(entity);
+                })
                 .map(mapper::entityToDto)
                 .orElseThrow(() -> new UnknownResourceException(
                         "Terms and Conditions or Privacy Policy"
@@ -47,41 +64,10 @@ public class TermCondPolServiceImpl implements TermCondPolService {
     }
 
     @Override
-    public TermCondPolDTO updateTerms(MultipartFile htmlFile, Long termCondPolId) {
-        checkArgument(termCondPolId != null,
-                "Argument was %s but expected not null", termCondPolId);
-
-        try {
-            String htmlContent = new String(htmlFile.getBytes(), "UTF-8");
-
-            return Optional.ofNullable(repository
-                    .findOne(termCondPolId))
-                    .map(entity -> {
-                        entity.setHtml(htmlContent);
-                        return repository.save(entity);
-                    })
-                    .map(mapper::entityToDto)
-                    .orElseThrow(() -> new UnknownResourceException(
-                            "Terms and Conditions or Privacy Policy"
-                                    + " does not exist"));
-
-        } catch (IOException e) {
-            throw new InternalServerErrorException(e);
-        }
-
-    }
-
-    @Override
-    public TermCondPolDTO saveTerms(MultipartFile htmlFile, TermCondPolDTO termCondPolDTO) {
-        try {
-            String htmlContent = new String(htmlFile.getBytes(), "UTF-8");
-            TermCondPolEntity entity = mapper.dtoToEntity(termCondPolDTO);
-            entity.setHtml(htmlContent);
-            return mapper.entityToDto(repository.save(entity));
-        } catch (IOException e) {
-            throw new InternalServerErrorException(e);
-        }
-
+    public TermCondPolDTO saveTerms(TermCondPolDTO termCondPolDTO) {
+        TermCondPolEntity entity = mapper.dtoToEntity(termCondPolDTO);
+        entity.setCreatedDate(LocalDate.now());
+        return mapper.entityToDto(repository.save(entity));
     }
 
     @Override

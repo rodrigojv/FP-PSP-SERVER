@@ -66,8 +66,6 @@ public class ApplicationControllerTest {
                 .country(getCountryTest())
                 .city(getCityTest())
                 .information("foo.information")
-                .isHub(true)
-                .isPartner(true)
                 .build();
     }
 

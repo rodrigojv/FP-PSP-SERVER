@@ -42,6 +42,7 @@ import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApp
 import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.byLoggedUser;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.hasApplication;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.hasOrganization;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.isSurveyUser;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.userIsActive;
 
 @Service
@@ -199,7 +200,12 @@ public class UserServiceImpl implements UserService {
             userRepository.save(userTarget);
             LOG.debug("Changed Information for User: {}", userTarget);
         }else {
-            throw new RuntimeException(i18n.translate("user.updateNotAllowed"));
+
+            throw new CustomParameterizedException(i18n.translate("user.updateNotAllowed"),
+                    new ImmutableMultimap.Builder<String, String>()
+                            .put("username", userTarget.getUsername())
+                            .build()
+                            .asMap());
         }
         return userMapper.entityToDto(userTarget);
     }
@@ -295,13 +301,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserDTO> listUsers(UserDetailsDTO userDetails, String filter, PageRequest pageRequest) {
-        Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findAll(
-                Specifications
-                        .where(byLoggedUser(userDetails))
-                        .and(userIsActive())
-                        .and(byFilter(filter)),
-                pageRequest);
+    public Page<UserDTO> listUsers(UserDetailsDTO userDetails, String filter, PageRequest pageRequest,
+                                   Boolean active) {
+        Specifications<UserApplicationEntity> specifications = Specifications
+                .where(byLoggedUser(userDetails))
+                .and(byFilter(filter));
+
+        // if null, does not filter by user active status
+        if (active!=null){
+            //if not null, perform filter by active == true or active == false
+            specifications = specifications.and(userIsActive(active));
+        }
+
+        Page<UserApplicationEntity> userApplicationPage = userApplicationRepository
+                .findAll(specifications, pageRequest);
 
         return userApplicationPage.map(userApplicationMapper::entityToUserDto);
     }
@@ -313,8 +326,23 @@ public class UserServiceImpl implements UserService {
                 Specifications
                         .where(hasApplication(application))
                         .and(hasOrganization(organization))
-                        .and(userIsActive()));
+                        .and(userIsActive(true)));
 
         return userApplications.stream().map(userApplicationMapper::entityToUserDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDTO> listSurveyUsers(UserDetailsDTO userDetails) {
+        List<UserApplicationEntity> userApplications = userApplicationRepository.findAll(
+                Specifications
+                        .where(byLoggedUser(userDetails))
+                        .and(userIsActive(true))
+                        .and(isSurveyUser())
+        );
+
+        return userApplications
+                .stream()
+                .map(userApplicationMapper::entityToUserDto)
+                .collect(Collectors.toList());
     }
 }

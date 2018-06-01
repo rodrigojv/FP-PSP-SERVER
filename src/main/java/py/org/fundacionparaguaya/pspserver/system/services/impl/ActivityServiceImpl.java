@@ -1,10 +1,12 @@
 package py.org.fundacionparaguaya.pspserver.system.services.impl;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ActivityDTO;
+import py.org.fundacionparaguaya.pspserver.system.dtos.ActivityFeedDTO;
 import py.org.fundacionparaguaya.pspserver.system.entities.ActivityEntity;
 import py.org.fundacionparaguaya.pspserver.system.mapper.ActivityMapper;
 import py.org.fundacionparaguaya.pspserver.system.repositories.ActivityRepository;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static py.org.fundacionparaguaya.pspserver.system.specifications.ActivityFeedSpecifications.byDetails;
 
 @Service
 public class ActivityServiceImpl implements ActivityService {
@@ -39,9 +42,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public ActivityDTO addActivity(ActivityDTO activityDTO) {
-        ActivityEntity activity = new ActivityEntity();
-        BeanUtils.copyProperties(activityDTO, activity);
-        ActivityEntity newActivity = activityRepository.save(activity);
+        ActivityEntity newActivity = activityRepository.save(activityMapper.dtoToEntity(activityDTO));
         return activityMapper.entityToDto(newActivity);
     }
 
@@ -51,6 +52,10 @@ public class ActivityServiceImpl implements ActivityService {
         return activityMapper.entityListToDtoList(activities);
     }
 
-
+    @Override
+    public List<ActivityFeedDTO> getActivitiesByUserDetails(UserDetailsDTO userDetails, Sort sortBy) {
+        List<ActivityEntity> activities = activityRepository.findAll(byDetails(userDetails), sortBy);
+        return activityMapper.entityListToActivityFeed(activities);
+    }
 
 }

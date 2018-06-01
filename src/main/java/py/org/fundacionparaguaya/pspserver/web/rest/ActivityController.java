@@ -1,8 +1,12 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ActivityDTO;
+import py.org.fundacionparaguaya.pspserver.system.dtos.ActivityFeedDTO;
+import py.org.fundacionparaguaya.pspserver.system.services.ActivityFeedManager;
 import py.org.fundacionparaguaya.pspserver.system.services.ActivityService;
 
 import javax.validation.Valid;
@@ -15,9 +19,11 @@ import java.util.List;
 public class ActivityController {
 
     private ActivityService activityService;
+    private ActivityFeedManager activityFeedManager;
 
-    public ActivityController(ActivityService activityService) {
+    public ActivityController(ActivityService activityService, ActivityFeedManager activityFeedManager) {
         this.activityService = activityService;
+        this.activityFeedManager = activityFeedManager;
     }
 
     @PostMapping()
@@ -37,5 +43,10 @@ public class ActivityController {
     public ResponseEntity<List<ActivityDTO>> getAllActivities() {
         List<ActivityDTO> activities = activityService.getAllActivities();
         return ResponseEntity.ok(activities);
+    }
+
+    @GetMapping("/feed")
+    public ResponseEntity<List<ActivityFeedDTO>> showActivityFeed(@AuthenticationPrincipal UserDetailsDTO details) {
+        return ResponseEntity.ok(activityFeedManager.showActivityFeedByUserDetails(details));
     }
 }

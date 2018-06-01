@@ -1,16 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.families.entities;
 
-import com.google.common.base.MoreObjects;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
-import py.org.fundacionparaguaya.pspserver.network.constants.Status;
-import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
-import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
-import py.org.fundacionparaguaya.pspserver.common.entities.LocalDateTimeConverter;
-import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
-import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,16 +14,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
+import com.google.common.base.MoreObjects;
+
+import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
+import py.org.fundacionparaguaya.pspserver.common.entities.LocalDateTimeConverter;
+import py.org.fundacionparaguaya.pspserver.network.constants.Status;
+import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
+import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 @Entity
 @Table(name = "family", schema = "ps_families")
 public class FamilyEntity extends BaseEntity {
 
     @Id
-    @GenericGenerator(name = "familySequenceGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-    parameters = {
+    @GenericGenerator(name = "familySequenceGenerator", strategy =
+            "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
             @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "ps_families"),
             @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "family_family_id_seq"),
             @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
@@ -77,6 +81,10 @@ public class FamilyEntity extends BaseEntity {
 
     @Column(name = "image_url")
     private String imageURL;
+
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
     public FamilyEntity() {
     };
@@ -192,6 +200,14 @@ public class FamilyEntity extends BaseEntity {
         this.imageURL = imageURL;
     }
 
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
     @PrePersist
     public void preSave() {
         this.lastModifiedAt = LocalDateTime.now();
@@ -224,10 +240,13 @@ public class FamilyEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("familyId", familyId).add("name", name).add("code", code)
-                .add("country", country).add("city", city).add("locationType", locationType)
-                .add("locationPositionGps", locationPositionGps).add("person", person).add("application", application)
-                .add("organization", organization).add("isActive", isActive).add("lastModifiedAt", lastModifiedAt)
+        return MoreObjects.toStringHelper(this).add("familyId", familyId)
+                .add("name", name).add("code", code).add("country", country)
+                .add("city", city).add("locationType", locationType)
+                .add("locationPositionGps", locationPositionGps)
+                .add("person", person).add("application", application)
+                .add("organization", organization).add("isActive", isActive)
+                .add("lastModifiedAt", lastModifiedAt).add("user", user)
                 .toString();
     }
 

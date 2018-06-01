@@ -10,6 +10,7 @@
   	"phoneNumber":"021555555"
   },
   "economic_survey_data": {
+    "familyCity":"Asunción",
     "currency": "guaranies",
     "activityMain": "worker",
     "activitySecondary": "mechanic",

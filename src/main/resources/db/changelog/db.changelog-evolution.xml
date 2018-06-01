@@ -292,7 +292,7 @@
     <changeSet id="2018-03-13T15:00" author="rvillalba">
         <sqlFile path="sql/2018-03-13T15:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
+
     <!--Delete unnecessary  users, applications and organizations-->
     <changeSet id="2018-03-23T11:02" author="mgonzalez">
         <sqlFile path="sql/2018-03-23T11:02.sql" relativeToChangelogFile="true"/>
@@ -303,10 +303,65 @@
         <sqlFile path="sql/2018-03-22T09:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+
+    <!-- Add column to save the user in family-->
+    <changeSet id="2018-04-13T15:30" author="jferreira">
+        <sqlFile path="sql/2018-04-13T15:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
     <!-- Add column email to Person table-->
     <changeSet id="2018-04-10T09:00" author="cbenitez">
         <sqlFile path="sql/2018-04-10T09:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
-</databaseChangeLog>
+    <!-- Add value column to parameter-->
+    <changeSet id="2018-04-19T14:50" author="mcespedes">
+        <sqlFile path="sql/2018-04-19T14:50.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
+    <!--change gender column to character varying in order to get a better acronym representation for gender-->
+    <changeSet id="2018-05-04T15:00" author="pjlopez">
+        <sqlFile path="sql/2018-05-04T15:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Delete unused columns is_partner, is_hub -->
+    <changeSet id="2018-05-04T17:00" author="cbenitez">
+        <sqlFile path="sql/2018-05-04T17:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Set columns length for applications and organizations tables -->
+    <changeSet id="2018-05-08T09:30" author="cbenitez">
+        <sqlFile path="sql/2018-05-08T09:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Add column 'language' with default value 'ENG' -->
+    <changeSet id="2018-05-12T15:00" author="nvaldez">
+        <sqlFile path="sql/2018-05-12T15:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Insert "Terms and Condition" and "Privacy policy" in spanish -->
+    <changeSet id="2018-05-12T15:30" author="nvaldez">
+        <sqlFile path="sql/2018-05-12T15:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!--Create activity feed table-->
+    <changeSet id="2018-03-19T17:30" author="bsandoval">
+        <sqlFile path="sql/2018-03-19T17:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Add column post_code to Person table-->
+    <changeSet id="2018-05-25T10:30" author="cbenitez">
+        <sqlFile path="sql/2018-05-25T10:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Add column id_application in TermCondPol table and drops language column-->
+    <changeSet id="2018-05-30T17:00" author="nvaldez">
+        <sqlFile path="sql/2018-05-30T17:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Inserts default terms&cond and privacy policy for each hub-->
+    <changeSet id="2018-05-31T10:00" author="nvaldez">
+        <sqlFile path="sql/2018-05-31T10:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+</databaseChangeLog>

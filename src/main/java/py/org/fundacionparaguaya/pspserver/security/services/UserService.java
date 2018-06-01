@@ -26,7 +26,9 @@ public interface UserService {
 
     void deleteUser(Long userId);
 
-    Page<UserDTO> listUsers(UserDetailsDTO userDetails, String filter, PageRequest pageRequest);
+    Page<UserDTO> listUsers(UserDetailsDTO userDetails, String filter, PageRequest pageRequest, Boolean active);
 
     List<UserDTO> listUsers(ApplicationDTO application, OrganizationDTO organization);
+
+    List<UserDTO> listSurveyUsers(UserDetailsDTO userDetails);
 }

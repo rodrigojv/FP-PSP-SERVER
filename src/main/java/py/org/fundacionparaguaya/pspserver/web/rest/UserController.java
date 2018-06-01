@@ -27,6 +27,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/users")
@@ -78,14 +79,21 @@ public class UserController {
                             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                             @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
                             @RequestParam(value = "sort_by", required = false, defaultValue = "username") String sortBy,
+                            @RequestParam(value = "active", required = false) Boolean active,
                             @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
                             @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
                             @AuthenticationPrincipal UserDetailsDTO userDetails) {
         PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, "user." + sortBy);
-        Page<UserDTO> pageProperties = userService.listUsers(userDetails, filter, pageRequest);
+        Page<UserDTO> pageProperties = userService.listUsers(userDetails, filter, pageRequest, active);
         PaginableList<UserDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/survey-users")
+    public ResponseEntity<List<UserDTO>> getSurveyUsers(@AuthenticationPrincipal UserDetailsDTO userDetails) {
+        List<UserDTO> surveyUsers = userService.listSurveyUsers(userDetails);
+        return ResponseEntity.ok(surveyUsers);
     }
 
     @DeleteMapping("/{userId}")

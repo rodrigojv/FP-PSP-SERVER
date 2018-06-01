@@ -4,14 +4,11 @@ import com.google.common.collect.ImmutableMultimap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
-import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
-import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
 import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
@@ -29,7 +26,6 @@ import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ImageParser;
 import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,7 +81,6 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         ApplicationEntity application = new ApplicationEntity();
         BeanUtils.copyProperties(applicationDTO, application);
-        application.setHub(true);
         application.setActive(true);
 
         if (applicationDTO.getFile() != null) {
@@ -137,7 +132,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public List<ApplicationDTO> getAllApplications() {
+    public List<ApplicationDTO> listApplications() {
         List<ApplicationEntity> applications = applicationRepository.findByIsActive(true);
         return applicationMapper.entityListToDtoList(applications);
     }
@@ -152,18 +147,6 @@ public class ApplicationServiceImpl implements ApplicationService {
                 pageRequest);
 
         return pageResponse.map(applicationMapper::entityToDto);
-    }
-
-    @Override
-    public List<ApplicationDTO> getAllHubs() {
-        List<ApplicationEntity> hubs = applicationRepository.findByIsHubAndIsActive(true, true);
-        return applicationMapper.entityListToDtoList(hubs);
-    }
-
-    @Override
-    public List<ApplicationDTO> getAllPartners() {
-        List<ApplicationEntity> partners = applicationRepository.findByIsPartnerAndIsActive(true, true);
-        return applicationMapper.entityListToDtoList(partners);
     }
 
     @Override
@@ -211,22 +194,5 @@ public class ApplicationServiceImpl implements ApplicationService {
             return getApplicationById(applicationId);
         }
         return new ApplicationDTO();
-    }
-
-    @Override
-    public PaginableList<ApplicationDTO> listApplicationsHubs(int page, int perPage, String orderBy, String sortBy) {
-
-        PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
-        Page<ApplicationEntity> pageResponse = applicationRepository.findAllByIsHub(true, pageRequest);
-        if (pageResponse == null) {
-            return new PaginableList<ApplicationDTO>(Collections.emptyList());
-        }
-        Page<ApplicationDTO> applicationPage =
-                pageResponse.map(new Converter<ApplicationEntity, ApplicationDTO>() {
-                    public ApplicationDTO convert(ApplicationEntity source) {
-                        return applicationMapper.entityToDto(source);
-                    }
-                });
-        return new PaginableList<ApplicationDTO>(applicationPage, applicationPage.getContent());
     }
 }

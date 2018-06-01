@@ -14,6 +14,8 @@ package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,6 +26,7 @@ import java.util.List;
  * The MODEL SCHEMA definition of the survey
  */
 @ApiModel(description = "The MODEL SCHEMA definition of the survey")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SurveySchema implements Serializable {
 
     @JsonProperty("title")
@@ -41,15 +44,28 @@ public class SurveySchema implements Serializable {
     @JsonProperty("type")
     private String type = Property.TypeEnum.OBJECT.toString();
 
+    @JsonProperty(value = "dependencies", required = false)
+    private SurveyData dependencies;
+
     public SurveySchema title(String title) {
         this.title = title;
         return this;
+    }
+
+    public SurveyData getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(SurveyData dependencies) {
+        this.dependencies = dependencies;
     }
 
     /**
      * The title of this survey
      * @return title
      **/
+
+
     @JsonProperty("type")
     @ApiModelProperty(value = "The title of this survey")
     public String getType() {
@@ -175,7 +191,6 @@ public class SurveySchema implements Serializable {
         }
         return o.toString().replace("\n", "\n    ");
     }
-
 
 }
 

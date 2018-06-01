@@ -17,4 +17,16 @@
         </loadUpdateData>
     </changeSet>
 
+    <changeSet author="pjlopez" id="2018-05-04T13.50" runOnChange="true">
+        <loadUpdateData
+                encoding="UTF-8"
+                file="db/seed_data/system_parameter.csv"
+                primaryKey="key_parameter"
+                quotchar="'"
+                separator=";"
+                schemaName="system"
+                tableName="parameter">
+        </loadUpdateData>
+    </changeSet>
+
 </databaseChangeLog>

@@ -1,82 +1,117 @@
 package py.org.fundacionparaguaya.pspserver.system.entities;
 
-import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
+import com.google.common.base.MoreObjects;
+
+import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 
 @Entity
 @Table(name = "parameter", schema = "system")
 public class ParameterEntity extends BaseEntity {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="system.parameter_parameter_id_seq")
-    @SequenceGenerator(name="system.parameter_parameter_id_seq", sequenceName="system.parameter_parameter_id_seq", allocationSize=1)
-	@Column(name = "parameter_id")
-	private Long parameterId;
-	
-	private String keyParameter;
-	
-	private String description;
-	
-	private String typeParameter;
 
-	public Long getParameterId() {
-		return parameterId;
-	}
+    @Id
+    @GenericGenerator(
+                name = "parametersSequenceGenerator",
+                strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+                parameters = {
+                    @Parameter(name = SequenceStyleGenerator.SCHEMA,
+                                value = "system"),
+                    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM,
+                            value = "parameter_parameter_id_seq"),
+                    @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM,
+                            value = "1"),
+                    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM,
+                            value = "1")
+                }
+    )
+    @GeneratedValue(generator = "parametersSequenceGenerator")
+    @Column(name = "parameter_id")
+    private Long parameterId;
 
-	public void setParameterId(Long parameterId) {
-		this.parameterId = parameterId;
-	}
+    private String keyParameter;
 
-	public String getKeyParameter() {
-		return keyParameter;
-	}
+    private String description;
 
-	public void setKeyParameter(String keyParameter) {
-		this.keyParameter = keyParameter;
-	}
+    private String typeParameter;
 
-	public String getDescription() {
-		return description;
-	}
+    private String value;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public Long getParameterId() {
+        return parameterId;
+    }
 
-	public String getTypeParameter() {
-		return typeParameter;
-	}
+    public void setParameterId(Long parameterId) {
+        this.parameterId = parameterId;
+    }
 
-	public void setTypeParameter(String typeParameter) {
-		this.typeParameter = typeParameter;
-	}
+    public String getKeyParameter() {
+        return keyParameter;
+    }
 
-	@Override
-	public String toString() {
-		return "ParameterEntity [parameterId=" + parameterId + ", keyParameter=" + keyParameter + ", description="
-				+ description + ", typeParameter=" + typeParameter + "]";
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (parameterId == null || obj == null || getClass() != obj.getClass())
-			return false;
-		ParameterEntity toCompare = (ParameterEntity) obj;
-		return parameterId.equals(toCompare.parameterId);
-	}
-	
-	@Override
-	public int hashCode() {
-		return parameterId == null ? 0 : parameterId.hashCode();
-	}
-	
+    public void setKeyParameter(String keyParameter) {
+        this.keyParameter = keyParameter;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTypeParameter() {
+        return typeParameter;
+    }
+
+    public void setTypeParameter(String typeParameter) {
+        this.typeParameter = typeParameter;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("parameterId", parameterId)
+                .add("keyParameter", keyParameter)
+                .add("description", description)
+                .add("typeParameter", typeParameter)
+                .add("value", value)
+                .toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (parameterId == null || obj == null
+                || getClass() != obj.getClass()) {
+            return false;
+        }
+        ParameterEntity toCompare = (ParameterEntity) obj;
+        return parameterId.equals(toCompare.parameterId);
+    }
+
+    @Override
+    public int hashCode() {
+        return parameterId == null ? 0 : parameterId.hashCode();
+    }
+
 }

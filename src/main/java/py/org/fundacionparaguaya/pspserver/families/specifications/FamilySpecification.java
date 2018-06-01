@@ -97,19 +97,17 @@ public class FamilySpecification {
         };
     }
 
-    public static Specification<FamilyEntity> byOrganization(Long organizationId) {
+    public static Specification<FamilyEntity> byOrganization(List<Long> organizations) {
         return new Specification<FamilyEntity>() {
             @Override
             public Predicate toPredicate(Root<FamilyEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
-
-                if (organizationId != null) {
+                if (organizations != null) {
                     Join<FamilyEntity, OrganizationEntity> joinfamilyOrganization = root
                             .join(FamilyEntity_.getOrganization());
                     Expression<Long> byOrganizationId = joinfamilyOrganization.<Long>get(ID_ATTRIBUTE);
-                    predicates.add(cb.equal(byOrganizationId, organizationId));
+                    predicates.add(byOrganizationId.in(organizations));
                 }
-
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             }
         };

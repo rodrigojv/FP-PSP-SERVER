@@ -25,6 +25,7 @@ import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/organizations")
@@ -58,6 +59,15 @@ public class OrganizationController {
     public ResponseEntity<OrganizationDTO> getOrganizationById(@PathVariable("organizationId") Long organizationId) {
         OrganizationDTO dto = organizationService.getOrganizationById(organizationId);
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<OrganizationDTO>> listOrganizationsByUser(
+            @AuthenticationPrincipal UserDetailsDTO userDetails) {
+
+        List<OrganizationDTO> organizations = organizationService.
+                listOrganizations(userDetails, null, null).getContent();
+        return ResponseEntity.ok(organizations);
     }
 
     @GetMapping()

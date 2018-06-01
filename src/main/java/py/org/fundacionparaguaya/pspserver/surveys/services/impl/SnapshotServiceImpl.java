@@ -1,15 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byApplication;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.createdAtLess2Months;
-
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.*;
-import java.util.stream.Collectors;
-
+import com.amazonaws.util.json.Jackson;
+import com.google.gson.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,15 +22,7 @@ import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepo
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.PropertyTitle;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotTaken;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.enums.SurveyStoplightEnum;
@@ -49,7 +33,19 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotIndicatorPri
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
 import py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification;
+import py.org.fundacionparaguaya.pspserver.surveys.validation.DependencyValidation;
+import py.org.fundacionparaguaya.pspserver.surveys.validation.DependencyValidationOneOf;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
+
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byApplication;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.createdAtLess2Months;
 
 /**
  * Created by rodrigovillalba on 9/14/17.
@@ -57,8 +53,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
 @Service
 public class SnapshotServiceImpl implements SnapshotService {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(SnapshotServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SnapshotServiceImpl.class);
 
     private final SnapshotIndicatorPriorityService priorityService;
 
@@ -84,6 +79,7 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     private static final String INDICATOR_VALUE = "value";
 
+
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository,
             SnapshotEconomicMapper economicMapper, SurveyService surveyService,
             SnapshotIndicatorMapper indicatorMapper,
@@ -103,6 +99,102 @@ public class SnapshotServiceImpl implements SnapshotService {
         this.organizationRepository = organizationRepository;
     }
 
+    private boolean dependenciesAreValid(NewSnapshot snapshot) {
+
+        //if there are not dependencies, there is no need to perform validation
+        if (snapshot.getDependencies() == null || snapshot.getDependencies().size() == 0){
+            return true;
+        }
+
+        //get the dependencies from the formData and the dependencies structure from the schema
+        SurveyDefinition surveyDefinition
+                = this.surveyService.getSurveyDefinition(snapshot.getSurveyId());
+        String stringSurvey =
+                Jackson.toJsonString(surveyDefinition);
+        String formDependency = Jackson.toJsonString(snapshot.getDependencies());
+        JsonParser jsonParser = new JsonParser();
+
+        JsonObject jsonFormDependency = jsonParser.parse(formDependency).getAsJsonObject();
+
+        JsonObject jsonSchemaDependency = jsonParser.parse(stringSurvey).getAsJsonObject()
+                .getAsJsonObject(DependencyValidation.SURVEY_SCHEMA)
+                .getAsJsonObject(DependencyValidation.DEPENDENCIES);
+
+        // for every property dependency present in the formData
+        JsonObject jsonDependencyObject = new JsonObject();
+        for (String key : jsonFormDependency.keySet()){
+
+            // the same property should be as a dependency attribute, to get the selected value in the form
+            if (jsonFormDependency.getAsJsonObject(key).has(key)){
+
+                //selected value
+                JsonElement value = jsonFormDependency.getAsJsonObject(key).getAsJsonPrimitive(key);
+
+                //case when the dependency structure is of kind ONE OF
+                if (jsonSchemaDependency.getAsJsonObject(key).has(DependencyValidation.ONE_OF)){
+                    DependencyValidationOneOf dependencyValidationOneOf = new DependencyValidationOneOf();
+
+                    /*
+                    gets a list of attributtes and required attributes that should be present.
+                     according the selected value
+                    * */
+                    JsonObject jsonDependenciesAndRequired =  dependencyValidationOneOf
+                            .getDependenciesAndRequiredProperties(key, value, jsonSchemaDependency);
+
+                    // the property was not found to have any dependency in the json schema
+                    if (jsonDependenciesAndRequired == null) {
+                        return false;
+                    }
+
+                    /* check that every dependency in the formData is present in the jsonSchema,  also checks that every
+                    *  required dependency defined in the schema, is present in the formData dependencies
+                    */
+                    jsonDependencyObject = jsonFormDependency.getAsJsonObject(key).deepCopy();
+                    //we dont need the property as dependency
+                    jsonDependencyObject.remove(key);
+                    if (!dependencyValidationOneOf.checkDependency(jsonDependencyObject,
+                            jsonDependenciesAndRequired)){
+                        return false;
+                    }
+                }
+
+                // other cases of dependency managment could be added
+
+            }
+        }
+
+
+        return true;
+    }
+
+    private void addDependenciesToAditionalData
+            (SnapshotEconomicEntity snapshotEconomicEntity, NewSnapshot snapshot){
+
+        //if there are not dependencies, just return
+        if (snapshot.getDependencies() == null || snapshot.getDependencies().size() == 0){
+            return;
+        }
+
+        String formDependency = Jackson.toJsonString(snapshot.getDependencies());
+        JsonParser jsonParser = new JsonParser();
+
+        JsonObject jsonFormDependency = jsonParser.parse(formDependency).getAsJsonObject();
+
+        for (String key : jsonFormDependency.keySet()){
+            JsonObject dependenciesJson = jsonFormDependency.getAsJsonObject(key);
+            for (String keyD : dependenciesJson.keySet()){
+                // The property key which is also within dependency is not included
+                if (!key.equals(keyD)){
+                    snapshotEconomicEntity.getAdditionalProperties().put(keyD,
+                            dependenciesJson.getAsJsonPrimitive(keyD).getAsString());
+                }
+            }
+        }
+
+
+    }
+
+
     @Override
     @Transactional
     public Snapshot addSurveySnapshot(UserDetailsDTO details,
@@ -111,7 +203,9 @@ public class SnapshotServiceImpl implements SnapshotService {
 
         ValidationResults results = surveyService
                 .checkSchemaCompliance(snapshot);
-        if (!results.isValid()) {
+
+        //validate survey
+        if (!results.isValid() || !dependenciesAreValid(snapshot)) {
             throw new CustomParameterizedException(
                     i18n.translate("snapshot.invalid"), results.asMap());
         }
@@ -125,19 +219,35 @@ public class SnapshotServiceImpl implements SnapshotService {
         FamilyEntity family = familyService
                 .getOrCreateFamilyFromSnapshot(details, snapshot, personEntity);
 
+
+        SnapshotEconomicEntity socioEconomicEntity = economicMapper
+                .newSnapshotToEconomicEntity(snapshot, indicatorEntity);
+
+
+        addDependenciesToAditionalData(socioEconomicEntity, snapshot);
+
+
         SnapshotEconomicEntity snapshotEconomicEntity = saveEconomic(snapshot,
-                indicatorEntity, family);
+                socioEconomicEntity, family);
+
 
         familyService.updateFamily(family.getFamilyId());
 
-        return economicMapper.entityToDto(snapshotEconomicEntity);
+        Snapshot created = economicMapper.entityToDto(snapshotEconomicEntity);
+
+        LOG.info("User '{}' created a new Snapshot, snapshot_id={}",
+                details.getUsername(), created.getSnapshotEconomicId());
+        LOG.info("Snapshot = {}", created);
+        LOG.info("User '{}' finished Survey, survey_id={}",
+                details.getUsername(), created.getSurveyId());
+
+        return created;
     }
 
     private SnapshotEconomicEntity saveEconomic(NewSnapshot snapshot,
-            SnapshotIndicatorEntity indicator, FamilyEntity family) {
+                                                SnapshotEconomicEntity entity, FamilyEntity family) {
 
-        SnapshotEconomicEntity entity = economicMapper
-                .newSnapshotToEconomicEntity(snapshot, indicator);
+
         entity.setFamily(family);
         entity.setPersonalInformation(snapshot.getPersonalSurveyData());
 
@@ -352,9 +462,12 @@ public class SnapshotServiceImpl implements SnapshotService {
             snapshotIndicators.setSnapshotEconomicId(os.getId());
             snapshotIndicators.setSurveyId(os.getSurveyDefinition().getId());
             FamilyDTO familyDto = familyService.getFamilyById(familyId);
-            familyDto.setOrganizationId(
-                    organizationMapper.entityToDto(organizationRepository
-                            .findOne(familyDto.getOrganization().getId())));
+            Optional.ofNullable(familyDto.getOrganization())
+                    .ifPresent(organization -> {
+                        familyDto.setOrganization(
+                                organizationMapper.entityToDto(organizationRepository
+                                        .findOne(organization.getId())));
+                    });
             snapshotIndicators.setFamily(familyDto);
             if (os.getUser() != null) {
                 snapshotIndicators

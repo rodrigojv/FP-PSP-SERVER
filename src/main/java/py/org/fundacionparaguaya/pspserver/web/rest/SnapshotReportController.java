@@ -35,12 +35,12 @@ public class SnapshotReportController {
     @GetMapping(path = "/family/organizations", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<OrganizationFamilyDTO>> getFamiliesByOrganization(
             @RequestParam(value = "application_id", required = false) Long applicationId,
-            @RequestParam(value = "organization_id", required = false) Long organizationId,
+            @RequestParam(value = "organizations[]", required = false) List<Long> organizations,
             @RequestParam(value = "family_id", required = false) Long familyId,
             @RequestParam(value = "date_from", required = true) String dateFrom,
             @RequestParam(value = "date_to", required = true) String dateTo) {
 
-        SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizationId, familyId, dateFrom, dateTo);
+        SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo);
 
         List<OrganizationFamilyDTO> families = familyReportService.listFamilyByOrganizationAndCreatedDate(filters);
         return ResponseEntity.ok(families);
@@ -49,27 +49,26 @@ public class SnapshotReportController {
     @GetMapping(path = "/family/indicators", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<FamilySnapshotDTO>> getSnapshotsIndicatorsByFamily(
             @RequestParam(value = "application_id", required = false) Long applicationId,
-            @RequestParam(value = "organization_id", required = false) Long organizationId,
+            @RequestParam(value = "organizations[]", required = false) List<Long> organizations,
             @RequestParam(value = "family_id", required = true) Long familyId,
             @RequestParam(value = "date_from", required = true) String dateFrom,
             @RequestParam(value = "date_to", required = true) String dateTo) {
 
-        SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizationId, familyId, dateFrom, dateTo);
-        List<FamilySnapshotDTO> snapshots = familyReportService.listSnapshotByFamily(filters);
-
-        return ResponseEntity.ok(snapshots);
+      SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo);
+      List<FamilySnapshotDTO> snapshots = familyReportService.listSnapshotByFamily(filters);
+      return ResponseEntity.ok(snapshots);
     }
 
     @GetMapping(path = "/family/indicators/csv", produces = "application/octet-stream")
     public void generateCSVSnapshotByOrganizationAndCreatedDate(
             @RequestParam(value = "application_id", required = false) Long applicationId,
-            @RequestParam(value = "organization_id", required = false) Long organizationId,
+            @RequestParam(value = "organizations[]", required = false) List<Long> organizations,
             @RequestParam(value = "family_id", required = true) Long familyId,
             @RequestParam(value = "date_from", required = true) String dateFrom,
             @RequestParam(value = "date_to", required = true) String dateTo,
             HttpServletResponse response) throws IOException {
 
-        SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizationId, familyId, dateFrom, dateTo);
+        SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo);
         String csv = familyReportService.generateCSVSnapshotByOrganizationAndCreatedDate(filters);
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=\"snapshots.csv\"");

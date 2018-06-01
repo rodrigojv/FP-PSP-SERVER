@@ -1,13 +1,14 @@
 package py.org.fundacionparaguaya.pspserver.security.dtos;
 
-import java.io.Serializable;
-
-import javax.validation.constraints.NotNull;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
+
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 public class UserDTO implements Serializable{
 
@@ -30,10 +31,12 @@ public class UserDTO implements Serializable{
 
     private OrganizationDTO organization;
 
+    private String role;
+
     public UserDTO() {}
 
     private UserDTO(Long userId, String username, String email, String pass, boolean active,
-                        ApplicationDTO application, OrganizationDTO organization) {
+                        ApplicationDTO application, OrganizationDTO organization, String role) {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -41,6 +44,7 @@ public class UserDTO implements Serializable{
         this.active = active;
         this.application = application;
         this.organization = organization;
+        this.role = role;
     }
 
     public static class Builder {
@@ -51,6 +55,7 @@ public class UserDTO implements Serializable{
         private boolean active;
         private ApplicationDTO application;
         private OrganizationDTO organization;
+        private String role;
 
         public Builder userId(Long userId) {
             this.userId = userId;
@@ -87,8 +92,13 @@ public class UserDTO implements Serializable{
             return this;
         }
 
+        public Builder role(String role) {
+            this.role = role;
+            return this;
+        }
+
         public UserDTO build() {
-            return new UserDTO(userId, username, email, pass, active, application, organization);
+            return new UserDTO(userId, username, email, pass, active, application, organization, role);
         }
     }
 
@@ -108,6 +118,11 @@ public class UserDTO implements Serializable{
         return email;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    @JsonIgnore
     public String getPass() {
         return pass;
     }
@@ -136,6 +151,7 @@ public class UserDTO implements Serializable{
         this.email = email;
     }
 
+    @JsonProperty
     public void setPass(String pass) {
         this.pass = pass;
     }
@@ -152,6 +168,10 @@ public class UserDTO implements Serializable{
         this.organization = organization;
     }
 
+    public void setRole(String role){
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -162,6 +182,7 @@ public class UserDTO implements Serializable{
                 .add("active", active)
                 .add("application", application)
                 .add("organization", organization)
+                .add("role", role)
                 .toString();
     }
 }

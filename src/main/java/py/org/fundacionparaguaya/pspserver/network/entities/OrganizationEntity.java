@@ -165,9 +165,9 @@ public class OrganizationEntity {
                 .add("code", code)
                 .add("description", description)
                 .add("isActive", isActive)
-                .add("country", country.toString())
+                .add("country", country)
                 .add("information", information)
-                .add("application", application.toString())
+                .add("application", application)
                 .toString();
     }
 

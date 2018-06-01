@@ -1,0 +1,3 @@
+key_parameter;description;type_parameter;value
+minimum_priority;Minimum priority amount for the life map;Integer;3
+maximum_time_since_snapshot;Maximum amount of days since a snapshot was taken to make edits to the priorities;Integer;7

@@ -97,6 +97,9 @@ public class PersonEntity extends BaseEntity {
     @Convert(converter = LocalDateConverter.class)
     private LocalDate birthdate;
 
+    @Column(name = "post_code")
+    private String postCode;
+
     public FamilyEntity getFamily() {
         return family;
     }
@@ -217,6 +220,14 @@ public class PersonEntity extends BaseEntity {
         this.birthdate = birthdate;
     }
 
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -250,6 +261,7 @@ public class PersonEntity extends BaseEntity {
                 .add("email", email)
                 .add("countryOfBirth", countryOfBirth)
                 .add("birthdate", birthdate)
+                .add("postCode", postCode)
                 .toString();
     }
 

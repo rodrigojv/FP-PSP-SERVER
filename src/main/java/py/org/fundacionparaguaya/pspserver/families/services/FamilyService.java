@@ -45,8 +45,7 @@ public interface FamilyService {
     FamilyEntity getOrCreateFamilyFromSnapshot(UserDetailsDTO details,
             NewSnapshot snapshot, PersonEntity personEntity);
 
-    List<FamilyDTO> listDistinctFamiliesSnapshotByUser(UserDetailsDTO details,
-            String name);
+    List<FamilyDTO> listDistinctFamiliesByUser(UserDetailsDTO details, String name);
 
     FamilyDTO updateFamily(Long familyId);
 

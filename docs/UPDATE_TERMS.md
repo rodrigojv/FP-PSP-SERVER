@@ -20,5 +20,5 @@ curl -i -H "Authorization: Bearer [ACCESS_TOKEN]" http://localhost:8080/api/v1/t
 Invoke the endpoint passing the ID of the term and conditions entry and also the path to your html file using the `-F` to send as a `multipart/form` request. 
 
 ```bash
-curl -X PUT -F "html_file=@test.html" -H "Authorization: Bearer [ACCESS_TOKEN" http://localhost:8080/api/v1/termcondpol/[TERM_ID]
+curl -X PUT -F "html_file=@test.html" -H "Authorization: Bearer [ACCESS_TOKEN" https://[ENVIRONMENT].backend.povertystoplight.org/api/v1/termcondpol/[TERM_ID]
 ```

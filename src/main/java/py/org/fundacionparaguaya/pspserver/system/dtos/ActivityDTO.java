@@ -1,83 +1,46 @@
 package py.org.fundacionparaguaya.pspserver.system.dtos;
 
-import java.io.Serializable;
-
 import com.google.common.base.MoreObjects;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
+import py.org.fundacionparaguaya.pspserver.security.constants.Role;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
+import py.org.fundacionparaguaya.pspserver.system.constants.ActivityType;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ActivityDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long activityId;
-    private Long userId;
-    private String activityType;
-    private String description;
-    private Long organizationId;
-    private Long applicationId;
-    private String createAt;
+    private UserDTO user;
+    private FamilyDTO family;
+    private ApplicationDTO application;
+    private OrganizationDTO organization;
+    private String activityKey;
+    private String activityParams;
+    private Role activityRole;
+    private ActivityType activityType;
+    private String createdAt;
 
     public ActivityDTO() {
     }
 
-    private ActivityDTO(Long activityId, Long userId, String activityType,
-            String description, Long organizationId, Long applicationId,
-            String createAt) {
-        this.activityId = activityId;
-        this.userId = userId;
+    public ActivityDTO(UserDTO user, ApplicationDTO application, OrganizationDTO organization, FamilyDTO family,
+            String activityKey, String activityParams, Role activityRole, ActivityType activityType) {
+        this.user = user;
+        this.application = application;
+        this.organization = organization;
+        this.family = family;
+        this.activityKey = activityKey;
+        this.activityParams = activityParams;
+        this.activityRole = activityRole;
         this.activityType = activityType;
-        this.description = description;
-        this.organizationId = organizationId;
-        this.applicationId = applicationId;
-        this.createAt = createAt;
-    }
-
-    public static class Builder {
-        private Long activityId;
-        private Long userId;
-        private String activityType;
-        private String description;
-        private Long organizationId;
-        private Long applicationId;
-        private String createAt;
-
-        public Builder activityId(Long activityId) {
-            this.activityId = activityId;
-            return this;
-        }
-
-        public Builder userId(Long userId) {
-            this.userId = userId;
-            return this;
-        }
-
-        public Builder activityType(String activityType) {
-            this.activityType = activityType;
-            return this;
-        }
-
-        public Builder description(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public Builder organizationId(Long organizationId) {
-            this.organizationId = organizationId;
-            return this;
-        }
-
-        public Builder applicationId(Long applicationId) {
-            this.applicationId = applicationId;
-            return this;
-        }
-
-        public Builder createAt(String createAt) {
-            this.createAt = createAt;
-            return this;
-        }
-
-        public ActivityDTO build() {
-            return new ActivityDTO(activityId, userId, activityType,
-                    description, organizationId, applicationId, createAt);
-        }
     }
 
     public Long getActivityId() {
@@ -88,61 +51,153 @@ public class ActivityDTO implements Serializable {
         this.activityId = activityId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 
-    public String getActivityType() {
+    public FamilyDTO getFamily() {
+        return family;
+    }
+
+    public void setFamily(FamilyDTO family) {
+        this.family = family;
+    }
+
+    public ApplicationDTO getApplication() {
+        return application;
+    }
+
+    public void setApplication(ApplicationDTO application) {
+        this.application = application;
+    }
+
+    public OrganizationDTO getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(OrganizationDTO organization) {
+        this.organization = organization;
+    }
+
+    public String getActivityKey() {
+        return activityKey;
+    }
+
+    public void setActivityKey(String activityKey) {
+        this.activityKey = activityKey;
+    }
+
+    public String getActivityParams() {
+        return activityParams;
+    }
+
+    public void setActivityParams(String activityParams) {
+        this.activityParams = activityParams;
+    }
+
+    public Role getActivityRole() {
+        return activityRole;
+    }
+
+    public void setActivityRole(Role activityRole) {
+        this.activityRole = activityRole;
+    }
+
+    public ActivityType getActivityType() {
         return activityType;
     }
 
-    public void setActivityType(String activityType) {
+    public void setActivityType(ActivityType activityType) {
         this.activityType = activityType;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Long getOrganizationId() {
-        return organizationId;
+    public static class Builder {
+        private UserDTO user;
+        private FamilyDTO family;
+        private ApplicationDTO application;
+        private OrganizationDTO organization;
+        private String activityKey;
+        private List<String> activityParams;
+        private Role activityRole;
+        private ActivityType activityType;
+        private String createAt;
+
+        public Builder() {
+            this.activityParams = new ArrayList<>();
+        }
+
+        public Builder user(UserDTO user) {
+            this.user = user;
+            return this;
+        }
+
+        public Builder application(ApplicationDTO application) {
+            this.application = application;
+            return this;
+        }
+
+        public Builder organization(OrganizationDTO organization) {
+            this.organization = organization;
+            return this;
+        }
+
+        public Builder family(FamilyDTO family) {
+            this.family = family;
+            return this;
+        }
+
+        public Builder activityKey(String activityKey) {
+            this.activityKey = activityKey;
+            return this;
+        }
+
+        public Builder activityParams(List<String> activityParams) {
+            this.activityParams = activityParams;
+            return this;
+        }
+
+        public Builder activityRole(Role activityRole) {
+            this.activityRole = activityRole;
+            return this;
+        }
+
+        public Builder activityType(ActivityType activityType) {
+            this.activityType = activityType;
+            return this;
+        }
+
+        public Builder addActivityParam(String param) {
+            activityParams.add(param);
+            return this;
+        }
+
+        public ActivityDTO build() {
+            return new ActivityDTO(user, application, organization, family,
+                    activityKey, activityParams.stream().collect(Collectors.joining(",")),
+                    activityRole, activityType);
+        }
     }
 
-    public void setOrganizationId(Long organizationId) {
-        this.organizationId = organizationId;
+    public static ActivityDTO.Builder builder() {
+        return new ActivityDTO.Builder();
     }
 
-    public Long getApplicationId() {
-        return applicationId;
-    }
-
-    public void setApplicationId(Long applicationId) {
-        this.applicationId = applicationId;
-    }
-
-    public String getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(String createAt) {
-        this.createAt = createAt;
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this).add("activityId", activityId)
-                .add("userId", userId).add("activityType", activityType)
-                .add("description", description)
-                .add("organizationId", organizationId)
-                .add("applicationId", applicationId).add("createAt", createAt)
-                .toString();
+    @Override public String toString() {
+        return MoreObjects.toStringHelper(this).add("activityId", activityId).add("user", user).add("family", family)
+                .add("application", application).add("organization", organization).add("activityKey", activityKey)
+                .add("activityParams", activityParams).add("activityRole", activityRole)
+                .add("activityType", activityType).add("createdAt", createdAt).toString();
     }
 }

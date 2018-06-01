@@ -17,70 +17,82 @@ import py.org.fundacionparaguaya.pspserver.system.mapper.ParameterMapper;
 import py.org.fundacionparaguaya.pspserver.system.repositories.ParameterRepository;
 import py.org.fundacionparaguaya.pspserver.system.services.ParameterService;
 
-
 @Service
 public class ParameterServiceImpl implements ParameterService {
 
-	private Logger LOG = LoggerFactory.getLogger(ParameterServiceImpl.class);
+    private Logger log = LoggerFactory.getLogger(ParameterServiceImpl.class);
 
-	private ParameterRepository parameterRepository;
+    private ParameterRepository parameterRepository;
 
-	private ParameterMapper parameterMapper;
+    private ParameterMapper parameterMapper;
 
-	public ParameterServiceImpl(ParameterRepository parameterRepository, ParameterMapper parameterMapper) {
-		this.parameterRepository = parameterRepository;
-		this.parameterMapper = parameterMapper;
-	}
+    public ParameterServiceImpl(ParameterRepository parameterRepository,
+            ParameterMapper parameterMapper) {
+        this.parameterRepository = parameterRepository;
+        this.parameterMapper = parameterMapper;
+    }
 
-	@Override
-	public ParameterDTO updateParameter(Long parameterId, ParameterDTO parameterDTO) {
-		checkArgument(parameterId > 0, "Argument was %s but expected nonnegative", parameterId);
+    @Override
+    public ParameterDTO updateParameter(Long parameterId,
+            ParameterDTO parameterDTO) {
+        checkArgument(parameterId > 0,
+                "Argument was %s but expected nonnegative", parameterId);
 
-		return Optional.ofNullable(parameterRepository.findOne(parameterId))
+        return Optional.ofNullable(parameterRepository.findOne(parameterId))
                 .map(parameter -> {
                     BeanUtils.copyProperties(parameterDTO, parameter);
-                    LOG.debug("Changed Information for Parameter: {}", parameter);
+                    log.debug("Changed Information for Parameter: {}",
+                            parameter);
                     return parameter;
-                })
-                .map(parameterMapper::entityToDto)
-                .orElseThrow(() -> new UnknownResourceException("Parameter does not exist"));
-	}
+                }).map(parameterMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException(
+                        "Parameter does not exist"));
+    }
 
-	@Override
-	public ParameterDTO addParameter(ParameterDTO parameterDTO) {
-		ParameterEntity parameter = new ParameterEntity();
-		BeanUtils.copyProperties(parameterDTO, parameter);
-		ParameterEntity newParameter= parameterRepository.save(parameter);
-		return parameterMapper.entityToDto(newParameter);
-	}
+    @Override
+    public ParameterDTO addParameter(ParameterDTO parameterDTO) {
+        ParameterEntity parameter = new ParameterEntity();
+        BeanUtils.copyProperties(parameterDTO, parameter);
+        ParameterEntity newParameter = parameterRepository.save(parameter);
+        return parameterMapper.entityToDto(newParameter);
+    }
 
-	@Override
-	public ParameterDTO getParameterById(Long parameterId) {
-		checkArgument(parameterId > 0, "Argument was %s but expected nonnegative", parameterId);
+    @Override
+    public ParameterDTO getParameterById(Long parameterId) {
+        checkArgument(parameterId > 0,
+                "Argument was %s but expected nonnegative", parameterId);
 
         return Optional.ofNullable(parameterRepository.findOne(parameterId))
                 .map(parameterMapper::entityToDto)
-                .orElseThrow(() -> new UnknownResourceException("Parameter does not exist"));
-	}
+                .orElseThrow(() -> new UnknownResourceException(
+                        "Parameter does not exist"));
+    }
 
-	@Override
-	public List<ParameterDTO> getAllParameters() {
-		List<ParameterEntity> parameters = parameterRepository.findAll();
-		return parameterMapper.entityListToDtoList(parameters);
-	}
+    @Override
+    public List<ParameterDTO> getAllParameters() {
+        List<ParameterEntity> parameters = parameterRepository.findAll();
+        return parameterMapper.entityListToDtoList(parameters);
+    }
 
-	@Override
-	public void deleteParameter(Long parameterId) {
-		checkArgument(parameterId > 0, "Argument was %s but expected nonnegative", parameterId);
+    @Override
+    public void deleteParameter(Long parameterId) {
+        checkArgument(parameterId > 0,
+                "Argument was %s but expected nonnegative", parameterId);
 
         Optional.ofNullable(parameterRepository.findOne(parameterId))
                 .ifPresent(parameter -> {
-                	parameterRepository.delete(parameter);
-                    LOG.debug("Deleted Parameter: {}", parameter);
+                    parameterRepository.delete(parameter);
+                    log.debug("Deleted Parameter: {}", parameter);
                 });
-		
-	}
 
-	
+    }
+
+    @Override
+    public ParameterDTO getParameterByKey(String keyParameter) {
+        return Optional.ofNullable(parameterRepository.findByKeyParameter(keyParameter))
+                .map(parameterMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException(
+                        "Parameter does not exist"));
+    }
 
 }

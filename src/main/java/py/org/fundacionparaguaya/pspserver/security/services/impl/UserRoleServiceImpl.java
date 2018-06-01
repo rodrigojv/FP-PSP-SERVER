@@ -72,6 +72,15 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
+    public UserRoleDTO getUserRoleByUserId(Long userId) {
+
+        UserRoleDTO userRoleDTO = userRoleMapper.entityToDto(
+                userRoleRepository.findByUserId(userId));
+        return userRoleDTO;
+
+    }
+
+    @Override
     public List<UserRoleDTO> getAllUserRoles() {
         List<UserRoleEntity> userRole = userRoleRepository.findAll();
         return userRoleMapper.entityListToDtoList(userRole);

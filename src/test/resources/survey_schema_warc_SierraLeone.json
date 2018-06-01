@@ -648,19 +648,19 @@
 		},
 
 		"otherMembersIncome": {
-			"type": "string",
+			"type": "number",
 			"title": {
 				"es": "What are other members income?"
 			},
-			"default": ""
+			"default": 0
 		},
 
 		"otherMembersSalary": {
-			"type": "string",
+			"type": "number",
 			"title": {
 				"es": "Do they have a salary? How much?"
 			},
-			"default": ""
+			"default": 0
 		},
 
 		"bussinessWeeklyIncome": {

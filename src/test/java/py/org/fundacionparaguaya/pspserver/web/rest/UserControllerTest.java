@@ -1,9 +1,14 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.ImmutableMultimap;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,6 +22,7 @@ import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 import py.org.fundacionparaguaya.pspserver.security.services.UserService;
 import py.org.fundacionparaguaya.pspserver.util.TestHelper;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
@@ -42,6 +48,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(UserController.class)
 @ActiveProfiles("test")
 public class UserControllerTest {
+
+    private static final Logger LOG = LoggerFactory.getLogger(UserControllerTest.class);
 
     @Autowired
     private UserController controller;
@@ -69,6 +77,8 @@ public class UserControllerTest {
         when(userService.addUser(anyObject())).thenReturn(mockUser);
 
         String json = TestHelper.mapToJson(mockUser);
+        // Password is ignored by the mapper, so we have to map it ourselves
+        json = mapPassToJson(mockUser, json);
         mockMvc.perform(post("/api/v1/users")
                 .content(json)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -141,6 +151,9 @@ public class UserControllerTest {
                                 .asMap()));
 
         String json = TestHelper.mapToJson(dto);
+        // Password is ignored by the mapper, so we have to map it ourselves
+        json = mapPassToJson(dto, json);
+
         mockMvc.perform(post("/api/v1/users")
                 .content(json)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -164,5 +177,17 @@ public class UserControllerTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value(errorMsg));
+    }
+
+    private String mapPassToJson(UserDTO dto, String json) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readTree(json);
+            ((ObjectNode) jsonNode).put("pass", dto.getPass());
+            json = mapper.writeValueAsString(jsonNode);
+        } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return json;
     }
 }

@@ -67,9 +67,9 @@ public class ApplicationController {
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping("/hubsandpartners")
-    public ResponseEntity<List<ApplicationDTO>> getAllApplications() {
-        List<ApplicationDTO> applications = applicationService.getAllApplications();
+    @GetMapping("/list")
+    public ResponseEntity<List<ApplicationDTO>> listApplications() {
+        List<ApplicationDTO> applications = applicationService.listApplications();
         return ResponseEntity.ok(applications);
     }
 
@@ -86,12 +86,6 @@ public class ApplicationController {
                                         applicationService.getPaginatedApplications(userDetails, filter, pageRequest);
         PaginableList<ApplicationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
         return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/partners")
-    public ResponseEntity<List<ApplicationDTO>> getAllPartners() {
-        List<ApplicationDTO> partners = applicationService.getAllPartners();
-        return ResponseEntity.ok(partners);
     }
 
     @DeleteMapping("/{applicationId}")
@@ -115,15 +109,5 @@ public class ApplicationController {
                                             @AuthenticationPrincipal UserDetailsDTO details) {
         ApplicationDTO dto = applicationService.getApplicationDashboard(applicationId, details);
         return ResponseEntity.ok(dto);
-    }
-
-    @GetMapping("/hubs")
-    public ResponseEntity<PaginableList<ApplicationDTO>> getAllApplicationsHubs(
-                                @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                                @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
-                                @RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
-                                @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy) {
-
-        return ResponseEntity.ok(applicationService.listApplicationsHubs(page, perPage, orderBy, sortBy));
     }
 }

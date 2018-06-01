@@ -11,6 +11,7 @@ package py.org.fundacionparaguaya.pspserver.surveys.dtos;
  * Do not edit the class manually.
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,6 +27,7 @@ import static java.util.stream.Collectors.toMap;
 /**
  * NewSnapshot
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class NewSnapshot   {
 
     @JsonProperty("survey_id")
@@ -51,6 +53,17 @@ public class NewSnapshot   {
 
     @JsonProperty("priv_pol_id")
     private Long privPolId = null;
+
+    @JsonProperty(value = "dependencies", required = false)
+    private SurveyData dependencies;
+
+    public SurveyData getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(SurveyData dependencies) {
+        this.dependencies = dependencies;
+    }
 
     public NewSnapshot personalSurveyData(SurveyData surveyData) {
         this.personalSurveyData = surveyData;

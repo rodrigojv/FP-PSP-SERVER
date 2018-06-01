@@ -124,7 +124,7 @@ public class FamilyController {
             @AuthenticationPrincipal UserDetailsDTO details,
             @RequestParam(value = "name", required = false) String name) {
         return ResponseEntity.ok(familyService
-                .listDistinctFamiliesSnapshotByUser(details, name));
+                .listDistinctFamiliesByUser(details, name));
     }
 
 }

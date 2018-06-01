@@ -7,7 +7,13 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "applications", schema = "ps_network")
@@ -41,10 +47,6 @@ public class ApplicationEntity {
     private CityEntity city;
 
     private String information;
-
-    private boolean isHub;
-
-    private boolean isPartner;
 
     private String logoUrl;
 
@@ -112,22 +114,6 @@ public class ApplicationEntity {
         this.information = information;
     }
 
-    public boolean isHub() {
-        return isHub;
-    }
-
-    public void setHub(boolean isHub) {
-        this.isHub = isHub;
-    }
-
-    public boolean isPartner() {
-        return isPartner;
-    }
-
-    public void setDirect(boolean isOrganization) {
-        this.isPartner = isOrganization;
-    }
-
     public String getLogoUrl() {
         return logoUrl;
     }
@@ -157,9 +143,8 @@ public class ApplicationEntity {
     public String toString() {
         return MoreObjects.toStringHelper(this).add("id", id).add("name", name)
                 .add("code", code).add("description", description)
-                .add("isActive", isActive).add("country", country.toString())
-                .add("city", city.toString()).add("information", information)
-                .add("isHub", isHub).add("isPartner", isPartner)
+                .add("isActive", isActive).add("country", country)
+                .add("city", city).add("information", information)
                 .add("logoUrl", logoUrl).toString();
     }
 }
