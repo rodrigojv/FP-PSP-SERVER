@@ -42,10 +42,8 @@ import static py.org.fundacionparaguaya.pspserver.surveys.specifications.Snapsho
 @Service
 public class SnapshotReportManagerImpl implements SnapshotReportManager {
 
-    private static final List<String> DEFAULT_HEADRES = Arrays.asList(
-            "Organization Code", "Organization Name", "Organization Status",
-            "Family Code", "Family Name", "Family Status",
-            "Snapshot Created At");
+    private static final List<String> DEFAULT_HEADERS = Arrays.asList(
+            "Organization Name", "Family Code", "Family Name", "Snapshot Created At");
 
     private static final String CSV_DELIMITER = ",";
 
@@ -176,7 +174,7 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
 
         ReportDTO report = new ReportDTO();
 
-        report.getHeaders().addAll(DEFAULT_HEADRES);
+        report.getHeaders().addAll(DEFAULT_HEADERS);
 
         List<SurveyData> rows = new ArrayList<>();
 
@@ -186,22 +184,17 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
 
             s.getSnapshotIndicator().getAdditionalProperties()
                     .forEach((k, v) -> {
-                        if (!report.getHeaders().contains(k)) {
-                            report.getHeaders().add(
-                                    StringConverter.getNameFromCamelCase(k));
+                        String headerName = StringConverter.getNameFromCamelCase(k);
+                        if (!report.getHeaders().contains(headerName)) {
+                            report.getHeaders().add(headerName);
                         }
                     });
             SurveyData data = snapshotMapper
                     .entityToDto(s.getSnapshotIndicator());
-            data.put("organizationCode",
-                    s.getFamily().getOrganization().getCode());
             data.put("organizationName",
                     s.getFamily().getOrganization().getName());
-            data.put("organizationStatus",
-                    s.getFamily().getOrganization().getStatus().toString());
             data.put("familyCode", s.getFamily().getCode());
             data.put("familyName", s.getFamily().getName());
-            data.put("familyStatus", s.getFamily().getStatus().toString());
             data.put("snapshotCreatedAt", s.getCreatedAtLocalDateString());
             rows.add(data);
         }
@@ -242,8 +235,13 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
     }
 
     @Override
-    public String generateCSVSnapshotByOrganizationAndCreatedDate(
-            SnapshotFilterDTO filters) {
+    public String generateCSVSnapshotByOrganizationAndCreatedDate(SnapshotFilterDTO filters) {
+        ReportDTO report = getSnapshotsReportByOrganizationAndCreatedDate(filters);
+        return reportToCsv(report);
+    }
+
+    @Override
+    public ReportDTO getSnapshotsReportByOrganizationAndCreatedDate(SnapshotFilterDTO filters) {
         List<SnapshotEconomicEntity> snapshots = new ArrayList<>();
 
         Sort sort = new Sort(
@@ -265,7 +263,7 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
         }
 
         ReportDTO report = getOrganizationAndFamilyData(snapshots);
-        return reportToCsv(report);
+        return report;
     }
 
     private String reportToCsv(ReportDTO report) {
