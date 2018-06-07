@@ -369,4 +369,9 @@
         <sqlFile path="sql/2018-06-04T16:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!--Creates organizations_labels table in ps_network schema-->
+    <changeSet id="2018-06-06T10:00" author="nvaldez">
+        <sqlFile path="sql/2018-06-06T10:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
