@@ -89,16 +89,25 @@ public class OrganizationLabelServiceImpl implements OrganizationLabelService {
     public List<OrganizationLabelDTO> addOrganizationLabel(OrganizationLabelDTORequest dto) {
 
         Long organizationId = dto.getOrganizationId();
-        List<Long> labels = dto.getLabelId();
+        List<Long> organizationLabels = dto.getLabelId();
 
-        List<OrganizationLabelEntity> organizationLabelEntity = new ArrayList<>();
 
         OrganizationEntity organizationEntity = organizationRepository.findById(organizationId);
 
-        //delete all labels asociated with a organization
+        //delete all labels associated with a organization
         List<OrganizationLabelEntity> currentLabels = repository.findByOrganization(organizationEntity);
         repository.delete(currentLabels);
-        for (Long label:labels) {
+
+        return mapper
+                .entityListToDtoList(
+                        addLabelsToOrganization(organizationLabels, organizationEntity));
+    }
+
+    private List<OrganizationLabelEntity> addLabelsToOrganization(List<Long> organizationLabels,
+                                                                     OrganizationEntity organizationEntity) {
+        List<OrganizationLabelEntity> organizationLabelEntity = new ArrayList<>();
+
+        for (Long label:organizationLabels) {
             OrganizationLabelEntity aux = new OrganizationLabelEntity();
             LabelEntity labelEntity = labelRepository.findById(label);
 
@@ -107,9 +116,9 @@ public class OrganizationLabelServiceImpl implements OrganizationLabelService {
             repository.save(aux);
             organizationLabelEntity.add(aux);
         }
-        return mapper.entityListToDtoList(organizationLabelEntity);
-    }
 
+        return organizationLabelEntity;
+    }
 
     @Override
     public List<LabelDTO> getLabelsByOrganizationId(Long organizationId) {
