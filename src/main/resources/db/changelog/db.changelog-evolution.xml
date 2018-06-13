@@ -39,7 +39,7 @@
     </changeSet>
 
     <!--
-    It changes the name of the 'is_direct' table from the schema 'ps_network' to 'is_organization'
+    It changes the code of the 'is_direct' table from the schema 'ps_network' to 'is_organization'
     -->
     <changeSet id="2017-09-22T12:00" author="nvaldez">
         <sqlFile path="sql/2017-09-22T12:00.sql" relativeToChangelogFile="true"/>
@@ -362,6 +362,11 @@
     <!-- Inserts default terms&cond and privacy policy for each hub-->
     <changeSet id="2018-05-31T10:00" author="nvaldez">
         <sqlFile path="sql/2018-05-31T10:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    
+    <!--Creates Label table in ps_network schema-->
+    <changeSet id="2018-06-04T16:30" author="nvaldez">
+        <sqlFile path="sql/2018-06-04T16:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
 </databaseChangeLog>
