@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiParam;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.NotFoundException;
+import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
@@ -100,6 +101,11 @@ public class SnapshotController {
     	snapshotService.deleteSnapshotById(snapshotEconomicId);
         return ResponseEntity.noContent().build();
     }
-    
 
+    @GetMapping("family")
+    public ResponseEntity getAllSnapshotsByFamily(
+            @RequestParam("familyId") Long familyId) throws UnknownResourceException {
+        List<Snapshot> snapshots = snapshotService.getSnpashotsByFamily(familyId);
+        return ResponseEntity.ok(snapshots);
+    }
 }

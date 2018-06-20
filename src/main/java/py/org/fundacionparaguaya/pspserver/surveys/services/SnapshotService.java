@@ -38,4 +38,6 @@ public interface SnapshotService {
     void deleteSnapshotsBySurvey(UserDetailsDTO user, Long surveyId);
 
     List<SurveyData> getIndicatorsValue(SurveyData indicators);
+
+    List<Snapshot> getSnpashotsByFamily(Long familyId);
 }
