@@ -426,7 +426,7 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     @Override
-    public List<Snapshot> getSnpashotsByFamily(Long familyId) {
+    public List<Snapshot> getSnapshotsByFamily(Long familyId) {
         return economicRepository.findAll(
                 where(SnapshotEconomicSpecification.forFamily(familyId)))
                 .stream().map(economicMapper::entityToDto).collect(Collectors.toList());

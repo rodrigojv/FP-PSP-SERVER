@@ -39,5 +39,5 @@ public interface SnapshotService {
 
     List<SurveyData> getIndicatorsValue(SurveyData indicators);
 
-    List<Snapshot> getSnpashotsByFamily(Long familyId);
+    List<Snapshot> getSnapshotsByFamily(Long familyId);
 }

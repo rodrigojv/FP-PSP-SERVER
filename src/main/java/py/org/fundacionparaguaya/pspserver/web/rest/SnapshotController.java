@@ -102,10 +102,10 @@ public class SnapshotController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("family")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, path = "/all/family")
     public ResponseEntity getAllSnapshotsByFamily(
-            @RequestParam("familyId") Long familyId) throws UnknownResourceException {
-        List<Snapshot> snapshots = snapshotService.getSnpashotsByFamily(familyId);
+            @RequestParam(value = "family_id") Long familyId) throws UnknownResourceException {
+        List<Snapshot> snapshots = snapshotService.getSnapshotsByFamily(familyId);
         return ResponseEntity.ok(snapshots);
     }
 }
