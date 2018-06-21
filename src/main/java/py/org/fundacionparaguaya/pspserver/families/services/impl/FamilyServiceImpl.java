@@ -23,6 +23,7 @@ import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.mapper.ApplicationMapper;
+import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
@@ -71,6 +72,8 @@ public class FamilyServiceImpl implements FamilyService {
 
     private final ApplicationMapper applicationMapper;
 
+    private final OrganizationMapper organizationMapper;
+
     private final UserRepository userRepo;
 
     private final ActivityFeedManager activityFeedManager;
@@ -83,6 +86,7 @@ public class FamilyServiceImpl implements FamilyService {
             CityRepository cityRepository,
             OrganizationRepository organizationRepository,
             ApplicationMapper applicationMapper,
+            OrganizationMapper organizationMapper,
             UserRepository userRepo, I18n i18n, ApplicationProperties applicationProperties,
             ImageUploadService imageUploadService,
             ActivityFeedManager activityFeedManager) {
@@ -93,6 +97,7 @@ public class FamilyServiceImpl implements FamilyService {
         this.cityRepository = cityRepository;
         this.organizationRepository = organizationRepository;
         this.applicationMapper = applicationMapper;
+        this.organizationMapper = organizationMapper;
         this.userRepo = userRepo;
         this.i18n = i18n;
         this.applicationProperties=applicationProperties;
@@ -310,6 +315,10 @@ public class FamilyServiceImpl implements FamilyService {
         if (details.getApplication() != null) {
             newFamily.setApplication(
                     applicationMapper.dtoToEntity(details.getApplication()));
+        }
+        if (details.getOrganization() != null) {
+            newFamily.setOrganization(
+                    organizationMapper.dtoToEntity(details.getOrganization()));
         }
         newFamily.setActive(true);
 
