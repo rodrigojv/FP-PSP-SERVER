@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.reports.dtos.OrganizationFamilyDTO;
+import py.org.fundacionparaguaya.pspserver.reports.dtos.ReportDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.SnapshotFilterDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilySnapshotDTO;
 import py.org.fundacionparaguaya.pspserver.reports.services.SnapshotReportManager;
@@ -74,5 +75,18 @@ public class SnapshotReportController {
         response.setHeader("Content-Disposition", "attachment; filename=\"snapshots.csv\"");
         response.getWriter().write(csv);
         response.getWriter().close();
+    }
+
+    @GetMapping(path = "/family/indicators/json", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<ReportDTO> generateJSONSnapshotByOrganizationAndCreatedDate(
+            @RequestParam(value = "application_id", required = false) Long applicationId,
+            @RequestParam(value = "organizations[]", required = false) List<Long> organizations,
+            @RequestParam(value = "family_id", required = false) Long familyId,
+            @RequestParam(value = "date_from", required = true) String dateFrom,
+            @RequestParam(value = "date_to", required = true) String dateTo) {
+
+        SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo);
+        ReportDTO report = familyReportService.getSnapshotsReportByOrganizationAndCreatedDate(filters);
+        return ResponseEntity.ok(report);
     }
 }
