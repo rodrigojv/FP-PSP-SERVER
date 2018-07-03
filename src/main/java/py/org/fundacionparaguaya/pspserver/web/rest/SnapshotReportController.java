@@ -41,7 +41,8 @@ public class SnapshotReportController {
             @RequestParam(value = "date_from", required = true) String dateFrom,
             @RequestParam(value = "date_to", required = true) String dateTo) {
 
-        SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo);
+        SnapshotFilterDTO filters =
+                new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo, null);
 
         List<OrganizationFamilyDTO> families = familyReportService.listFamilyByOrganizationAndCreatedDate(filters);
         return ResponseEntity.ok(families);
@@ -55,7 +56,7 @@ public class SnapshotReportController {
             @RequestParam(value = "date_from", required = true) String dateFrom,
             @RequestParam(value = "date_to", required = true) String dateTo) {
 
-      SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo);
+      SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo, null);
       List<FamilySnapshotDTO> snapshots = familyReportService.listSnapshotByFamily(filters);
       return ResponseEntity.ok(snapshots);
     }
@@ -69,8 +70,27 @@ public class SnapshotReportController {
             @RequestParam(value = "date_to", required = true) String dateTo,
             HttpServletResponse response) throws IOException {
 
-        SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo);
+        SnapshotFilterDTO filters =
+                new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo, null);
         String csv = familyReportService.generateCSVSnapshotByOrganizationAndCreatedDate(filters);
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=\"snapshots.csv\"");
+        response.getWriter().write(csv);
+        response.getWriter().close();
+    }
+
+    @GetMapping(path = "/snapshots/csv", produces = "application/octet-stream")
+    public void downloadSnapshotsCSV(
+                                @RequestParam(value = "date_from", required = true) String dateFrom,
+                                @RequestParam(value = "date_to", required = true) String dateTo,
+                                @RequestParam(value = "application_id", required = false) Long applicationId,
+                                @RequestParam(value = "organizations[]", required = false) List<Long> organizations,
+                                @RequestParam(value = "survey_id", required = true) Long surveyId,
+                                HttpServletResponse response) throws IOException {
+
+        SnapshotFilterDTO filters =
+                new SnapshotFilterDTO(applicationId, organizations, null, dateFrom, dateTo, surveyId);
+        String csv = familyReportService.downloadSnapshotsCSV(filters);
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=\"snapshots.csv\"");
         response.getWriter().write(csv);
@@ -85,7 +105,8 @@ public class SnapshotReportController {
             @RequestParam(value = "date_from", required = true) String dateFrom,
             @RequestParam(value = "date_to", required = true) String dateTo) {
 
-        SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo);
+        SnapshotFilterDTO filters =
+                new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo, null);
         ReportDTO report = familyReportService.getSnapshotsReportByOrganizationAndCreatedDate(filters);
         return ResponseEntity.ok(report);
     }

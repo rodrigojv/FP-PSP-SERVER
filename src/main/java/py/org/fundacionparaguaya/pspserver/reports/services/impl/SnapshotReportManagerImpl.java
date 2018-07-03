@@ -266,6 +266,37 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
         return report;
     }
 
+    @Override
+    public String downloadSnapshotsCSV(SnapshotFilterDTO filters) {
+        ReportDTO report = getSnapshotsReport(filters);
+        return reportToCsv(report);
+    }
+
+    @Override
+    public ReportDTO getSnapshotsReport(SnapshotFilterDTO filters) {
+        List<SnapshotEconomicEntity> snapshots = new ArrayList<>();
+
+        Sort sort = new Sort(
+                new Sort.Order(Direction.ASC, "family.organization.name"),
+                new Sort.Order(Direction.ASC, "family.name"),
+                new Sort.Order(Direction.ASC, "createdAt"));
+
+        if (filters.getDateFrom() != null && filters.getDateTo() != null) {
+            Specification<SnapshotEconomicEntity> dateRange = SnapshotEconomicSpecification
+                    .createdAtBetween2Dates(filters.getDateFrom(),
+                            filters.getDateTo());
+
+            snapshots = snapshotRepository.findAll(
+                    where(SnapshotEconomicSpecification.forSurvey(filters.getSurveyId()))
+                            .and(SnapshotEconomicSpecification.byApplication(filters.getApplicationId()))
+                            .and(dateRange)
+                            .and(SnapshotEconomicSpecification.byOrganizations(filters.getOrganizationId())), sort);
+        }
+
+        ReportDTO report = getOrganizationAndFamilyData(snapshots);
+        return report;
+    }
+
     private String reportToCsv(ReportDTO report) {
 
         String toRet = report.getHeaders().stream().map(Object::toString)

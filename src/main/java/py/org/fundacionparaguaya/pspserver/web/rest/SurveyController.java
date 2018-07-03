@@ -58,6 +58,13 @@ public class SurveyController {
         return ResponseEntity.ok(list);
     }
 
+    @GetMapping("/list")
+    public ResponseEntity<List<SurveyDefinition>> listSurveysByUser(
+            @AuthenticationPrincipal UserDetailsDTO userDetails) {
+        List<SurveyDefinition> surveys = surveyService.listSurveysByUser(userDetails);
+        return ResponseEntity.ok(surveys);
+    }
+
     @PostMapping
     @io.swagger.annotations.ApiOperation(value = "Create Survey Definition", notes = "Creates a new survey definition",
             response = SurveyDefinition.class, tags = {})

@@ -16,18 +16,20 @@ public class SnapshotFilterDTO {
     private String dateFrom;
     private String dateTo;
     private Long familyId;
+    private Long surveyId;
 
     public SnapshotFilterDTO() {
         super();
     }
 
     public SnapshotFilterDTO(Long applicationId, List<Long> organizationId, Long familyId, String dateFrom,
-            String dateTo) {
+            String dateTo, Long surveyId) {
         this.applicationId = applicationId;
         this.organizationId = organizationId;
         this.familyId = familyId;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
+        this.surveyId = surveyId;
     }
 
     public Long getApplicationId() {
@@ -70,12 +72,21 @@ public class SnapshotFilterDTO {
         this.familyId = familyId;
     }
 
+    public Long getSurveyId() {
+        return surveyId;
+    }
+
+    public void setSurveyId(Long surveyId) {
+        this.surveyId = surveyId;
+    }
+
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("applicationId", applicationId);
         builder.append("organizationId", organizationId);
         builder.append("familyId", familyId);
+        builder.append("surveyId", surveyId);
         builder.append("dateFrom", dateFrom);
         builder.append("dateTo", dateTo);
         return builder.build();
