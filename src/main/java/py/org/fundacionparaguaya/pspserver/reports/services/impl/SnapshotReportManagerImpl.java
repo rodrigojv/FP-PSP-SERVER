@@ -21,6 +21,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveyEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.enums.SurveyStoplightEnum;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
+import py.org.fundacionparaguaya.pspserver.surveys.repositories.SurveyRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ import static py.org.fundacionparaguaya.pspserver.surveys.specifications.Snapsho
 public class SnapshotReportManagerImpl implements SnapshotReportManager {
 
     private static final List<String> DEFAULT_HEADERS = Arrays.asList(
-            "Organization Name", "Family Code", "Family Name", "Snapshot Created At");
+            "Organization Name", "Family Code", "Family Name", "Created At");
 
     private static final String CSV_DELIMITER = ",";
 
@@ -55,14 +56,18 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
 
     private final SnapshotIndicatorMapper snapshotMapper;
 
+    private final SurveyRepository surveyRepository;
+
     public SnapshotReportManagerImpl(FamilyRepository familyRepository,
-            FamilyDTOMapper familyReportMapper,
-            SnapshotEconomicRepository snapshotRepository,
-            SnapshotIndicatorMapper snapshotMapper) {
+                                     FamilyDTOMapper familyReportMapper,
+                                     SnapshotEconomicRepository snapshotRepository,
+                                     SnapshotIndicatorMapper snapshotMapper,
+                                     SurveyRepository surveyRepository) {
         this.familyRepository = familyRepository;
         this.familyReportMapper = familyReportMapper;
         this.snapshotRepository = snapshotRepository;
         this.snapshotMapper = snapshotMapper;
+        this.surveyRepository = surveyRepository;
     }
 
     @Override
@@ -293,7 +298,53 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
                             .and(SnapshotEconomicSpecification.byOrganizations(filters.getOrganizationId())), sort);
         }
 
-        ReportDTO report = getOrganizationAndFamilyData(snapshots);
+        ReportDTO report = new ReportDTO();
+
+        report.getHeaders().addAll(DEFAULT_HEADERS);
+
+        List<SurveyData> rows = new ArrayList<>();
+
+        SurveyEntity survey = surveyRepository.findById(filters.getSurveyId());
+
+        List<String> personalInformationKeys = survey.getSurveyDefinition().getSurveyUISchema().getGroupPersonal();
+        // Ordenando aca personalInformationKeys como en ui:order hará que aparaescan ordenados en el CSV
+        for (String key : personalInformationKeys) {
+            String headerName = StringConverter.getNameFromCamelCase(key);
+            report.getHeaders().add(headerName);
+        }
+
+        List<String> socioEconomicsKeys = survey.getSurveyDefinition().getSurveyUISchema().getGroupEconomics();
+        // Ordenando aca socioEconomicsKeys como en ui:order hará que aparaescan ordenados en el CSV
+        for (String key : socioEconomicsKeys) {
+            String headerName = StringConverter.getNameFromCamelCase(key);
+            report.getHeaders().add(headerName);
+        }
+
+        List<String> indicatorsKeys = survey.getSurveyDefinition().getSurveyUISchema().getGroupIndicators();
+        // Ordenando aca indicatorsKeys como en ui:order hará que aparaescan ordenados en el CSV
+        for (String key : indicatorsKeys) {
+            String headerName = StringConverter.getNameFromCamelCase(key);
+            report.getHeaders().add(headerName);
+        }
+
+        for (SnapshotEconomicEntity s : snapshots) {
+
+            SurveyData data = snapshotMapper.entityToDto(s.getSnapshotIndicator());
+
+            data.put("organizationName", s.getFamily().getOrganization().getName());
+            data.put("familyCode", s.getFamily().getCode());
+            data.put("familyName", s.getFamily().getName());
+            data.put("createdAt", s.getCreatedAtLocalDateString());
+
+            // Agregar aca todos los personal information que aparecen en personalInformationKeys, desde el entity Person
+
+            // Agregar aca todos los socio-economics information que aparecen en socioEconomicsKeys, desde el entity SnapshotEconomicEntity
+
+            rows.add(data);
+        }
+
+        report.setRows(generateRows(rows, report.getHeaders()));
+
         return report;
     }
 
