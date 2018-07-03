@@ -210,6 +210,9 @@ public class SnapshotServiceImpl implements SnapshotService {
                     i18n.translate("snapshot.invalid"), results.asMap());
         }
 
+        //set username
+        snapshot.setUserName(details.getUsername());
+
         SnapshotIndicatorEntity indicatorEntity = economicMapper
                 .newSnapshotToIndicatorEntity(snapshot);
 
