@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.utils.StringConverter;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
+import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.specifications.FamilySpecification;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
@@ -226,7 +227,6 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
                     if (data.getAsString(key) == null) {
                         row.add("");
                     } else {
-                        // row.add(getIndicatorValues(data.getAsString(key)));
                         row.add(getIndicatorValues(data.getAsString(key)));
                     }
                 } else {
@@ -299,47 +299,154 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
         }
 
         ReportDTO report = new ReportDTO();
-
         report.getHeaders().addAll(DEFAULT_HEADERS);
-
-        List<SurveyData> rows = new ArrayList<>();
 
         SurveyEntity survey = surveyRepository.findById(filters.getSurveyId());
 
+        List<String> uiOrder = survey.getSurveyDefinition().getSurveyUISchema().getUiOrder();
+
         List<String> personalInformationKeys = survey.getSurveyDefinition().getSurveyUISchema().getGroupPersonal();
-        // Ordenando aca personalInformationKeys como en ui:order hará que aparaescan ordenados en el CSV
-        for (String key : personalInformationKeys) {
-            String headerName = StringConverter.getNameFromCamelCase(key);
-            report.getHeaders().add(headerName);
+        for (String orderKey : uiOrder) {
+            for (String personalKey: personalInformationKeys) {
+                if (orderKey.equals(personalKey)) {
+                    String headerName = StringConverter.getNameFromCamelCase(personalKey);
+                    report.getHeaders().add(headerName);
+                }
+            }
         }
-
         List<String> socioEconomicsKeys = survey.getSurveyDefinition().getSurveyUISchema().getGroupEconomics();
-        // Ordenando aca socioEconomicsKeys como en ui:order hará que aparaescan ordenados en el CSV
-        for (String key : socioEconomicsKeys) {
-            String headerName = StringConverter.getNameFromCamelCase(key);
-            report.getHeaders().add(headerName);
-        }
+        for (String orderKey : uiOrder) {
+            for (String socioEconomicKey : socioEconomicsKeys) {
+                if (orderKey.equals(socioEconomicKey)) {
+                    String headerName = StringConverter.getNameFromCamelCase(socioEconomicKey);
+                    report.getHeaders().add(headerName);
+                }
+            }
 
+        }
         List<String> indicatorsKeys = survey.getSurveyDefinition().getSurveyUISchema().getGroupIndicators();
-        // Ordenando aca indicatorsKeys como en ui:order hará que aparaescan ordenados en el CSV
-        for (String key : indicatorsKeys) {
-            String headerName = StringConverter.getNameFromCamelCase(key);
-            report.getHeaders().add(headerName);
+        for (String orderKey : uiOrder) {
+            for (String indicatorKey : indicatorsKeys) {
+                if (orderKey.equals(indicatorKey)) {
+                    String headerName = StringConverter.getNameFromCamelCase(indicatorKey);
+                    report.getHeaders().add(headerName);
+                }
+            }
         }
 
-        for (SnapshotEconomicEntity s : snapshots) {
+        List<SurveyData> rows = new ArrayList<>();
 
-            SurveyData data = snapshotMapper.entityToDto(s.getSnapshotIndicator());
+        for (SnapshotEconomicEntity snapshot : snapshots) {
 
-            data.put("organizationName", s.getFamily().getOrganization().getName());
-            data.put("familyCode", s.getFamily().getCode());
-            data.put("familyName", s.getFamily().getName());
-            data.put("createdAt", s.getCreatedAtLocalDateString());
+            SurveyData data = snapshotMapper.entityToDto(snapshot.getSnapshotIndicator());
 
-            // Agregar aca todos los personal information que aparecen en personalInformationKeys, desde el entity Person
+            data.put("organizationName", snapshot.getFamily().getOrganization().getName());
+            data.put("familyCode", snapshot.getFamily().getCode());
+            data.put("familyName", snapshot.getFamily().getName());
+            data.put("createdAt", snapshot.getCreatedAtLocalDateString());
 
-            // Agregar aca todos los socio-economics information que aparecen en socioEconomicsKeys, desde el entity SnapshotEconomicEntity
+            PersonEntity person = snapshot.getFamily().getPerson();
 
+            for (String personalInformationKey : personalInformationKeys) {
+                if (personalInformationKey.equals("firstName")) {
+                    data.put("firstName", person.getFirstName());
+                }
+                if (personalInformationKey.equals("lastName")) {
+                    data.put("lastName", person.getLastName());
+                }
+                if (personalInformationKey.equals("birthdate")) {
+                    data.put("birthdate", person.getBirthdate().toString());
+                }
+                if (personalInformationKey.equals("countryOfBirth")) {
+                    data.put("countryOfBirth", person.getCountryOfBirth().getCountry());
+                }
+                if (personalInformationKey.equals("gender")) {
+                    data.put("gender", person.getGender().name());
+                }
+                if (personalInformationKey.equals("postCode")) {
+                    data.put("postCode", person.getPostCode());
+                }
+                if (personalInformationKey.equals("phoneNumber")) {
+                    data.put("phoneNumber", person.getPhoneNumber());
+                }
+                if (personalInformationKey.equals("identificationType")) {
+                    data.put("identificationType", person.getIdentificationType());
+                }
+                if (personalInformationKey.equals("identificationNumber")) {
+                    data.put("identificationNumber", person.getIdentificationNumber());
+                }
+                if (personalInformationKey.equals("email")) {
+                    data.put("email", person.getEmail());
+                }
+            }
+
+            for (String socioEconomicsKey : socioEconomicsKeys) {
+                if (socioEconomicsKey.equals("activityMain")) {
+                    data.put("activityMain", snapshot.getActivityMain());
+                }
+                if (socioEconomicsKey.equals("activitySecondary")) {
+                    data.put("activitySecondary", snapshot.getActivitySecondary());
+                }
+                if (socioEconomicsKey.equals("areaOfResidence")) {
+                    data.put("areaOfResidence", snapshot.getAreaOfResidence());
+                }
+                if (socioEconomicsKey.equals("benefitIncome")) {
+                    data.put("benefitIncome", snapshot.getBenefitIncome());
+                }
+                if (socioEconomicsKey.equals("currency")) {
+                    data.put("currency", snapshot.getCurrency());
+                }
+                if (socioEconomicsKey.equals("educationClientLevel")) {
+                    data.put("educationClientLevel", snapshot.getEducationClientLevel());
+                }
+                if (socioEconomicsKey.equals("educationLevelAttained")) {
+                    data.put("educationLevelAttained", snapshot.getEducationLevelAttained());
+                }
+                if (socioEconomicsKey.equals("educationPersonMostStudied")) {
+                    data.put("educationPersonMostStudied", snapshot.getEducationPersonMostStudied());
+                }
+                if (socioEconomicsKey.equals("employmentStatusPrimary")) {
+                    data.put("employmentStatusPrimary", snapshot.getEmploymentStatusPrimary());
+                }
+                if (socioEconomicsKey.equals("employmentStatusSecondary")) {
+                    data.put("employmentStatusSecondary", snapshot.getEmploymentStatusSecondary());
+                }
+                if (socioEconomicsKey.equals("familyCity")) {
+                    data.put("familyCity", snapshot.getFamilyCity());
+                }
+                if (socioEconomicsKey.equals("familyCountry")) {
+                    data.put("familyCountry", snapshot.getFamilyCountry());
+                }
+                if (socioEconomicsKey.equals("familyUbication")) {
+                    data.put("familyUbication", snapshot.getFamilyUbication().replace(',', ';'));
+                }
+                if (socioEconomicsKey.equals("householdMonthlyIncome")) {
+                    data.put("householdMonthlyIncome", snapshot.getHouseholdMonthlyIncome().toString());
+                }
+                if (socioEconomicsKey.equals("householdMonthlyOutgoing")) {
+                    data.put("householdMonthlyOutgoing", snapshot.getHouseholdMonthlyOutgoing());
+                }
+                if (socioEconomicsKey.equals("housingSituation")) {
+                    data.put("housingSituation", snapshot.getHousingSituation());
+                }
+                if (socioEconomicsKey.equals("netSuplus")) {
+                    data.put("netSuplus", snapshot.getNetSuplus());
+                }
+                if (socioEconomicsKey.equals("otherIncome")) {
+                    data.put("otherIncome", snapshot.getOtherIncome());
+                }
+                if (socioEconomicsKey.equals("pensionIncome")) {
+                    data.put("pensionIncome", snapshot.getPensionIncome());
+                }
+                if (socioEconomicsKey.equals("salaryIncome")) {
+                    data.put("salaryIncome", snapshot.getSalaryIncome());
+                }
+                if (socioEconomicsKey.equals("savingsIncome")) {
+                    data.put("savingsIncome", snapshot.getSavingsIncome());
+                }
+                SurveyData additionalProperties = snapshot.getAdditionalProperties();
+                additionalProperties.forEach((key, value) -> data.put(key, value.toString()));
+            }
             rows.add(data);
         }
 
@@ -366,7 +473,7 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
         SurveyStoplightEnum surveyStoplightEnum = SurveyStoplightEnum
                 .fromValue(value);
         if (surveyStoplightEnum != null) {
-            return String.valueOf(surveyStoplightEnum.getCode());
+            return String.valueOf(surveyStoplightEnum.getCode() + 1);
         }
 
         return value;
