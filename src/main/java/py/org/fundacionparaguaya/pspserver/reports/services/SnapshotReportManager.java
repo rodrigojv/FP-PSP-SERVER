@@ -23,4 +23,8 @@ public interface SnapshotReportManager {
 
     ReportDTO getSnapshotsReportByOrganizationAndCreatedDate(SnapshotFilterDTO filters);
 
+    ReportDTO getSnapshotsReport(SnapshotFilterDTO filters);
+
+    String downloadSnapshotsCSV(SnapshotFilterDTO filters);
+
 }
