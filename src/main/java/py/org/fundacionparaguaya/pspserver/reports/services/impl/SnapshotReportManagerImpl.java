@@ -354,7 +354,7 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
 
         for (SnapshotEconomicEntity snapshot : snapshots) {
 
-            SurveyData data = snapshotMapper.entityToDto(snapshot.getSnapshotIndicator());
+            SurveyData data = new SurveyData();
 
             if (snapshot.getFamily() != null) {
                 data.put("familyName", snapshot.getFamily().getName());
@@ -403,6 +403,13 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
                     data.put("email", person.getEmail());
                 }
             }
+            SurveyData additionalPersonalInformation = snapshot.getPersonalInformation();
+            additionalPersonalInformation.forEach((key, value) -> {
+                        if (!data.containsKey(key)) {
+                            data.put(key, value.toString());
+                        }
+                    }
+            );
 
             List<String> socioEconomicsKeys = survey.getSurveyDefinition().getSurveyUISchema().getGroupEconomics();
             for (String socioEconomicsKey : socioEconomicsKeys) {
@@ -477,9 +484,13 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
                         && snapshot.getSavingsIncome() != null) {
                     data.put("savingsIncome", snapshot.getSavingsIncome().toString());
                 }
-                SurveyData additionalProperties = snapshot.getAdditionalProperties();
-                additionalProperties.forEach((key, value) -> data.put(key, value.toString()));
+                SurveyData additionalSocioEconomicInformation = snapshot.getAdditionalProperties();
+                additionalSocioEconomicInformation.forEach((key, value) -> data.put(key, value.toString()));
             }
+
+            SurveyData indicators = snapshotMapper.entityToDto(snapshot.getSnapshotIndicator());
+            indicators.forEach((key, value) -> data.put(key, value));
+
             rows.add(data);
         }
         return generateRows(rows, headers);
