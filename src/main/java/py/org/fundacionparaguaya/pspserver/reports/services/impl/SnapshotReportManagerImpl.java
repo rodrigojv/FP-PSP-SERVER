@@ -222,7 +222,7 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
                     if (data.getAsString(key) == null) {
                         row.add("");
                     } else {
-                        row.add(getIndicatorValues(data.getAsString(key)));
+                        row.add(getIndicatorValues(data.getAsString(key).replace(',', ';')));
                     }
                 } else {
                     row.add("");
@@ -443,9 +443,8 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
                 if (socioEconomicsKey.equals("familyCountry")) {
                     data.put("familyCountry", snapshot.getFamilyCountry());
                 }
-                if (socioEconomicsKey.equals("familyUbication")
-                        && snapshot.getFamilyUbication() != null) {
-                    data.put("familyUbication", snapshot.getFamilyUbication().replace(',', ';'));
+                if (socioEconomicsKey.equals("familyUbication")) {
+                    data.put("familyUbication", snapshot.getFamilyUbication());
                 }
                 if (socioEconomicsKey.equals("householdMonthlyIncome")
                         && snapshot.getHouseholdMonthlyIncome() != null) {
