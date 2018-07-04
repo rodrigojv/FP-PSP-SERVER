@@ -314,15 +314,14 @@ public class SurveyServiceImpl implements SurveyService {
             spec = spec.and(byOrganization(userDetails.getOrganization().getId()));
         }
 
-        List<SurveyDefinition> surveys = mapper
-                .entityListToDtoList(
-        surveyOrganizationRepo
-                .findAll(spec)
-                .stream()
-                .map(so -> so.getSurvey())
-                .collect(Collectors.toList()));
-
-        return surveys.stream().distinct().collect(Collectors.toList());
+        List<SurveyDefinition> surveys =
+                mapper.entityListToDtoList(
+                        surveyOrganizationRepo.findAll(spec)
+                                .stream()
+                                .map(so -> so.getSurvey())
+                                .distinct()
+                                .collect(Collectors.toList()));
+        return surveys;
     }
 
     private boolean userHasRole(UserDetailsDTO user, Role role) {
