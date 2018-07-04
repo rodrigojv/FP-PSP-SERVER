@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -304,6 +305,23 @@ public class SurveyServiceImpl implements SurveyService {
         }
 
         return toRet;
+    }
+
+    @Override
+    public List<SurveyDefinition> listSurveysByUser(UserDetailsDTO userDetails) {
+        Specifications<SurveyOrganizationEntity> spec = where(byApplication(userDetails.getApplication().getId()));
+        if (userDetails.getOrganization() != null) {
+            spec = spec.and(byOrganization(userDetails.getOrganization().getId()));
+        }
+
+        List<SurveyDefinition> surveys =
+                mapper.entityListToDtoList(
+                        surveyOrganizationRepo.findAll(spec)
+                                .stream()
+                                .map(so -> so.getSurvey())
+                                .distinct()
+                                .collect(Collectors.toList()));
+        return surveys;
     }
 
     private boolean userHasRole(UserDetailsDTO user, Role role) {
