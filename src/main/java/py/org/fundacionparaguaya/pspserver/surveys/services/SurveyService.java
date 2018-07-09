@@ -27,4 +27,6 @@ public interface SurveyService {
             SurveyDefinition surveyDefinition);
 
     List<SurveyDefinition> listSurveys(UserDetailsDTO details, String lastModifiedGt);
+
+    List<SurveyDefinition> listSurveysByUser(UserDetailsDTO userDetails);
 }

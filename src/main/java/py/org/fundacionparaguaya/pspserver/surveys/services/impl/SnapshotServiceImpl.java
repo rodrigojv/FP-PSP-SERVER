@@ -187,7 +187,6 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     }
 
-
     // TODO refactor
     // 1. Add validation for survey id inside new snapshot
     @Override
@@ -202,23 +201,31 @@ public class SnapshotServiceImpl implements SnapshotService {
             throw new CustomParameterizedException(i18n.translate("snapshot.invalid"), results.asMap());
         }
 
+        // set username
+        // FIXME The parameter should not be modified
+        snapshot.setUserName(details.getUsername());
+
         // FIXME Boiler plate code to build family
         // 1. Creates a family record, or gets a family if already exists
         PersonEntity personEntity = personMapper.snapshotPersonalToEntity(snapshot);
         FamilyEntity family = familyService.getOrCreateFamilyFromSnapshot(details, snapshot, personEntity);
 
+        // 2. Creates the economic entity from the snapshot parameter
+        // and from the indicator entity
         SnapshotIndicatorEntity indicatorEntity = economicMapper.newSnapshotToIndicatorEntity(snapshot);
         SnapshotEconomicEntity mappedSnapshotEconomicEntity = economicMapper.newSnapshotToEconomicEntity(snapshot,
                 indicatorEntity);
 
         // FIXME This should not be an explicit responsability of this method
-        // Maybe the mapper that creates the socioEconomic or another class
         addDependenciesToAditionalData(mappedSnapshotEconomicEntity, snapshot);
 
-        // 3. Saves the economic
-        SnapshotEconomicEntity savedSnapshotEconomicEntity = saveEconomic(snapshot, mappedSnapshotEconomicEntity, family);
+        // 4. Saves the economic
+        SnapshotEconomicEntity savedSnapshotEconomicEntity = saveEconomic(snapshot, mappedSnapshotEconomicEntity,
+                family);
 
-        // 4. Updates the family? Hmm this does not makes realy sense
+        // 5. Updates the family
+        // rvillalba: Hmm this does not makes realy sense
+        // I suppose this was added to mark that the family was modified?
         familyService.updateFamily(family.getFamilyId());
 
         Snapshot created = economicMapper.entityToDto(savedSnapshotEconomicEntity);

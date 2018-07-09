@@ -10,4 +10,6 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveyEntity;
  */
 public interface SurveyRepository extends JpaRepository<SurveyEntity, Long>,
         JpaSpecificationExecutor<SurveyEntity> {
+
+    SurveyEntity findById(Long id);
 }
