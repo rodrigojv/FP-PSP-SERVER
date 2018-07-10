@@ -7,5 +7,5 @@ DROP TABLE IF EXISTS ps_families.family_socialeconomical_attribute_active;
 DROP TABLE IF EXISTS survey.survey_template;
 DROP TABLE IF EXISTS survey.survey_indicador_template;
 DROP TABLE IF EXISTS survey.survey_socioeconomics_template;
-DROP TABLE IF EXISTS survey.intervention;
 DROP TABLE IF EXISTS survey.intervention_tracking;
+DROP TABLE IF EXISTS survey.intervention;
