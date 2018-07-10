@@ -374,4 +374,9 @@
         <sqlFile path="sql/2018-06-06T10:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!-- Drops unused tables -->
+    <changeSet id="2018-07-09T10:30" author="rvillalba">
+        <sqlFile path="sql/2018-07-09T10:30.sql" relativeToChangelogFile="true" />
+    </changeSet>
+
 </databaseChangeLog>
