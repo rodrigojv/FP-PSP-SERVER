@@ -74,7 +74,6 @@ public class SnapshotServiceTest {
     @Mock
     private OrganizationRepository organizationRepo;
 
-
     private static final Long ECONOMIC_ID = 111L;
 
     private static final Long SURVEY_ID = 222L;
@@ -85,31 +84,17 @@ public class SnapshotServiceTest {
 
     private static final PersonEntity MOCK_PERSON = aPerson();
 
-    private static final Snapshot MOCK_SNAPSHOT = new Snapshot()
-            .snapshotEconomicId(ECONOMIC_ID)
-            .surveyId(SURVEY_ID)
-            .userId(USER_ID)
-            .personalSurveyData(MOCK_PERSON.asSurveyData());
-
+    private static final Snapshot MOCK_SNAPSHOT = new Snapshot().snapshotEconomicId(ECONOMIC_ID).surveyId(SURVEY_ID)
+            .userId(USER_ID).personalSurveyData(MOCK_PERSON.asSurveyData());
 
     @Before
     public void setUp() {
-        service = new SnapshotServiceImpl(
-                economicRepo,
-                economicMapper,
-                surveyService,
-                indicatorMapper,
-                priorityService,
-                personMapper,
-                familyService,
-                organizationMapper,
-                i18nService,
-                organizationRepo
-        );
+        service = new SnapshotServiceImpl(economicRepo, economicMapper, surveyService, indicatorMapper, priorityService,
+                personMapper, familyService, organizationMapper, i18nService, organizationRepo);
     }
 
     @Test
-    public void addNewSnapshot_shouldCreateNewFamilyAndReturnSnapshot() {
+    public void addNewSnapshotShouldCreateNewFamilyAndReturnSnapshot() {
         UserDetailsDTO userDetails = new UserDetailsDTOBuilder().build();
         NewSnapshot newSnapshot = new NewSnapshot();
         FamilyEntity familyEntity = aFamily(FAMILY_ID);
@@ -121,20 +106,16 @@ public class SnapshotServiceTest {
         // 1. Needed for validation
         when(surveyService.checkSchemaCompliance(newSnapshot)).thenReturn(aValidValidation());
 
-
         // 2. Needed to create a family
-        when(personMapper.snapshotPersonalToEntity(newSnapshot))
-                .thenReturn(MOCK_PERSON);
+        when(personMapper.snapshotPersonalToEntity(newSnapshot)).thenReturn(MOCK_PERSON);
         when(familyService.getOrCreateFamilyFromSnapshot(userDetails, newSnapshot, MOCK_PERSON))
                 .thenReturn(familyEntity);
 
         // 3. Needed to save a snapshot economic
-        when(economicMapper.newSnapshotToIndicatorEntity(newSnapshot))
-                .thenReturn(indicator);
+        when(economicMapper.newSnapshotToIndicatorEntity(newSnapshot)).thenReturn(indicator);
         when(economicMapper.newSnapshotToEconomicEntity(newSnapshot, indicator))
                 .thenReturn(mappedSnapshotEconomicWithoutId);
-        when(economicRepo.save(mappedSnapshotEconomicWithoutId))
-                .thenReturn(savedSnapshotEconomicEntity);
+        when(economicRepo.save(mappedSnapshotEconomicWithoutId)).thenReturn(savedSnapshotEconomicEntity);
 
         // 4. Needed to map to dto before return
         when(economicMapper.entityToDto(savedSnapshotEconomicEntity)).thenReturn(MOCK_SNAPSHOT);
@@ -162,8 +143,6 @@ public class SnapshotServiceTest {
         verify(familyService).updateFamily(familyEntity.getFamilyId());
         verify(economicMapper).entityToDto(savedSnapshotEconomicEntity);
     }
-
-
 
     private SnapshotEconomicEntity aEconomicWithoutId() {
         return new SnapshotEconomicEntity();
@@ -193,32 +172,31 @@ public class SnapshotServiceTest {
 
     private static ValidationResults aValidValidation() {
         return new ValidationResults() {
-             @Override
-             public boolean isValid() {
-                 return true;
-             }
+            @Override
+            public boolean isValid() {
+                return true;
+            }
 
-             @Override
-             public Map<String, Collection<String>> asMap() {
-                 return null;
-             }
+            @Override
+            public Map<String, Collection<String>> asMap() {
+                return null;
+            }
 
-             @Override
-             public List<ValidationResult> asList() {
-                 return null;
-             }
+            @Override
+            public List<ValidationResult> asList() {
+                return null;
+            }
 
-             @Override
-             public boolean add(ValidationResult result) {
-                 return false;
-             }
+            @Override
+            public boolean add(ValidationResult result) {
+                return false;
+            }
 
-             @Override
-             public boolean addAll(ValidationResults results) {
-                 return false;
-             }
-         };
-     }
-
+            @Override
+            public boolean addAll(ValidationResults results) {
+                return false;
+            }
+        };
+    }
 
 }
