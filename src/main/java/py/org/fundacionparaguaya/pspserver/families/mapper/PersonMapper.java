@@ -1,15 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.families.mapper;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-
 import py.org.fundacionparaguaya.pspserver.common.mapper.BaseMapper;
 import py.org.fundacionparaguaya.pspserver.families.constants.Gender;
 import py.org.fundacionparaguaya.pspserver.families.dtos.PersonDTO;
@@ -19,6 +11,13 @@ import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.PropertyAttributeSupport;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by jaimeferreira on 8/31/2017
@@ -55,6 +54,7 @@ public class PersonMapper implements BaseMapper<PersonEntity, PersonDTO> {
         return modelMapper.map(dto, PersonEntity.class);
     }
 
+    // TODO Needs refactor
     public PersonEntity snapshotPersonalToEntity(NewSnapshot snapshot) {
 
         SurveyData personalInformation = snapshot.getMappedPersonalSurveyData(propertyAttributeSupport.staticPersonal(),
