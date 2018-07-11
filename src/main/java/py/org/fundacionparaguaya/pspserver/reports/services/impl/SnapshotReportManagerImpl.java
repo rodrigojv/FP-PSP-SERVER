@@ -279,11 +279,25 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
 
         ReportDTO report = new ReportDTO();
         List<String> headers = getSortedHeaders(survey);
-        report.setHeaders(headers);
+//        report.setHeaders(headers);
         List<List<String>> rows = getRows(survey, snapshots, headers);
+        report.setHeaders(changeHeaderNames(headers));
         report.setRows(rows);
 
         return report;
+    }
+
+    private List<String> changeHeaderNames(List<String> headers) {  
+        for (int i = 0; i < headers.size(); i++) {
+            String headerKey = StringConverter.getCamelCaseFromName(headers.get(i));
+            if (headerKey.equals("familyUbication")) {
+                headers.set(i, "Family Location");
+            }
+            if (headerKey.equals("alimentation")) {
+                headers.set(i, "Eating a Nutritious Diet");
+            }
+        }
+        return headers;
     }
 
     private List<SnapshotEconomicEntity> getSnapshotsByFilters(SnapshotFilterDTO filters) {
