@@ -222,7 +222,7 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
                     if (data.getAsString(key) == null) {
                         row.add("");
                     } else {
-                        row.add(getIndicatorValues(data.getAsString(key)));
+                        row.add(getIndicatorValues(data.getAsString(key).replace(',', ';')));
                     }
                 } else {
                     row.add("");
@@ -279,11 +279,25 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
 
         ReportDTO report = new ReportDTO();
         List<String> headers = getSortedHeaders(survey);
-        report.setHeaders(headers);
+//        report.setHeaders(headers);
         List<List<String>> rows = getRows(survey, snapshots, headers);
+        report.setHeaders(changeHeaderNames(headers));
         report.setRows(rows);
 
         return report;
+    }
+
+    private List<String> changeHeaderNames(List<String> headers) {  
+        for (int i = 0; i < headers.size(); i++) {
+            String headerKey = StringConverter.getCamelCaseFromName(headers.get(i));
+            if (headerKey.equals("familyUbication")) {
+                headers.set(i, "Family Location");
+            }
+            if (headerKey.equals("alimentation")) {
+                headers.set(i, "Eating a Nutritious Diet");
+            }
+        }
+        return headers;
     }
 
     private List<SnapshotEconomicEntity> getSnapshotsByFilters(SnapshotFilterDTO filters) {
@@ -354,7 +368,7 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
 
         for (SnapshotEconomicEntity snapshot : snapshots) {
 
-            SurveyData data = snapshotMapper.entityToDto(snapshot.getSnapshotIndicator());
+            SurveyData data = new SurveyData();
 
             if (snapshot.getFamily() != null) {
                 data.put("familyName", snapshot.getFamily().getName());
@@ -403,6 +417,13 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
                     data.put("email", person.getEmail());
                 }
             }
+            SurveyData additionalPersonalInformation = snapshot.getPersonalInformation();
+            additionalPersonalInformation.forEach((key, value) -> {
+                        if (!data.containsKey(key)) {
+                            data.put(key, value.toString());
+                        }
+                    }
+            );
 
             List<String> socioEconomicsKeys = survey.getSurveyDefinition().getSurveyUISchema().getGroupEconomics();
             for (String socioEconomicsKey : socioEconomicsKeys) {
@@ -443,9 +464,8 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
                 if (socioEconomicsKey.equals("familyCountry")) {
                     data.put("familyCountry", snapshot.getFamilyCountry());
                 }
-                if (socioEconomicsKey.equals("familyUbication")
-                        && snapshot.getFamilyUbication() != null) {
-                    data.put("familyUbication", snapshot.getFamilyUbication().replace(',', ';'));
+                if (socioEconomicsKey.equals("familyUbication")) {
+                    data.put("familyUbication", snapshot.getFamilyUbication());
                 }
                 if (socioEconomicsKey.equals("householdMonthlyIncome")
                         && snapshot.getHouseholdMonthlyIncome() != null) {
@@ -478,9 +498,13 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
                         && snapshot.getSavingsIncome() != null) {
                     data.put("savingsIncome", snapshot.getSavingsIncome().toString());
                 }
-                SurveyData additionalProperties = snapshot.getAdditionalProperties();
-                additionalProperties.forEach((key, value) -> data.put(key, value.toString()));
+                SurveyData additionalSocioEconomicInformation = snapshot.getAdditionalProperties();
+                additionalSocioEconomicInformation.forEach((key, value) -> data.put(key, value.toString()));
             }
+
+            SurveyData indicators = snapshotMapper.entityToDto(snapshot.getSnapshotIndicator());
+            indicators.forEach((key, value) -> data.put(key, value));
+
             rows.add(data);
         }
         return generateRows(rows, headers);
