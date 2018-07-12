@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class ClientInfo {
 
+    private ClientInfo() {
+        // avoid inheritance
+    }
+
     public static String getClientInfo(HttpServletRequest request) {
         final String referer = getReferer(request);
         final String fullURL = getFullURL(request);
@@ -15,13 +19,24 @@ public class ClientInfo {
         final String clientBrowser = getClientBrowser(request);
         final String userAgent = getUserAgent(request);
 
-        return ("\n" +
-                "User Agent:\t" + userAgent + "\n" +
-                "Operating System:\t" + clientOS + "\n" +
-                "Browser Name:\t" + clientBrowser + "\n" +
-                "IP Address:\t" + clientIpAddr + "\n" +
-                "Full URL:\t" + fullURL + "\n" +
-                "Referrer:\t" + referer);
+        return ("\n"
+                + "User Agent:\t"
+                + userAgent
+                + "\n"
+                + "Operating System:\t"
+                + clientOS
+                + "\n"
+                + "Browser Name:\t"
+                + clientBrowser
+                + "\n"
+                + "IP Address:\t"
+                + clientIpAddr
+                + "\n"
+                + "Full URL:\t"
+                + fullURL
+                + "\n"
+                + "Referrer:\t"
+                + referer);
     }
 
     private static String getMethod(HttpServletRequest request) {
@@ -112,14 +127,15 @@ public class ClientInfo {
                     "/")[0] + "-" + (browserDetails.substring(
                     browserDetails.indexOf("Version")).split(" ")[0]).split("/")[1];
         } else if (user.contains("opr") || user.contains("opera")) {
-            if (user.contains("opera"))
+            if (user.contains("opera")) {
                 browser = (browserDetails.substring(browserDetails.indexOf("Opera")).split(" ")[0]).split(
                         "/")[0] + "-" + (browserDetails.substring(
                         browserDetails.indexOf("Version")).split(" ")[0]).split("/")[1];
-            else if (user.contains("opr"))
+            } else if (user.contains("opr")) {
                 browser = browserDetails.substring(browserDetails.indexOf("OPR")).split(" ")[0].replace("/",
                         "-").replace(
                         "OPR", "Opera");
+            }
         } else if (user.contains("chrome")) {
             browser = browserDetails.substring(browserDetails.indexOf("Chrome")).split(" ")[0].replace("/", "-");
         } else if (user.indexOf("mozilla/7.0") > -1
