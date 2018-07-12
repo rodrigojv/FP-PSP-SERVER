@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import py.org.fundacionparaguaya.pspserver.common.utils.ClientInfo;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyMapDTO;
@@ -21,6 +22,7 @@ import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilySnapshotsManager;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
@@ -46,12 +48,14 @@ public class FamilyController {
 
     @PostMapping()
     public ResponseEntity<FamilyDTO> addFamily(
-            @Valid @RequestBody FamilyDTO familyDTO) throws URISyntaxException {
+            @Valid @RequestBody FamilyDTO familyDTO, HttpServletRequest request) throws URISyntaxException {
+        printWarningForRequest(request);
         FamilyDTO result = familyService.addFamily(familyDTO);
         return ResponseEntity
                 .created(new URI("/api/v1/families/" + result.getFamilyId()))
                 .body(result);
     }
+
 
     @PutMapping("/{familyId}/image")
     public String uploadFamilyPhoto(@PathVariable("familyId") Long familyId,
@@ -64,8 +68,8 @@ public class FamilyController {
     @PutMapping("/{familyId}")
     public ResponseEntity<FamilyDTO> updateFamily(
             @PathVariable("familyId") Long familyId,
-            @RequestBody FamilyDTO familyDTO) {
-
+            @RequestBody FamilyDTO familyDTO, HttpServletRequest request) {
+        printWarningForRequest(request);
         FamilyDTO result = familyService.updateFamily(familyId, familyDTO);
         return ResponseEntity.ok(result);
     }
@@ -79,8 +83,8 @@ public class FamilyController {
 
     @DeleteMapping("/{familyId}")
     public ResponseEntity<?> deleteFamily(
-            @PathVariable("familyId") Long familyId) {
-        LOG.debug("REST request to delete Family: {}", familyId);
+            @PathVariable("familyId") Long familyId, HttpServletRequest request) {
+        printWarningForRequest(request);
         familyMapService.deleteSnapshotByFamily(familyId);
         return ResponseEntity.noContent().build();
     }
@@ -125,6 +129,11 @@ public class FamilyController {
             @RequestParam(value = "name", required = false) String name) {
         return ResponseEntity.ok(familyService
                 .listDistinctFamiliesByUser(details, name));
+    }
+
+    private void printWarningForRequest(HttpServletRequest request) {
+        LOG.warn("CLIENTS SHOULD NOT REQUEST THIS ENDPOINT");
+        LOG.info("Client info: {}", ClientInfo.getClientInfo(request));
     }
 
 }
