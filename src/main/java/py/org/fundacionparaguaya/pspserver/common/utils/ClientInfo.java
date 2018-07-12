@@ -117,18 +117,21 @@ public class ClientInfo {
                         "/")[0] + "-" + (browserDetails.substring(
                         browserDetails.indexOf("Version")).split(" ")[0]).split("/")[1];
             else if (user.contains("opr"))
-                browser = ((browserDetails.substring(browserDetails.indexOf("OPR")).split(" ")[0]).replace("/",
-                        "-")).replace(
+                browser = browserDetails.substring(browserDetails.indexOf("OPR")).split(" ")[0].replace("/",
+                        "-").replace(
                         "OPR", "Opera");
         } else if (user.contains("chrome")) {
-            browser = (browserDetails.substring(browserDetails.indexOf("Chrome")).split(" ")[0]).replace("/", "-");
-        } else if ((user.indexOf("mozilla/7.0") > -1) || (user.indexOf("netscape6") != -1) || (user.indexOf(
-                "mozilla/4.7") != -1) || (user.indexOf("mozilla/4.78") != -1) || (user.indexOf(
-                "mozilla/4.08") != -1) || (user.indexOf("mozilla/3") != -1)) {
+            browser = browserDetails.substring(browserDetails.indexOf("Chrome")).split(" ")[0].replace("/", "-");
+        } else if (user.indexOf("mozilla/7.0") > -1
+                || user.indexOf("netscape6") != -1
+                || user.indexOf("mozilla/4.7") != -1
+                || user.indexOf("mozilla/4.78") != -1
+                || user.indexOf("mozilla/4.08") != -1
+                || user.indexOf("mozilla/3") != -1) {
             browser = "Netscape-?";
 
         } else if (user.contains("firefox")) {
-            browser = (browserDetails.substring(browserDetails.indexOf("Firefox")).split(" ")[0]).replace("/", "-");
+            browser = browserDetails.substring(browserDetails.indexOf("Firefox")).split(" ")[0].replace("/", "-");
         } else if (user.contains("rv")) {
             browser = "IE";
         } else {
