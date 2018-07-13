@@ -35,6 +35,10 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static py.org.fundacionparaguaya.pspserver.util.TestMockFactory.ECONOMIC_ID;
+import static py.org.fundacionparaguaya.pspserver.util.TestMockFactory.FAMILY_ID;
+import static py.org.fundacionparaguaya.pspserver.util.TestMockFactory.aPerson;
+import static py.org.fundacionparaguaya.pspserver.util.TestMockFactory.aSnapshot;
 
 /**
  * Created by rodrigovillalba on 7/4/18.
@@ -74,18 +78,9 @@ public class SnapshotServiceTest {
     @Mock
     private OrganizationRepository organizationRepo;
 
-    private static final Long ECONOMIC_ID = 111L;
-
-    private static final Long SURVEY_ID = 222L;
-
-    private static final Long FAMILY_ID = 333L;
-
-    private static final Long USER_ID = 444L;
-
     private static final PersonEntity MOCK_PERSON = aPerson();
 
-    private static final Snapshot MOCK_SNAPSHOT = new Snapshot().snapshotEconomicId(ECONOMIC_ID).surveyId(SURVEY_ID)
-            .userId(USER_ID).personalSurveyData(MOCK_PERSON.asSurveyData());
+    private static final Snapshot MOCK_SNAPSHOT = aSnapshot();
 
     @Before
     public void setUp() {
@@ -160,10 +155,6 @@ public class SnapshotServiceTest {
         familyEntity.setFamilyId(familyId);
         return familyEntity;
 
-    }
-
-    private static PersonEntity aPerson() {
-        return new PersonEntity();
     }
 
     private static SnapshotIndicatorEntity aIndicator() {

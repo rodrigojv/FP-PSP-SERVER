@@ -105,6 +105,8 @@ public class FamilyServiceImpl implements FamilyService {
         this.activityFeedManager = activityFeedManager;
     }
 
+    // FIXME
+    // Remove this method
     @Override
     public FamilyDTO updateFamily(Long familyId, FamilyDTO familyDTO) {
         checkArgument(familyId > 0, i18n.translate("argument.nonNegative", familyId));
@@ -132,10 +134,9 @@ public class FamilyServiceImpl implements FamilyService {
         return Optional.ofNullable(familyRepository.findOne(familyId))
                 .map(family -> {
                     family.setLastModifiedAt(LocalDateTime.now());
-                    return familyRepository.save(family);
-                })
-                .map(familyMapper::entityToDto)
-                .orElseThrow(() ->
+                    FamilyEntity savedFamily = familyRepository.save(family);
+                    return familyMapper.entityToDto(savedFamily);
+                }).orElseThrow(() ->
                         new UnknownResourceException(i18n.translate("family.notExist")));
     }
 
@@ -174,6 +175,9 @@ public class FamilyServiceImpl implements FamilyService {
         return this.updateFamily(familyId);
     }
 
+    // TODO Remove this method
+    // when is verified that is no longer
+    // used
     @Override
     public FamilyDTO addFamily(FamilyDTO familyDTO) {
         FamilyEntity family = new FamilyEntity();
@@ -216,19 +220,6 @@ public class FamilyServiceImpl implements FamilyService {
                 });
     }
 
-    @Override
-    public String generateFamilyCode(PersonEntity person) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        String birthdate = person.getBirthdate().format(formatter);
-
-        String code = person.getCountryOfBirth().getAlfa2Code().concat(".")
-                .concat(person.getFirstName().substring(0, 1).toUpperCase())
-                .concat(person.getLastName().substring(0, 1).toUpperCase())
-                .concat(".").concat(birthdate);
-
-        return code;
-    }
 
     @Override
     public List<FamilyDTO> listFamilies(FamilyFilterDTO filter,
@@ -292,6 +283,27 @@ public class FamilyServiceImpl implements FamilyService {
         return createOrReturnFamilyFromSnapshot(details, snapshot, code,
                personEntity);
 
+    }
+
+    // TODO
+    // This method should have validation for:
+    // 1. person birthdate
+    // 2. country of birth with alfa2code
+    // 3. firstname
+    // 4. lastname
+    // Also, this method could go to a utility class
+    // so that can be unit tested
+    private String generateFamilyCode(PersonEntity person) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String birthdate = person.getBirthdate().format(formatter);
+
+        String code = person.getCountryOfBirth().getAlfa2Code().concat(".")
+                .concat(person.getFirstName().substring(0, 1).toUpperCase())
+                .concat(person.getLastName().substring(0, 1).toUpperCase())
+                .concat(".").concat(birthdate);
+
+        return code;
     }
 
     @Override
