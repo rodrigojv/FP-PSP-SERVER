@@ -14,11 +14,14 @@ import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
 import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyLocationDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
+import py.org.fundacionparaguaya.pspserver.families.services.FamilyLocationService;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
+import py.org.fundacionparaguaya.pspserver.families.utils.FamilyHelper;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
@@ -31,16 +34,11 @@ import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ImageParser;
-import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
-import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
-import py.org.fundacionparaguaya.pspserver.system.repositories.CityRepository;
-import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository;
 import py.org.fundacionparaguaya.pspserver.system.services.ActivityFeedManager;
 import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -64,10 +62,6 @@ public class FamilyServiceImpl implements FamilyService {
 
     private final FamilyRepository familyRepository;
 
-    private final CountryRepository countryRepository;
-
-    private final CityRepository cityRepository;
-
     private final OrganizationRepository organizationRepository;
 
     private final ApplicationMapper applicationMapper;
@@ -78,23 +72,22 @@ public class FamilyServiceImpl implements FamilyService {
 
     private final ActivityFeedManager activityFeedManager;
 
+    private final FamilyLocationService familyLocationService;
+
     private static final String SPACE = " ";
 
     @Autowired
     public FamilyServiceImpl(FamilyRepository familyRepository,
-            FamilyMapper familyMapper, CountryRepository countryRepository,
-            CityRepository cityRepository,
-            OrganizationRepository organizationRepository,
-            ApplicationMapper applicationMapper,
-            OrganizationMapper organizationMapper,
-            UserRepository userRepo, I18n i18n, ApplicationProperties applicationProperties,
-            ImageUploadService imageUploadService,
-            ActivityFeedManager activityFeedManager) {
+                             FamilyMapper familyMapper,
+                             OrganizationRepository organizationRepository,
+                             ApplicationMapper applicationMapper,
+                             OrganizationMapper organizationMapper,
+                             UserRepository userRepo, I18n i18n, ApplicationProperties applicationProperties,
+                             ImageUploadService imageUploadService,
+                             ActivityFeedManager activityFeedManager, FamilyLocationService familyLocationService) {
 
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
-        this.countryRepository = countryRepository;
-        this.cityRepository = cityRepository;
         this.organizationRepository = organizationRepository;
         this.applicationMapper = applicationMapper;
         this.organizationMapper = organizationMapper;
@@ -103,6 +96,7 @@ public class FamilyServiceImpl implements FamilyService {
         this.applicationProperties=applicationProperties;
         this.imageUploadService = imageUploadService;
         this.activityFeedManager = activityFeedManager;
+        this.familyLocationService = familyLocationService;
     }
 
     // FIXME
@@ -278,33 +272,14 @@ public class FamilyServiceImpl implements FamilyService {
     @Override
     public FamilyEntity getOrCreateFamilyFromSnapshot(UserDetailsDTO details,
             NewSnapshot snapshot, PersonEntity personEntity) {
-        String code = this.generateFamilyCode(personEntity);
+        String code = FamilyHelper.generateFamilyCode(personEntity);
 
         return createOrReturnFamilyFromSnapshot(details, snapshot, code,
                personEntity);
 
     }
 
-    // TODO
-    // This method should have validation for:
-    // 1. person birthdate
-    // 2. country of birth with alfa2code
-    // 3. firstname
-    // 4. lastname
-    // Also, this method could go to a utility class
-    // so that can be unit tested
-    private String generateFamilyCode(PersonEntity person) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        String birthdate = person.getBirthdate().format(formatter);
-
-        String code = person.getCountryOfBirth().getAlfa2Code().concat(".")
-                .concat(person.getFirstName().substring(0, 1).toUpperCase())
-                .concat(person.getLastName().substring(0, 1).toUpperCase())
-                .concat(".").concat(birthdate);
-
-        return code;
-    }
 
     @Override
     public FamilyEntity createOrReturnFamilyFromSnapshot(UserDetailsDTO details,
@@ -317,37 +292,16 @@ public class FamilyServiceImpl implements FamilyService {
         }
 
         FamilyEntity newFamily = new FamilyEntity();
+        newFamily.setActive(true);
         newFamily.setPerson(person);
         newFamily.setCode(code);
         newFamily.setUser(userRepo.findByUsername(details.getUsername()));
         newFamily.setName(person.getFirstName().concat(SPACE)
                 .concat(person.getLastName()));
-        newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData()
-                .getAsString("familyUbication"));
-        if (details.getApplication() != null) {
-            newFamily.setApplication(
-                    applicationMapper.dtoToEntity(details.getApplication()));
-        }
-        if (details.getOrganization() != null) {
-            newFamily.setOrganization(
-                    organizationMapper.dtoToEntity(details.getOrganization()));
-        }
-        newFamily.setActive(true);
 
-        Optional<CountryEntity> country = countryRepository.findByCountry(
-                snapshot.getEconomicSurveyData().getAsString("familyCountry"));
-        newFamily.setCountry(country.orElse(null));
+        setOrgAndApplication(details, snapshot, newFamily);
+        setFamilyLocationFromSnapshot(snapshot, newFamily);
 
-        Optional<CityEntity> city = cityRepository.findByCity(
-                snapshot.getEconomicSurveyData().getAsString("familyCity"));
-        newFamily.setCity(city.orElse(null));
-
-        if (snapshot.getOrganizationId() != null) {
-            OrganizationEntity organization = organizationRepository
-                    .findOne(snapshot.getOrganizationId());
-            newFamily.setOrganization(organization);
-            newFamily.setApplication(organization.getApplication());
-        }
 
         newFamily = familyRepository.save(newFamily);
 
@@ -358,6 +312,36 @@ public class FamilyServiceImpl implements FamilyService {
         LOG.info("Family = {}", newFamily);
 
         return newFamily;
+    }
+
+    private void setOrgAndApplication(UserDetailsDTO details, NewSnapshot snapshot, FamilyEntity newFamily) {
+        if (details.getApplication() != null) {
+            // we set application 1)
+            newFamily.setApplication(
+                    applicationMapper.dtoToEntity(details.getApplication()));
+        }
+        if (details.getOrganization() != null) {
+            // set organization 1)
+            newFamily.setOrganization(
+                    organizationMapper.dtoToEntity(details.getOrganization()));
+        }
+
+        if (snapshot.getOrganizationId() != null) {
+            OrganizationEntity organization = organizationRepository
+                    .findOne(snapshot.getOrganizationId());
+            // set organization 2)
+            newFamily.setOrganization(organization);
+            // set application 2)
+            newFamily.setApplication(organization.getApplication());
+        }
+    }
+
+    private void setFamilyLocationFromSnapshot(NewSnapshot snapshot, FamilyEntity newFamily) {
+
+        FamilyLocationDTO locationDTO = familyLocationService.getFamilyLocationFromSnapshot(snapshot);
+        newFamily.setLocationPositionGps(locationDTO.getLocationPositionGps());
+        newFamily.setCountry(locationDTO.getCountry());
+        newFamily.setCity(locationDTO.getCity());
     }
 
     @Override

@@ -8,10 +8,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
 import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyLocationDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
+import py.org.fundacionparaguaya.pspserver.families.services.FamilyLocationService;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.families.services.impl.FamilyServiceImpl;
 import py.org.fundacionparaguaya.pspserver.network.mapper.ApplicationMapper;
@@ -20,8 +22,6 @@ import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepo
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
-import py.org.fundacionparaguaya.pspserver.system.repositories.CityRepository;
-import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository;
 import py.org.fundacionparaguaya.pspserver.system.services.ActivityFeedManager;
 import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
@@ -55,12 +55,6 @@ public class FamilyServiceTest {
     private FamilyMapper familyMapper;
 
     @Mock
-    private CountryRepository countryRepository;
-
-    @Mock
-    private CityRepository cityRepository;
-
-    @Mock
     private OrganizationRepository organizationRepository;
 
     @Mock
@@ -84,6 +78,9 @@ public class FamilyServiceTest {
     @Mock
     private I18n i18n;
 
+    @Mock
+    private FamilyLocationService familyLocationService;
+
     private final FamilyEntity MOCK_FAMILY_ENTITY = aFamily();
 
     private PersonEntity PERSON_MOCK = aPerson();
@@ -94,14 +91,13 @@ public class FamilyServiceTest {
 
 
     private final FamilyDTO MOCK_FAMILY_DTO = new FamilyDTO();
-//    private CountryEntity> MOCK_COUNTRY = new CountryEntity();
+
+ //    private CountryEntity> MOCK_COUNTRY = new CountryEntity();
 
     @Before
     public void setUp() {
         this.familyService = new FamilyServiceImpl(familyRepository,
                 familyMapper,
-                countryRepository,
-                cityRepository,
                 organizationRepository,
                 applicationMapper,
                 organizationMapper,
@@ -109,7 +105,8 @@ public class FamilyServiceTest {
                 i18n,
                 applicationProperties,
                 imageUploadService,
-                activityFeedManager);
+                activityFeedManager,
+                familyLocationService);
     }
 
 
@@ -133,16 +130,37 @@ public class FamilyServiceTest {
 
         // These 2 steps should not be responsability
         // of this method
-        when(countryRepository.findByCountry(anyString())).thenReturn(Optional.empty());
-        when(cityRepository.findByCity(anyString())).thenReturn(Optional.empty());
-
+        when(familyLocationService.getFamilyLocationFromSnapshot(SNAPSHOT_MOCK)).thenReturn(new FamilyLocationDTO());
         when(familyRepository.save(any(FamilyEntity.class))).thenReturn(MOCK_FAMILY_ENTITY);
 
-        FamilyEntity orCreateFamilyFromSnapshot = familyService.getOrCreateFamilyFromSnapshot(USER_MOCK,
+        FamilyEntity createdFamilyEntity = familyService.getOrCreateFamilyFromSnapshot(USER_MOCK,
                 SNAPSHOT_MOCK,
                 PERSON_MOCK);
-        assertThat(orCreateFamilyFromSnapshot).isEqualTo(MOCK_FAMILY_ENTITY);
+
+        assertThat(createdFamilyEntity).isEqualTo(MOCK_FAMILY_ENTITY);
+        assertThat(createdFamilyEntity.getCode()).isNotEmpty();
+        assertThat(createdFamilyEntity.getOrganization()).isNotNull();
+        assertThat(createdFamilyEntity.getPerson()).isNotNull();
+        assertThat(createdFamilyEntity.getUser()).isNotNull();
+
         verify(familyRepository).save(any(FamilyEntity.class));
+
+    }
+
+    @Test
+    public void getOrCreateFamilyFromSnapshotShouldReturnExistingFamilyWithCode() {
+
+        when(familyRepository.findByCode(anyString())).thenReturn(Optional.of(MOCK_FAMILY_ENTITY));
+
+        FamilyEntity createdFamilyEntity = familyService.getOrCreateFamilyFromSnapshot(USER_MOCK,
+                SNAPSHOT_MOCK,
+                PERSON_MOCK);
+
+        assertThat(createdFamilyEntity).isEqualTo(MOCK_FAMILY_ENTITY);
+        assertThat(createdFamilyEntity.getCode()).isNotEmpty();
+        assertThat(createdFamilyEntity.getOrganization()).isNotNull();
+        assertThat(createdFamilyEntity.getPerson()).isNotNull();
+        assertThat(createdFamilyEntity.getUser()).isNotNull();
 
     }
 

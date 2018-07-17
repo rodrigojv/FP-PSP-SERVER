@@ -291,6 +291,7 @@ public class PersonEntity extends BaseEntity {
         map.put("one", 1);
         map.put("two", 2);
         map.put("three", 3);
+        map.put("familyUbication", "1233");
         return new SurveyData(map);
     }
 }
