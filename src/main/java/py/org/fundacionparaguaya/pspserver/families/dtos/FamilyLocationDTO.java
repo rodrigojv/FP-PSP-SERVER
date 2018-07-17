@@ -7,21 +7,16 @@ import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
  * Created by rodrigovillalba on 7/16/18.
  */
 public class FamilyLocationDTO {
-    private String locationPositionGps;
 
-    private CountryEntity country;
+    private final String locationPositionGps;
 
-    private CityEntity city;
+    private final CountryEntity country;
 
-    public void setLocationPositionGps(String locationPositionGps) {
+    private final CityEntity city;
+
+    private FamilyLocationDTO(String locationPositionGps, CountryEntity country, CityEntity city) {
         this.locationPositionGps = locationPositionGps;
-    }
-
-    public void setCountry(CountryEntity country) {
         this.country = country;
-    }
-
-    public void setCity(CityEntity city) {
         this.city = city;
     }
 
@@ -35,5 +30,13 @@ public class FamilyLocationDTO {
 
     public CityEntity getCity() {
         return city;
+    }
+
+    public static FamilyLocationDTO of(String locationPositionGps, CountryEntity country, CityEntity city) {
+        return new FamilyLocationDTO(locationPositionGps, country, city);
+    }
+
+    public static FamilyLocationDTO empty() {
+        return of(null, null, null);
     }
 }
