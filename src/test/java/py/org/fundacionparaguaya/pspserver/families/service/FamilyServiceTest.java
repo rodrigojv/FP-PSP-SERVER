@@ -9,16 +9,15 @@ import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
 import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyLocationDTO;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyOrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyLocationService;
+import py.org.fundacionparaguaya.pspserver.families.services.FamilyOrganizationService;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.families.services.impl.FamilyServiceImpl;
-import py.org.fundacionparaguaya.pspserver.network.mapper.ApplicationMapper;
-import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
-import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
@@ -55,15 +54,6 @@ public class FamilyServiceTest {
     private FamilyMapper familyMapper;
 
     @Mock
-    private OrganizationRepository organizationRepository;
-
-    @Mock
-    private ApplicationMapper applicationMapper;
-
-    @Mock
-    private OrganizationMapper organizationMapper;
-
-    @Mock
     private UserRepository userRepo;
 
     @Mock
@@ -81,6 +71,9 @@ public class FamilyServiceTest {
     @Mock
     private FamilyLocationService familyLocationService;
 
+    @Mock
+    private FamilyOrganizationService familyOrganizationService;
+
     private final FamilyEntity MOCK_FAMILY_ENTITY = aFamily();
 
     private PersonEntity PERSON_MOCK = aPerson();
@@ -92,21 +85,17 @@ public class FamilyServiceTest {
 
     private final FamilyDTO MOCK_FAMILY_DTO = new FamilyDTO();
 
- //    private CountryEntity> MOCK_COUNTRY = new CountryEntity();
-
     @Before
     public void setUp() {
         this.familyService = new FamilyServiceImpl(familyRepository,
                 familyMapper,
-                organizationRepository,
-                applicationMapper,
-                organizationMapper,
                 userRepo,
                 i18n,
                 applicationProperties,
                 imageUploadService,
                 activityFeedManager,
-                familyLocationService);
+                familyLocationService,
+                familyOrganizationService);
     }
 
 
@@ -126,12 +115,15 @@ public class FamilyServiceTest {
     @Test
     public void getOrCreateFamilyFromSnapshotShouldCreateFamilyWithCode() {
 
-        when(familyRepository.findByCode(anyString())).thenReturn(Optional.empty());
+        when(familyRepository.findByCode(anyString()))
+                .thenReturn(Optional.empty());
 
-        // These 2 steps should not be responsability
-        // of this method
-        when(familyLocationService.getFamilyLocationFromSnapshot(SNAPSHOT_MOCK)).thenReturn(new FamilyLocationDTO());
-        when(familyRepository.save(any(FamilyEntity.class))).thenReturn(MOCK_FAMILY_ENTITY);
+        when(familyOrganizationService.getFamilyOrganization(USER_MOCK, SNAPSHOT_MOCK))
+                .thenReturn(FamilyOrganizationDTO.empty());
+        when(familyLocationService.getFamilyLocationFromSnapshot(SNAPSHOT_MOCK))
+                .thenReturn(FamilyLocationDTO.empty());
+        when(familyRepository.save(any(FamilyEntity.class)))
+                .thenReturn(MOCK_FAMILY_ENTITY);
 
         FamilyEntity createdFamilyEntity = familyService.getOrCreateFamilyFromSnapshot(USER_MOCK,
                 SNAPSHOT_MOCK,

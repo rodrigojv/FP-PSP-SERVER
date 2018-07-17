@@ -28,21 +28,17 @@ public class FamilyLocationServiceImpl implements FamilyLocationService {
 
     @Override
     public FamilyLocationDTO getFamilyLocationFromSnapshot(NewSnapshot snapshot) {
-        FamilyLocationDTO locationDTO = new FamilyLocationDTO();
-
-
-        locationDTO.setLocationPositionGps(snapshot.getEconomicSurveyData()
-                .getAsString("familyUbication"));
-
+        String familyUbication = snapshot.getEconomicSurveyData()
+                .getAsString("familyUbication");
 
         Optional<CountryEntity> country = countryRepository.findByCountry(
                 snapshot.getEconomicSurveyData().getAsString("familyCountry"));
-        locationDTO.setCountry(country.orElse(null));
+        CountryEntity countryEntity = country.orElse(null);
 
         Optional<CityEntity> city = cityRepository.findByCity(
                 snapshot.getEconomicSurveyData().getAsString("familyCity"));
-        locationDTO.setCity(city.orElse(null));
+        CityEntity cityEntity = city.orElse(null);
 
-        return locationDTO;
+        return FamilyLocationDTO.of(familyUbication, countryEntity, cityEntity);
     }
 }

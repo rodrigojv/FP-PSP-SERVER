@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
+import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 import java.util.List;
@@ -16,8 +17,6 @@ public interface OrganizationService {
 
     OrganizationDTO getOrganizationById(Long organizationId);
 
-    List<OrganizationDTO> getAllOrganizations();
-
     List<OrganizationDTO> getOrganizationsByApplicationId(Long applicationId);
 
     OrganizationDTO deleteOrganization(Long organizationId);
@@ -29,5 +28,7 @@ public interface OrganizationService {
 
     OrganizationDTO getOrganizationDashboard(Long organizationId, UserDetailsDTO details);
 
-    OrganizationDTO getUserOrganization(UserDetailsDTO details, Long organizationId);
+    OrganizationEntity getOganizationFromUser(UserDetailsDTO currentUser);
+
+    OrganizationEntity getOrganizationAsEntity(Long organizationId);
 }

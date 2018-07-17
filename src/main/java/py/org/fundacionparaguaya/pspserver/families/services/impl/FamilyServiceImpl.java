@@ -15,19 +15,17 @@ import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyLocationDTO;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyOrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyLocationService;
+import py.org.fundacionparaguaya.pspserver.families.services.FamilyOrganizationService;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.families.utils.FamilyHelper;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
-import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
-import py.org.fundacionparaguaya.pspserver.network.mapper.ApplicationMapper;
-import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
-import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
@@ -50,23 +48,17 @@ import static py.org.fundacionparaguaya.pspserver.families.specifications.Family
 @Service
 public class FamilyServiceImpl implements FamilyService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(FamilyServiceImpl.class);
+
     private final ApplicationProperties applicationProperties;
 
     private final ImageUploadService imageUploadService;
 
     private final I18n i18n;
 
-    private static final Logger LOG = LoggerFactory.getLogger(FamilyServiceImpl.class);
-
     private final FamilyMapper familyMapper;
 
     private final FamilyRepository familyRepository;
-
-    private final OrganizationRepository organizationRepository;
-
-    private final ApplicationMapper applicationMapper;
-
-    private final OrganizationMapper organizationMapper;
 
     private final UserRepository userRepo;
 
@@ -74,29 +66,25 @@ public class FamilyServiceImpl implements FamilyService {
 
     private final FamilyLocationService familyLocationService;
 
-    private static final String SPACE = " ";
+    private final FamilyOrganizationService familyOrganizationService;
 
     @Autowired
     public FamilyServiceImpl(FamilyRepository familyRepository,
                              FamilyMapper familyMapper,
-                             OrganizationRepository organizationRepository,
-                             ApplicationMapper applicationMapper,
-                             OrganizationMapper organizationMapper,
                              UserRepository userRepo, I18n i18n, ApplicationProperties applicationProperties,
                              ImageUploadService imageUploadService,
-                             ActivityFeedManager activityFeedManager, FamilyLocationService familyLocationService) {
+                             ActivityFeedManager activityFeedManager, FamilyLocationService familyLocationService,
+                             FamilyOrganizationService familyOrganizationService) {
 
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
-        this.organizationRepository = organizationRepository;
-        this.applicationMapper = applicationMapper;
-        this.organizationMapper = organizationMapper;
         this.userRepo = userRepo;
         this.i18n = i18n;
         this.applicationProperties=applicationProperties;
         this.imageUploadService = imageUploadService;
         this.activityFeedManager = activityFeedManager;
         this.familyLocationService = familyLocationService;
+        this.familyOrganizationService = familyOrganizationService;
     }
 
     // FIXME
@@ -274,9 +262,12 @@ public class FamilyServiceImpl implements FamilyService {
             NewSnapshot snapshot, PersonEntity personEntity) {
         String code = FamilyHelper.generateFamilyCode(personEntity);
 
-        return createOrReturnFamilyFromSnapshot(details, snapshot, code,
-               personEntity);
+        FamilyEntity familyEntity =  familyRepository.findByCode(code)
+                .orElseGet(() -> createOrReturnFamilyFromSnapshot(details, snapshot, code, personEntity));
 
+        activityFeedManager.createHouseholdFirstSnapshotActivity(details, familyEntity);
+
+        return familyEntity;
     }
 
 
@@ -285,28 +276,17 @@ public class FamilyServiceImpl implements FamilyService {
     public FamilyEntity createOrReturnFamilyFromSnapshot(UserDetailsDTO details,
             NewSnapshot snapshot, String code, PersonEntity person) {
 
-        Optional<FamilyEntity> family = familyRepository.findByCode(code);
-        if (family.isPresent()) {
-            activityFeedManager.createHouseholdSnapshotActivity(details, family.get());
-            return family.get();
-        }
-
         FamilyEntity newFamily = new FamilyEntity();
         newFamily.setActive(true);
         newFamily.setPerson(person);
         newFamily.setCode(code);
         newFamily.setUser(userRepo.findByUsername(details.getUsername()));
-        newFamily.setName(person.getFirstName().concat(SPACE)
-                .concat(person.getLastName()));
+        newFamily.setName(person.getFullName());
 
         setOrgAndApplication(details, snapshot, newFamily);
         setFamilyLocationFromSnapshot(snapshot, newFamily);
 
-
         newFamily = familyRepository.save(newFamily);
-
-        //if its the first snapshot
-        activityFeedManager.createHouseholdFirstSnapshotActivity(details, newFamily);
 
         LOG.info("User '{}' created a new Family, family_id={}", details.getUsername(), newFamily.getFamilyId());
         LOG.info("Family = {}", newFamily);
@@ -314,30 +294,14 @@ public class FamilyServiceImpl implements FamilyService {
         return newFamily;
     }
 
-    private void setOrgAndApplication(UserDetailsDTO details, NewSnapshot snapshot, FamilyEntity newFamily) {
-        if (details.getApplication() != null) {
-            // we set application 1)
-            newFamily.setApplication(
-                    applicationMapper.dtoToEntity(details.getApplication()));
-        }
-        if (details.getOrganization() != null) {
-            // set organization 1)
-            newFamily.setOrganization(
-                    organizationMapper.dtoToEntity(details.getOrganization()));
-        }
 
-        if (snapshot.getOrganizationId() != null) {
-            OrganizationEntity organization = organizationRepository
-                    .findOne(snapshot.getOrganizationId());
-            // set organization 2)
-            newFamily.setOrganization(organization);
-            // set application 2)
-            newFamily.setApplication(organization.getApplication());
-        }
+    private void setOrgAndApplication(UserDetailsDTO details, NewSnapshot snapshot, FamilyEntity newFamily) {
+        FamilyOrganizationDTO familyOrganization = familyOrganizationService.getFamilyOrganization(details, snapshot);
+        newFamily.setOrganization(familyOrganization.getOrganizationEntity());
+        newFamily.setApplication(familyOrganization.getApplicationEntity());
     }
 
     private void setFamilyLocationFromSnapshot(NewSnapshot snapshot, FamilyEntity newFamily) {
-
         FamilyLocationDTO locationDTO = familyLocationService.getFamilyLocationFromSnapshot(snapshot);
         newFamily.setLocationPositionGps(locationDTO.getLocationPositionGps());
         newFamily.setCountry(locationDTO.getCountry());

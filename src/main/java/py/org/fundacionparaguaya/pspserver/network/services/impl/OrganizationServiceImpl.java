@@ -159,11 +159,6 @@ public class OrganizationServiceImpl implements OrganizationService {
                 .orElseThrow(() -> new UnknownResourceException("Organization does not exist"));
     }
 
-    @Override
-    public List<OrganizationDTO> getAllOrganizations() {
-        List<OrganizationEntity> organizations = organizationRepository.findAll();
-        return organizationMapper.entityListToDtoList(organizations);
-    }
 
     @Override
     public OrganizationDTO getOrganizationDashboard(Long organizationId, UserDetailsDTO details) {
@@ -192,6 +187,16 @@ public class OrganizationServiceImpl implements OrganizationService {
         dto.setDashboard(dashboard);
 
         return dto;
+    }
+
+    @Override
+    public OrganizationEntity getOganizationFromUser(UserDetailsDTO currentUser) {
+        return organizationMapper.dtoToEntity(currentUser.getOrganization());
+    }
+
+    @Override
+    public OrganizationEntity getOrganizationAsEntity(Long organizationId) {
+        return this.organizationRepository.findOne(organizationId);
     }
 
     private SnapshotIndicators countSnapshotIndicators(Long organizationId) {
@@ -297,15 +302,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         return pageResponse.map(organizationMapper::entityToDto);
     }
 
-    @Override
-    public OrganizationDTO getUserOrganization(UserDetailsDTO details, Long organizationId) {
-        if (details.getOrganization() != null && details.getOrganization().getId() != null) {
-            return getOrganizationById(details.getOrganization().getId());
-        } else if (organizationId != null) {
-            return getOrganizationById(organizationId);
-        }
-        return null;
-    }
+
 
     @Override
     public List<OrganizationDTO> getOrganizationsByApplicationId(Long applicationId) {

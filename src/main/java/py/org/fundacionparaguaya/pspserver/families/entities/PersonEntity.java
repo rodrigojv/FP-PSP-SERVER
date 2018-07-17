@@ -23,6 +23,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Map;
@@ -286,6 +287,7 @@ public class PersonEntity extends BaseEntity {
     }
 
     // WARNING! Only for testing purposes for now.
+    @Transient
     public SurveyData asSurveyData() {
         Map<String, Object> map = Maps.newHashMap();
         map.put("one", 1);
@@ -294,4 +296,11 @@ public class PersonEntity extends BaseEntity {
         map.put("familyUbication", "1233");
         return new SurveyData(map);
     }
+
+    @Transient
+    public String getFullName() {
+        return this.getFirstName().concat(" ")
+                .concat(this.getLastName());
+    }
+
 }

@@ -150,6 +150,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
+    public ApplicationEntity getApplicationFromUser(UserDetailsDTO currentUser) {
+        return applicationMapper.dtoToEntity(currentUser.getApplication());
+    }
+
+    @Override
     public ApplicationDTO deleteApplication(Long applicationId) {
         checkArgument(applicationId > 0, "Argument was %s but expected nonnegative", applicationId);
 
