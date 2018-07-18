@@ -181,7 +181,7 @@ public class FamilyServiceImpl implements FamilyService {
                         .translate("family.notExist")));
     }
 
-    
+
     @Override
     public void deleteFamily(Long familyId) {
 
@@ -258,7 +258,7 @@ public class FamilyServiceImpl implements FamilyService {
         String code = FamilyHelper.generateFamilyCode(personEntity);
 
         FamilyEntity familyEntity =  familyRepository.findByCode(code)
-                .orElseGet(() -> createOrReturnFamilyFromSnapshot(details, snapshot, code, personEntity));
+                .orElseGet(() -> createFamilyFromSnapshot(details, snapshot, code, personEntity));
 
         activityFeedManager.createHouseholdFirstSnapshotActivity(details, familyEntity);
 
@@ -267,8 +267,8 @@ public class FamilyServiceImpl implements FamilyService {
 
 
 
-    private FamilyEntity createOrReturnFamilyFromSnapshot(UserDetailsDTO details,
-            NewSnapshot snapshot, String code, PersonEntity person) {
+    private FamilyEntity createFamilyFromSnapshot(UserDetailsDTO details,
+                                                  NewSnapshot snapshot, String code, PersonEntity person) {
 
         FamilyEntity newFamily = createFamilyEntity(details, snapshot, code, person);
 
@@ -280,20 +280,21 @@ public class FamilyServiceImpl implements FamilyService {
         return savedFamily;
     }
 
-
+    // This method may belong in FamilyMapper
     private FamilyEntity createFamilyEntity(UserDetailsDTO details,
                                             NewSnapshot snapshot,
                                             String code,
                                             PersonEntity person) {
         FamilyEntity newFamily = new FamilyEntity();
         newFamily.setActive(true);
-        newFamily.setPerson(person);
         newFamily.setCode(code);
         newFamily.setUser(userRepo.findByUsername(details.getUsername()));
         newFamily.setName(person.getFullName());
+        newFamily.setPerson(person);
 
         setOrgAndApplication(details, snapshot, newFamily);
         setFamilyLocationFromSnapshot(snapshot, newFamily);
+
         return newFamily;
     }
 
