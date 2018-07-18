@@ -24,12 +24,7 @@ public interface FamilyService {
 
     FamilyDTO getFamilyById(Long familyId);
 
-    List<FamilyDTO> getAllFamilies();
-
     void deleteFamily(Long familyId);
-
-    FamilyEntity createOrReturnFamilyFromSnapshot(UserDetailsDTO details,
-            NewSnapshot snapshot, String code, PersonEntity person);
 
     List<FamilyDTO> listFamilies(FamilyFilterDTO filter,
             UserDetailsDTO userDetails);

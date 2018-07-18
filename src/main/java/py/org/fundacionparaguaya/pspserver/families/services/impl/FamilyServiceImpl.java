@@ -181,12 +181,7 @@ public class FamilyServiceImpl implements FamilyService {
                         .translate("family.notExist")));
     }
 
-    @Override
-    public List<FamilyDTO> getAllFamilies() {
-        List<FamilyEntity> families = familyRepository.findAll();
-        return familyMapper.entityListToDtoList(families);
-    }
-
+    
     @Override
     public void deleteFamily(Long familyId) {
 
@@ -272,10 +267,24 @@ public class FamilyServiceImpl implements FamilyService {
 
 
 
-    @Override
-    public FamilyEntity createOrReturnFamilyFromSnapshot(UserDetailsDTO details,
+    private FamilyEntity createOrReturnFamilyFromSnapshot(UserDetailsDTO details,
             NewSnapshot snapshot, String code, PersonEntity person) {
 
+        FamilyEntity newFamily = createFamilyEntity(details, snapshot, code, person);
+
+        FamilyEntity savedFamily = familyRepository.save(newFamily);
+
+        LOG.info("User '{}' created a new Family, family_id={}", details.getUsername(), savedFamily.getFamilyId());
+        LOG.info("Family = {}", savedFamily);
+
+        return savedFamily;
+    }
+
+
+    private FamilyEntity createFamilyEntity(UserDetailsDTO details,
+                                            NewSnapshot snapshot,
+                                            String code,
+                                            PersonEntity person) {
         FamilyEntity newFamily = new FamilyEntity();
         newFamily.setActive(true);
         newFamily.setPerson(person);
@@ -285,12 +294,6 @@ public class FamilyServiceImpl implements FamilyService {
 
         setOrgAndApplication(details, snapshot, newFamily);
         setFamilyLocationFromSnapshot(snapshot, newFamily);
-
-        newFamily = familyRepository.save(newFamily);
-
-        LOG.info("User '{}' created a new Family, family_id={}", details.getUsername(), newFamily.getFamilyId());
-        LOG.info("Family = {}", newFamily);
-
         return newFamily;
     }
 
