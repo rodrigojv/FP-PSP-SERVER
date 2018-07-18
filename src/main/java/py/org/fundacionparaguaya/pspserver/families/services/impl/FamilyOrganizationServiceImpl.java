@@ -5,8 +5,9 @@ import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyOrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyOrganizationService;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
-import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
-import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
+import py.org.fundacionparaguaya.pspserver.network.mapper.ApplicationMapper;
+import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
+import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 
@@ -16,13 +17,19 @@ import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 @Service
 public class FamilyOrganizationServiceImpl implements FamilyOrganizationService {
 
-    private final ApplicationService applicationService;
-    private final OrganizationService organizationService;
+    private final ApplicationMapper applicationMapper;
 
-    public FamilyOrganizationServiceImpl(ApplicationService applicationService,
-                                         OrganizationService organizationService) {
-        this.applicationService = applicationService;
-        this.organizationService = organizationService;
+    // We should depend on OrganizationService
+    // but to avoid circular dependency issues
+    // we add these dependencies
+    private final OrganizationRepository organizationRepository;
+    private final OrganizationMapper organizationMapper;
+
+    public FamilyOrganizationServiceImpl(ApplicationMapper applicationMapper,
+                                         OrganizationRepository organizationRepository, OrganizationMapper organizationMapper) {
+        this.applicationMapper = applicationMapper;
+        this.organizationRepository = organizationRepository;
+        this.organizationMapper = organizationMapper;
     }
 
 
@@ -32,16 +39,16 @@ public class FamilyOrganizationServiceImpl implements FamilyOrganizationService 
         OrganizationEntity org = null;
 
         if (currentUser.getApplication() != null) {
-            app = applicationService.getApplicationFromUser(currentUser);
+            app = applicationMapper.dtoToEntity(currentUser.getApplication());
         }
 
         if (currentUser.getOrganization() != null) {
-            org = organizationService.getOganizationFromUser(currentUser);
+            org = organizationMapper.dtoToEntity(currentUser.getOrganization());
         }
 
         // some users don't always belong to an organisation
         if (org == null && snapshot.getOrganizationId() != null) {
-            org = organizationService.getOrganizationAsEntity(snapshot.getOrganizationId());
+            org = organizationRepository.findOne(snapshot.getOrganizationId());
             app = org.getApplication();
         }
 
