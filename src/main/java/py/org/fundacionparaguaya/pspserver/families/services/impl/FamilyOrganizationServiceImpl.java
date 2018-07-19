@@ -26,7 +26,8 @@ public class FamilyOrganizationServiceImpl implements FamilyOrganizationService 
     private final OrganizationMapper organizationMapper;
 
     public FamilyOrganizationServiceImpl(ApplicationMapper applicationMapper,
-                                         OrganizationRepository organizationRepository, OrganizationMapper organizationMapper) {
+                                         OrganizationRepository organizationRepository,
+                                         OrganizationMapper organizationMapper) {
         this.applicationMapper = applicationMapper;
         this.organizationRepository = organizationRepository;
         this.organizationMapper = organizationMapper;

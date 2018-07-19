@@ -74,16 +74,16 @@ public class FamilyServiceTest {
     @Mock
     private FamilyOrganizationService familyOrganizationService;
 
-    private final FamilyEntity MOCK_FAMILY_ENTITY = aFamily();
+    private final FamilyEntity mockFamilyEntity = aFamily();
 
-    private PersonEntity PERSON_MOCK = aPerson();
+    private PersonEntity personMock = aPerson();
 
-    private NewSnapshot SNAPSHOT_MOCK = aNewSnapshot();
+    private NewSnapshot snapshotMock = aNewSnapshot();
 
-    private UserDetailsDTO USER_MOCK = aUser();
+    private UserDetailsDTO userMock = aUser();
 
 
-    private final FamilyDTO MOCK_FAMILY_DTO = new FamilyDTO();
+    private final FamilyDTO mockFamilyDto = new FamilyDTO();
 
     @Before
     public void setUp() {
@@ -101,14 +101,14 @@ public class FamilyServiceTest {
 
     @Test
     public void updateFamilyByIdShouldChangeLastModified() {
-        when(familyRepository.findOne(FAMILY_ID)).thenReturn(MOCK_FAMILY_ENTITY);
-        when(familyRepository.save(MOCK_FAMILY_ENTITY)).thenReturn(MOCK_FAMILY_ENTITY);
-        when(familyMapper.entityToDto(MOCK_FAMILY_ENTITY)).thenReturn(MOCK_FAMILY_DTO);
+        when(familyRepository.findOne(FAMILY_ID)).thenReturn(mockFamilyEntity);
+        when(familyRepository.save(mockFamilyEntity)).thenReturn(mockFamilyEntity);
+        when(familyMapper.entityToDto(mockFamilyEntity)).thenReturn(mockFamilyDto);
 
         FamilyDTO familyDTO = familyService.updateFamily(FAMILY_ID);
 
-        assertThat(familyDTO).isEqualTo(MOCK_FAMILY_DTO);
-        verify(familyRepository).save(MOCK_FAMILY_ENTITY);
+        assertThat(familyDTO).isEqualTo(mockFamilyDto);
+        verify(familyRepository).save(mockFamilyEntity);
     }
 
 
@@ -118,18 +118,18 @@ public class FamilyServiceTest {
         when(familyRepository.findByCode(anyString()))
                 .thenReturn(Optional.empty());
 
-        when(familyOrganizationService.getFamilyOrganization(USER_MOCK, SNAPSHOT_MOCK))
+        when(familyOrganizationService.getFamilyOrganization(userMock, snapshotMock))
                 .thenReturn(FamilyOrganizationDTO.empty());
-        when(familyLocationService.getFamilyLocationFromSnapshot(SNAPSHOT_MOCK))
+        when(familyLocationService.getFamilyLocationFromSnapshot(snapshotMock))
                 .thenReturn(FamilyLocationDTO.empty());
         when(familyRepository.save(any(FamilyEntity.class)))
-                .thenReturn(MOCK_FAMILY_ENTITY);
+                .thenReturn(mockFamilyEntity);
 
-        FamilyEntity createdFamilyEntity = familyService.getOrCreateFamilyFromSnapshot(USER_MOCK,
-                SNAPSHOT_MOCK,
-                PERSON_MOCK);
+        FamilyEntity createdFamilyEntity = familyService.getOrCreateFamilyFromSnapshot(userMock,
+                snapshotMock,
+                personMock);
 
-        assertThat(createdFamilyEntity).isEqualTo(MOCK_FAMILY_ENTITY);
+        assertThat(createdFamilyEntity).isEqualTo(mockFamilyEntity);
         assertThat(createdFamilyEntity.getCode()).isNotEmpty();
         assertThat(createdFamilyEntity.getOrganization()).isNotNull();
         assertThat(createdFamilyEntity.getPerson()).isNotNull();
@@ -142,13 +142,13 @@ public class FamilyServiceTest {
     @Test
     public void getOrCreateFamilyFromSnapshotShouldReturnExistingFamilyWithCode() {
 
-        when(familyRepository.findByCode(anyString())).thenReturn(Optional.of(MOCK_FAMILY_ENTITY));
+        when(familyRepository.findByCode(anyString())).thenReturn(Optional.of(mockFamilyEntity));
 
-        FamilyEntity createdFamilyEntity = familyService.getOrCreateFamilyFromSnapshot(USER_MOCK,
-                SNAPSHOT_MOCK,
-                PERSON_MOCK);
+        FamilyEntity createdFamilyEntity = familyService.getOrCreateFamilyFromSnapshot(userMock,
+                snapshotMock,
+                personMock);
 
-        assertThat(createdFamilyEntity).isEqualTo(MOCK_FAMILY_ENTITY);
+        assertThat(createdFamilyEntity).isEqualTo(mockFamilyEntity);
         assertThat(createdFamilyEntity.getCode()).isNotEmpty();
         assertThat(createdFamilyEntity.getOrganization()).isNotNull();
         assertThat(createdFamilyEntity.getPerson()).isNotNull();

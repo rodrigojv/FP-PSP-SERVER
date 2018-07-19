@@ -21,18 +21,20 @@ public class TestMockFactory {
     public static final Long ECONOMIC_ID = 222L;
     public static final Long SURVEY_ID = 333L;
     public static final Long USER_ID = 444L;
-    public static PersonEntity MOCK_PERSON = aPerson();
 
-    private static UserEntity MOCK_USER_ENTITY = new UserEntity();
-    private static OrganizationEntity MOCK_ORG = new OrganizationEntity();
+    private static PersonEntity mockPerson = aPerson();
+    private static UserEntity mockUserEntity = new UserEntity();
+    private static OrganizationEntity mockOrg = new OrganizationEntity();
+
+    private TestMockFactory() {}
 
     public static FamilyEntity aFamily() {
         FamilyEntity familyEntity = new FamilyEntity();
         familyEntity.setFamilyId(FAMILY_ID);
         familyEntity.setCode("123L");
-        familyEntity.setPerson(MOCK_PERSON);
-        familyEntity.setUser(MOCK_USER_ENTITY);
-        familyEntity.setOrganization(MOCK_ORG);
+        familyEntity.setPerson(mockPerson);
+        familyEntity.setUser(mockUserEntity);
+        familyEntity.setOrganization(mockOrg);
         return familyEntity;
     }
 
@@ -49,7 +51,7 @@ public class TestMockFactory {
 
     public static Snapshot aSnapshot() {
         return new Snapshot().snapshotEconomicId(ECONOMIC_ID).surveyId(SURVEY_ID)
-                .userId(USER_ID).personalSurveyData(MOCK_PERSON.asSurveyData());
+                .userId(USER_ID).personalSurveyData(mockPerson.asSurveyData());
     }
 
     public static UserDetailsDTO aUser() {
@@ -58,7 +60,7 @@ public class TestMockFactory {
 
     public static NewSnapshot aNewSnapshot() {
         NewSnapshot s = new NewSnapshot();
-        s.setEconomicSurveyData(MOCK_PERSON.asSurveyData());
+        s.setEconomicSurveyData(mockPerson.asSurveyData());
         return s;
     }
 }

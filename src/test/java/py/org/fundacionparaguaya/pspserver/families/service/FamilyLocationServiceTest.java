@@ -36,9 +36,9 @@ public class FamilyLocationServiceTest {
     private CountryRepository countryRepo;
 
 
-    private NewSnapshot NEW_MOCK_SNAPSHOT = TestMockFactory.aNewSnapshot();
-    private CountryEntity MOCK_COUNTRY = new CountryEntity();
-    private CityEntity MOCK_CITY = new CityEntity();
+    private NewSnapshot newMockSnapshot = TestMockFactory.aNewSnapshot();
+    private CountryEntity mockCountry = new CountryEntity();
+    private CityEntity mockCity = new CityEntity();
 
 
     @Before
@@ -49,16 +49,16 @@ public class FamilyLocationServiceTest {
     @Test
     public void shouldCreateFamilyLocationFromNewSnapshot() {
 
-        when(countryRepo.findByCountry(anyString())).thenReturn(Optional.of(MOCK_COUNTRY));
-        when(cityRepo.findByCity(anyString())).thenReturn(Optional.of(MOCK_CITY));
+        when(countryRepo.findByCountry(anyString())).thenReturn(Optional.of(mockCountry));
+        when(cityRepo.findByCity(anyString())).thenReturn(Optional.of(mockCity));
 
-        FamilyLocationDTO locationDTO = familyLocationService.getFamilyLocationFromSnapshot(NEW_MOCK_SNAPSHOT);
+        FamilyLocationDTO locationDTO = familyLocationService.getFamilyLocationFromSnapshot(newMockSnapshot);
 
         assertThat(locationDTO).isNotNull();
         assertThat(locationDTO.getLocationPositionGps()).isEqualTo(
-                NEW_MOCK_SNAPSHOT.getEconomicSurveyData().getAsString("familyUbication"));
-        assertThat(locationDTO.getCity()).isEqualTo(MOCK_CITY);
-        assertThat(locationDTO.getCountry()).isEqualTo(MOCK_COUNTRY);
+                newMockSnapshot.getEconomicSurveyData().getAsString("familyUbication"));
+        assertThat(locationDTO.getCity()).isEqualTo(mockCity);
+        assertThat(locationDTO.getCountry()).isEqualTo(mockCountry);
 
     }
 }
