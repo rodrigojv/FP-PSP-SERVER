@@ -20,3 +20,4 @@ lambda/node_modules
 **/*.zip
 lambda/.env**
 lambda/curl*.sh
+scripts/*_test.sh
