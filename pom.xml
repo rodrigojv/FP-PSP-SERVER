@@ -295,6 +295,8 @@
 					<gitFlowConfig>
 						<versionTagPrefix>v</versionTagPrefix>
 						<developmentBranch>master</developmentBranch>
+						<productionBranch>master</productionBranch>
+						<origin>upstream</origin>
 					</gitFlowConfig>
 				</configuration>
        		</plugin>
