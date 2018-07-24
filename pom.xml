@@ -5,7 +5,7 @@
 
 	<groupId>py.org.fundacionparaguaya</groupId>
 	<artifactId>psp-server</artifactId>
-	<version>0.0.11</version>
+	<version>0.0.12-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>psp-server</name>
